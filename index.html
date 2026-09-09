@@ -41,9 +41,9 @@
      Erzeugt von tools/schriften-holen.py. -->
 <link rel="preload" href="schrift/archivo-700-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="schrift/public-sans-400-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="schriften.css?v=18">
-<link rel="stylesheet" href="styles.css?v=18">
-<script src="app.js?v=18" defer></script>
+<link rel="stylesheet" href="schriften.css?v=19">
+<link rel="stylesheet" href="styles.css?v=19">
+<script src="app.js?v=19" defer></script>
 <!-- ============================================================
      Vorausladen (Speculation Rules)
      ------------------------------------------------------------
@@ -288,44 +288,83 @@
        nichts einfrieren kann. Auf Telefonen bleibt das Standbild
        stehen: dort zählt Tempo mehr als Effekt. -->
   <section class="auftakt" data-auftakt>
-    <div class="auftakt__buehne">
-      <div class="auftakt__glas" aria-hidden="true">
-        <!-- Nur eine Datei, bewusst. Vorher lagen hier JPEG und WebP
-             nebeneinander; beim Neuschnitt des Videos wurde das JPEG
-             erneuert und das WebP nicht — und weil Browser das WebP
-             bevorzugen, zeigten sie das falsche Standbild. Zwei Dateien,
-             die zusammenpassen müssen, laufen irgendwann auseinander.
-             Für ein Bild von 39 KB ist die Ersparnis das nicht wert.
-             alt bleibt leer: die Aufnahme ist Hintergrund, ihre Aussage
-             steht als Text daneben. -->
-        <img class="auftakt__standbild" src="img/glas-poster.jpg" width="1600" height="900"
-             alt="" fetchpriority="high">
-        <span class="auftakt__schleier"></span>
-        <!-- Fängt die Zeigergeste ab, bevor sie das <video> darunter
-             erreicht. Opera blendet über erkannten Videos einen eigenen
-             Knopf „Video pop out“ ein — der lag mitten im Aufmacher und
-             riss die Aufnahme auf Klick in ein kleines Extrafenster.
-             disablepictureinpicture hält das nicht auf, es ist Operas
-             eigene Funktion. Diese Fläche schon: sie ist das oberste
-             Element, der Zeiger landet hier und nie auf dem Video. -->
-        <span class="auftakt__deckel"></span>
-      </div>
+    <div class="huelle auftakt__buehne">
 
-      <div class="huelle auftakt__innen">
-        <p class="marker">Gebäudereinigung in Kufstein · seit 2011</p>
-        <h1>Ihr Gebäude in<br>sicheren Händen.</h1>
+      <div class="auftakt__innen">
+        <!-- Kleine Plakette statt einer nackten Zeile. Der Punkt pulst,
+             weil die Aussage wirklich zu jeder Uhrzeit stimmt: CKR hat
+             sieben Tage offen. -->
+        <p class="plakette">
+          <span class="plakette__punkt" aria-hidden="true"></span>
+          Gebäudereinigung in Kufstein
+          <span class="plakette__teiler" aria-hidden="true"></span>
+          <strong>seit 2011</strong>
+        </p>
+
+        <h1>Ihr Gebäude in<br><span class="verlauf">sicheren Händen.</span></h1>
+
         <p class="vorspann">
           Vom Treppenhaus bis zur Straßenbahn. Wir reinigen in Kufstein und in
           ganz Tirol — rund um die Uhr erreichbar, auch kurzfristig.
         </p>
+
+        <!-- Vier Sätze, die alle belegt sind. Was nicht belegt ist —
+             Versicherung, Zufriedenheitsgarantie, Meistertitel — steht
+             hier bewusst nicht. -->
+        <ul class="auftakt__punkte">
+          <li>Kostenlose Besichtigung, danach Fixpreis</li>
+          <li>24 Stunden erreichbar, auch bei Havarie</li>
+          <li>Ökologische Mittel, geschulte Objektleiter</li>
+          <li>Lehrbetrieb in der Gebäudereinigung</li>
+        </ul>
+
         <div class="auftakt__knoepfe">
           <a class="knopf knopf--voll" href="#angebot">Angebot anfordern</a>
           <a class="knopf" href="tel:+436508933881">
             <span aria-hidden="true">☎</span> +43 650 893 38 81
           </a>
         </div>
-        <p class="auftakt__notiz">24-Stunden-Hotline · auch bei Havarie</p>
       </div>
+
+      <!-- Die Aufnahme sitzt jetzt in einem Rahmen statt vollflächig
+           hinter der Schrift. Drei Gründe: der Text steht auf ruhigem
+           Grund und ist besser zu lesen, der weiße Rand mit Schatten
+           gibt dem Aufmacher Tiefe — und die kleinere Fläche fällt bei
+           Browsern mit eigener Video-Erkennung nicht mehr unter deren
+           Größenschwelle, sodass dort kein fremder Abspielknopf mehr
+           eingeblendet wird. -->
+      <div class="auftakt__rahmen">
+        <div class="auftakt__glas" aria-hidden="true">
+          <img class="auftakt__standbild" src="img/glas-poster.jpg" width="1600" height="900"
+               alt="" fetchpriority="high">
+          <span class="auftakt__schleier"></span>
+          <span class="auftakt__deckel"></span>
+        </div>
+
+        <!-- Schwebende Karten: sie legen sich über den Rand des Rahmens
+             und machen aus zwei Flächen drei Ebenen. -->
+        <div class="schwebe schwebe--oben">
+          <span class="schwebe__zahl">10<span aria-hidden="true">+</span></span>
+          <span class="schwebe__text">
+            <strong>Jahre in Kufstein</strong>
+            Dieselbe Firma seit 2011
+          </span>
+        </div>
+
+        <a class="schwebe schwebe--unten" href="tel:+436508933881">
+          <span class="schwebe__uhr" aria-hidden="true">
+            <svg viewBox="0 0 20 20" width="18" height="18" fill="none"
+                 stroke="currentColor" stroke-width="1.9" stroke-linecap="round">
+              <circle cx="10" cy="10" r="7.4"/><path d="M10 5.6V10l3 1.8"/>
+            </svg>
+          </span>
+          <span class="schwebe__text">
+            <strong>24-Stunden-Notdienst</strong>
+            +43 650 893 38 81
+          </span>
+        </a>
+      </div>
+
     </div>
   </section>
 
