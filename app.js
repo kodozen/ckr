@@ -301,9 +301,64 @@
 
     var ruhig = window.matchMedia("(prefers-reduced-motion: reduce)");
     var schmal = window.matchMedia("(max-width: 700px)");
-    /* Auf Telefonen bleibt das Standbild: wer hier landet, sucht meist
-       schnell eine Nummer, und ein 2,5-MB-Video wäre im Weg. */
-    if (ruhig.matches || schmal.matches) return;
+
+    /* Mit ?video=an lässt sich beides übergehen — zum Nachsehen, wenn
+       jemand meldet, dass das Video nicht läuft. */
+    var erzwungen = /[?&]video=an/.test(window.location.search);
+
+    /* Warum das hier so ausführlich steht: bis hierher sind beide
+       Bedingungen still ausgestiegen. Wer „Bewegung reduzieren“ im
+       Betriebssystem eingeschaltet hat — unter macOS in den
+       Systemeinstellungen bei Bedienungshilfen → Anzeige — bekam nie
+       ein Video zu sehen, und in der Konsole stand nichts. Jede
+       Verbesserung am Abspielen lief damit ins Leere, weil der Code
+       gar nicht erst so weit kam. Ab jetzt sagt die Seite, warum. */
+    var grund = null;
+    if (ruhig.matches) {
+      grund = "Im Betriebssystem ist „Bewegung reduzieren“ eingeschaltet. " +
+              "Das Standbild bleibt absichtlich stehen.";
+    } else if (schmal.matches) {
+      grund = "Fensterbreite " + window.innerWidth + " px — bis 700 px " +
+              "bleibt das Standbild stehen, damit auf dem Telefon keine " +
+              "2,5 MB im Weg sind.";
+    }
+
+    if (grund && !erzwungen) {
+      if (window.console) {
+        console.info("[ckr] Aufmacher ohne Video: " + grund +
+                     " Zum Nachsehen: ?video=an an die Adresse hängen.");
+      }
+      abschnitt.dataset.videoGrund = grund;
+
+      /* Unter „Bewegung reduzieren“ wird das Video nicht von selbst
+         gestartet — aber es wird auch nicht versteckt. Wer es sehen
+         will, bekommt einen Knopf. Die Einstellung sagt „nichts soll
+         sich ungefragt bewegen“, nicht „das darf ich nie sehen“. */
+      if (ruhig.matches && !schmal.matches) {
+        var knopf = document.createElement("button");
+        knopf.type = "button";
+        knopf.className = "knopf auftakt__video-knopf";
+        knopf.textContent = "Hintergrundvideo abspielen";
+        knopf.addEventListener("click", function () {
+          knopf.remove();
+          starten();
+        }, { once: true });
+        var innen = abschnitt.querySelector(".auftakt__innen");
+        if (innen) innen.appendChild(knopf);
+      }
+      return;
+    }
+
+    starten();
+  })();
+
+  /* Die eigentliche Einrichtung steckt in einer eigenen Funktion, damit
+     sie auch von Hand ausgelöst werden kann (siehe Knopf oben). */
+  function starten() {
+    var abschnitt = document.querySelector("[data-auftakt]");
+    var glas = abschnitt && abschnitt.querySelector(".auftakt__glas");
+    if (!abschnitt || !glas || glas.querySelector("video")) return;
+    (function () {
 
     var video = document.createElement("video");
     video.muted = true;
@@ -435,7 +490,8 @@
       var a = Math.min(video.currentTime / BLENDE, rest / BLENDE, 1);
       glas.style.setProperty("--film", a < 0 ? 0 : a);
     });
-  })();
+    })();
+  }
 
   /* ==========================================================
      Einwilligung („Cookie-Banner“)

@@ -247,6 +247,10 @@ html.js .auftakt[data-buehne="an"] .vorspann {
   max-width: 42ch; margin: 1.2rem 0 1.8rem;
 }
 .auftakt__knoepfe { display: flex; flex-wrap: wrap; gap: 0.7rem; }
+/* Unter „Bewegung reduzieren“ läuft das Video nicht von selbst. Der
+   Knopf bietet es an, statt es wortlos wegzulassen. */
+.auftakt__video-knopf { margin-top: 1rem; }
+
 .auftakt__notiz {
   margin: 1rem 0 0; font-size: var(--t-1); color: var(--tinte-weich);
 }

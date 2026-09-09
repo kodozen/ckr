@@ -6,8 +6,8 @@
 <title>Videoprüfung · CKR</title>
 <meta name="description" content="Werkzeugseite: prüft, was der Browser mit dem Hintergrundvideo macht. Gehört nicht zur Website.">
 <meta name="robots" content="noindex, nofollow">
-<link rel="stylesheet" href="schriften.css?v=15">
-<link rel="stylesheet" href="styles.css?v=15">
+<link rel="stylesheet" href="schriften.css?v=16">
+<link rel="stylesheet" href="styles.css?v=16">
 <style>
   /* Eigenständige Prüfseite. Sie gehört nicht zur Website, sie ist ein
      Werkzeug: Sie öffnen sie, und sie sagt in Klartext, was Ihr Browser
@@ -53,6 +53,18 @@
 
     <p class="urteil" id="urteil" data-stand="warten">Wird geprüft …</p>
 
+    <!-- Zuerst das, was die Seite selbst prüft, bevor sie überhaupt ein
+         Video anlegt. Genau hier lag der Fehler: beide Bedingungen sind
+         still ausgestiegen, und keine noch so gute Abspiellogik dahinter
+         konnte je greifen. -->
+    <table class="werte" style="margin-bottom:1.6rem">
+      <tbody>
+        <tr><th>Würde die Startseite ein Video anlegen?</th><td id="w-sperre">…</td></tr>
+        <tr><th>„Bewegung reduzieren“ im System</th><td id="w-ruhig">…</td></tr>
+        <tr><th>Fensterbreite</th><td id="w-breite">…</td></tr>
+      </tbody>
+    </table>
+
     <div class="buehne"><video id="v" muted loop autoplay playsinline
       disablepictureinpicture disableremoteplayback x-webkit-airplay="deny"
       preload="auto" src="video/glas-loop.mp4"></video></div>
@@ -73,7 +85,15 @@
       </tbody>
     </table>
 
-    <p style="margin-top:2rem"><a class="knopf" href="./">Zurück zur Website</a></p>
+    <p style="margin-top:2rem; display:flex; gap:0.7rem; flex-wrap:wrap">
+      <a class="knopf knopf--voll" href="./?video=an">Startseite mit erzwungenem Video</a>
+      <a class="knopf" href="./">Zurück zur Website</a>
+    </p>
+    <p style="font-size:var(--t-1); color:var(--tinte-weich); max-width:60ch">
+      Der linke Knopf hängt <code>?video=an</code> an die Adresse und übergeht
+      beide Sperren. Läuft das Video dort, ist an der Datei nichts falsch —
+      dann entscheidet nur noch die Einstellung Ihres Systems.
+    </p>
   </div>
 </main>
 
@@ -105,7 +125,23 @@
     autoplay = "unbekannt (altes API)";
   }
 
+  /* Dieselben zwei Bedingungen wie in app.js. Sie stehen hier bewusst
+     doppelt: diese Seite soll auch dann noch die Wahrheit sagen, wenn
+     app.js gar nicht geladen wird. */
+  var ruhig = window.matchMedia("(prefers-reduced-motion: reduce)");
+  var schmal = window.matchMedia("(max-width: 700px)");
+
   function malen() {
+    var gesperrt = ruhig.matches || schmal.matches;
+    w("ruhig").innerHTML = ruhig.matches
+      ? '<span class="nein">ja — das ist der Grund</span>'
+      : '<span class="ja">nein</span>';
+    w("breite").innerHTML = window.innerWidth + " px" +
+      (schmal.matches ? ' <span class="nein">(bis 700 px kein Video)</span>' : "");
+    w("sperre").innerHTML = gesperrt
+      ? '<span class="nein">NEIN — die Startseite lässt das Video aus</span>'
+      : '<span class="ja">ja</span>';
+
     w("datei").innerHTML  = jn(v.readyState > 0 && !v.error);
     w("autoplay").innerHTML = autoplay === null ? "…" :
       (autoplay === true ? jn(true) : (autoplay === false ? jn(false) : autoplay));
@@ -135,6 +171,13 @@
     } else if (autoplay === false && v.paused) {
       urteil.dataset.stand = "mies";
       urteil.textContent = "Ihr Browser blockiert automatisches Abspielen.";
+    } else if (laeuft && malt && gesperrt) {
+      urteil.dataset.stand = "mies";
+      urteil.textContent = ruhig.matches
+        ? "Die Datei ist in Ordnung — aber die Startseite lässt das Video "
+          + "aus, weil im System „Bewegung reduzieren“ eingeschaltet ist."
+        : "Die Datei ist in Ordnung — aber bei " + window.innerWidth
+          + " px Fensterbreite lässt die Startseite das Video aus.";
     } else if (laeuft && malt) {
       urteil.dataset.stand = "gut";
       urteil.textContent = "Alles in Ordnung — das Video läuft auf der Seite.";
