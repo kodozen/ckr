@@ -43,9 +43,9 @@
      Erzeugt von tools/schriften-holen.py. -->
 <link rel="preload" href="../schrift/archivo-700-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="../schrift/public-sans-400-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="../schriften.css?v=20">
-<link rel="stylesheet" href="../styles.css?v=20">
-<script src="../app.js?v=20" defer></script>
+<link rel="stylesheet" href="../schriften.css?v=21">
+<link rel="stylesheet" href="../styles.css?v=21">
+<script src="../app.js?v=21" defer></script>
 <!-- ============================================================
      Vorausladen (Speculation Rules)
      ------------------------------------------------------------
@@ -458,6 +458,140 @@
             <li><a href="../teppichreinigung/">Halı temizliği</a></li>
           </ul>
         </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       Das Haus
+       ------------------------------------------------------------
+       Angeregt von einem Vorschlag für ein Softwarehaus: ein
+       Schaubild, dessen Knoten man anfahren kann und die dann
+       erklären, was dort passiert. Die Technik trägt, das Motiv
+       nicht — ein Netzwerkdiagramm sagt über Gebäudereinigung
+       nichts. Ein Haus schon.
+
+       Zwölf Leistungen als Liste liest niemand zu Ende. Am Haus
+       versteht man sie sofort, weil jeder weiß, wo das Dach ist
+       und wo der Keller. Nebenbei führt jeder Punkt auf seine
+       Unterseite — das ist die beste interne Verlinkung, die wir
+       haben.
+
+       Ohne JavaScript bleiben es beschriftete Links auf einem
+       Bild; die Tafel daneben zeigt dann einfach alle Einträge.
+       ============================================================ -->
+  <section class="haus" id="haus" aria-labelledby="haus-titel">
+    <div class="huelle">
+      <p class="marker">Vom Dach bis in den Keller</p>
+      <h2 id="haus-titel">Wo wir arbeiten</h2>
+      <p class="abschnitt__vorspann">
+        Fahren Sie über das Haus — oder tippen Sie darauf. Jeder Punkt führt
+        zu der Leistung, die dort gebraucht wird.
+      </p>
+
+      <div class="haus__buehne">
+        <div class="haus__bild">
+          <svg class="haus__zeichnung" viewBox="0 0 520 460" role="img"
+               aria-label="Schnitt durch ein Gebäude: Dach, Fassade, Stiegenhaus, Büro, Hotelzimmer, Appartement und Keller.">
+            <!-- Grund -->
+            <rect x="0" y="424" width="520" height="2" fill="currentColor" opacity=".18"/>
+
+            <!-- Dach -->
+            <path d="M60 150 L260 52 L460 150 Z" fill="var(--tinte)" opacity=".92"/>
+            <path d="M60 150 L260 52 L460 150 Z" fill="none" stroke="var(--tinte)" stroke-width="2" stroke-linejoin="round"/>
+
+            <!-- Baukörper -->
+            <rect x="76" y="150" width="368" height="274" rx="4" fill="var(--flaeche)"
+                  stroke="var(--tinte)" stroke-width="2"/>
+
+            <!-- Geschossdecken -->
+            <path d="M76 214h368M76 278h368M76 342h368" stroke="var(--linie)" stroke-width="2"/>
+
+            <!-- Stiegenhaus: eigener Streifen mit Stufen -->
+            <rect x="222" y="150" width="76" height="274" fill="color-mix(in srgb, var(--blau) 6%, transparent)"/>
+            <path d="M228 210h20v-16h20v-16h20v-16" stroke="var(--blau)" stroke-width="2.4" fill="none" stroke-linejoin="round"/>
+            <path d="M228 274h20v-16h20v-16h20v-16" stroke="var(--blau)" stroke-width="2.4" fill="none" stroke-linejoin="round"/>
+            <path d="M228 338h20v-16h20v-16h20v-16" stroke="var(--blau)" stroke-width="2.4" fill="none" stroke-linejoin="round"/>
+            <path d="M228 402h20v-16h20v-16h20v-16" stroke="var(--blau)" stroke-width="2.4" fill="none" stroke-linejoin="round"/>
+            <path d="M222 150v274M298 150v274" stroke="var(--tinte)" stroke-width="2"/>
+
+            <!-- Fenster links (Büro / Wohnen) -->
+            <g fill="color-mix(in srgb, var(--blau) 14%, transparent)" stroke="var(--tinte)" stroke-width="1.6">
+              <rect x="104" y="170" width="42" height="30" rx="2"/>
+              <rect x="160" y="170" width="42" height="30" rx="2"/>
+              <rect x="104" y="234" width="42" height="30" rx="2"/>
+              <rect x="160" y="234" width="42" height="30" rx="2"/>
+              <rect x="104" y="298" width="42" height="30" rx="2"/>
+              <rect x="160" y="298" width="42" height="30" rx="2"/>
+            </g>
+            <!-- Fenster rechts (Hotel / Appartement) -->
+            <g fill="color-mix(in srgb, var(--blau) 14%, transparent)" stroke="var(--tinte)" stroke-width="1.6">
+              <rect x="318" y="170" width="42" height="30" rx="2"/>
+              <rect x="374" y="170" width="42" height="30" rx="2"/>
+              <rect x="318" y="234" width="42" height="30" rx="2"/>
+              <rect x="374" y="234" width="42" height="30" rx="2"/>
+              <rect x="318" y="298" width="42" height="30" rx="2"/>
+              <rect x="374" y="298" width="42" height="30" rx="2"/>
+            </g>
+
+            <!-- Keller -->
+            <rect x="76" y="356" width="146" height="68" fill="color-mix(in srgb, var(--tinte) 8%, transparent)"/>
+            <rect x="298" y="356" width="146" height="68" fill="color-mix(in srgb, var(--tinte) 8%, transparent)"/>
+
+            <!-- Eingang -->
+            <rect x="244" y="380" width="32" height="44" rx="2" fill="var(--tinte)"/>
+
+            <!-- Fahrzeug davor -->
+            <rect x="8" y="376" width="120" height="48" rx="8" fill="var(--tinte)" opacity=".9"/>
+            <rect x="20" y="386" width="40" height="22" rx="3" fill="var(--flaeche)" opacity=".85"/>
+            <rect x="70" y="386" width="46" height="22" rx="3" fill="var(--flaeche)" opacity=".85"/>
+            <circle cx="38" cy="426" r="8" fill="var(--tinte)"/>
+            <circle cx="102" cy="426" r="8" fill="var(--tinte)"/>
+          </svg>
+
+          <!-- Die Punkte liegen als echte Schaltflächen über der
+               Zeichnung: so sind sie mit der Tastatur erreichbar und
+               werden angesagt, was in einem SVG deutlich mühsamer wäre. -->
+          <button class="haus__punkt" type="button" data-haus="fenster-und-fassadenreinigung" style="--x:50%; --y:20%">
+            <span class="nur-lesbar">Dach und Fassade</span>
+          </button>
+          <button class="haus__punkt" type="button" data-haus="glasreinigung" style="--x:25%; --y:40%">
+            <span class="nur-lesbar">Fenster und Glas</span>
+          </button>
+          <button class="haus__punkt" type="button" data-haus="treppenhausreinigung" style="--x:50%; --y:57%">
+            <span class="nur-lesbar">Stiegenhaus</span>
+          </button>
+          <button class="haus__punkt" type="button" data-haus="unterhaltsreinigung" style="--x:29%; --y:54%">
+            <span class="nur-lesbar">Büroräume</span>
+          </button>
+          <button class="haus__punkt" type="button" data-haus="hotelreinigung" style="--x:71%; --y:40%">
+            <span class="nur-lesbar">Otel odaları</span>
+          </button>
+          <button class="haus__punkt" type="button" data-haus="appartementreinigung" style="--x:71%; --y:68%">
+            <span class="nur-lesbar">Appartement</span>
+          </button>
+          <button class="haus__punkt" type="button" data-haus="entruempelung-hausbetreuung" style="--x:28%; --y:85%">
+            <span class="nur-lesbar">Keller</span>
+          </button>
+          <button class="haus__punkt" type="button" data-haus="verkehrsmittelreinigung" style="--x:13%; --y:87%">
+            <span class="nur-lesbar">Araçlar</span>
+          </button>
+        </div>
+
+        <div class="haus__tafel" data-haus-tafel>
+          <!-- Ohne JavaScript stehen hier alle Leistungen als Liste.
+               app.js ersetzt sie durch die jeweils gewählte. -->
+          <ul class="haus__liste">
+            <li><a href="../fenster-und-fassadenreinigung/">Dach &amp; Fassade</a></li>
+            <li><a href="../glasreinigung/">Fenster &amp; Glas</a></li>
+            <li><a href="../treppenhausreinigung/">Stiegenhaus</a></li>
+            <li><a href="../unterhaltsreinigung/">Büroräume</a></li>
+            <li><a href="../hotelreinigung/">Otel odaları</a></li>
+            <li><a href="../appartementreinigung/">Appartement</a></li>
+            <li><a href="../entruempelung-hausbetreuung/">Keller &amp; Räumung</a></li>
+            <li><a href="../verkehrsmittelreinigung/">Araçlar</a></li>
+          </ul>
+        </div>
       </div>
     </div>
   </section>

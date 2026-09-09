@@ -1241,6 +1241,108 @@ html[data-handleiste="an"] body {
 }
 
 /* ------------------------------------------------------------
+   Das Haus
+   ------------------------------------------------------------
+   Zwölf Leistungen als Liste liest niemand zu Ende. Am Haus
+   versteht man sie sofort — jeder weiß, wo das Dach ist und wo
+   der Keller. Jeder Punkt führt auf seine Unterseite.
+
+   Ohne JavaScript bleibt daneben eine ganz normale Liste mit
+   Links stehen; verloren geht nichts.
+   ------------------------------------------------------------ */
+
+.haus {
+  padding: clamp(3rem, 8vw, 6rem) 0;
+  background: var(--flaeche); border-block: 1px solid var(--linie);
+  position: relative; isolation: isolate;
+}
+.haus__buehne {
+  display: grid; gap: clamp(1.6rem, 4vw, 3rem);
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+  align-items: center;
+}
+@media (max-width: 860px) { .haus__buehne { grid-template-columns: 1fr; } }
+
+.haus__bild { position: relative; }
+.haus__zeichnung {
+  display: block; width: 100%; height: auto;
+  color: var(--tinte);
+}
+
+/* Die Punkte sitzen in Prozent über der Zeichnung — so wandern sie
+   beim Skalieren mit, ohne dass etwas nachgerechnet werden muss. */
+.haus__punkt {
+  position: absolute; left: var(--x); top: var(--y);
+  transform: translate(-50%, -50%);
+  width: 1.6rem; height: 1.6rem; padding: 0;
+  border-radius: 50%; cursor: pointer;
+  border: 2px solid var(--flaeche);
+  background: var(--gruen);
+  box-shadow: 0 2px 8px rgba(20,20,70,0.28);
+  transition: transform 0.2s var(--bogen), background 0.2s var(--bogen);
+}
+.haus__punkt::after {
+  content: ""; position: absolute; inset: -0.45rem;
+  border-radius: 50%; border: 2px solid var(--gruen);
+  opacity: 0; transition: opacity 0.2s var(--bogen);
+}
+.haus__punkt:hover, .haus__punkt:focus-visible,
+.haus__punkt[data-aktiv="ja"] {
+  background: var(--blau); transform: translate(-50%, -50%) scale(1.25);
+}
+.haus__punkt:hover::after, .haus__punkt:focus-visible::after,
+.haus__punkt[data-aktiv="ja"]::after { opacity: 1; border-color: var(--blau); }
+
+/* Ein einzelner Punkt pulst, bis zum ersten Mal etwas angefahren
+   wurde — sonst merkt niemand, dass das Bild bedienbar ist. */
+.haus__bild:not([data-benutzt]) .haus__punkt:first-of-type {
+  animation: haus-winken 2.6s ease-out infinite;
+}
+@keyframes haus-winken {
+  0%, 100% { box-shadow: 0 2px 8px rgba(20,20,70,0.28), 0 0 0 0 rgba(62,158,20,0.5); }
+  60%      { box-shadow: 0 2px 8px rgba(20,20,70,0.28), 0 0 0 0.9rem rgba(62,158,20,0); }
+}
+
+.haus__tafel {
+  border: 1px solid var(--linie); border-radius: 14px;
+  padding: clamp(1.2rem, 2.6vw, 1.8rem);
+  background: var(--grund); box-shadow: var(--heben);
+  min-height: 13rem;
+}
+.haus__liste { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.2rem; }
+.haus__liste a { display: block; padding: 0.5rem 0; font-weight: 600; }
+
+.haus__kopf { font-size: var(--t-1); font-weight: 600; color: var(--gruen);
+              margin: 0 0 0.3rem; }
+.haus__name { font-family: var(--anzeige); font-weight: 700; font-size: var(--t2);
+              margin: 0 0 0.5rem; line-height: 1.1; }
+.haus__satz { color: var(--tinte-weich); margin: 0 0 1.1rem; }
+
+@media (prefers-reduced-motion: reduce) {
+  .haus__punkt, .haus__punkt::after { transition: none; }
+  .haus__bild:not([data-benutzt]) .haus__punkt:first-of-type { animation: none; }
+}
+
+/* ------------------------------------------------------------
+   Licht unter dem Zeiger
+   ------------------------------------------------------------
+   Ein sehr weicher heller Fleck folgt der Maus über der dunklen
+   Fläche. Für sich genommen bemerkt das niemand bewusst — die
+   Fläche wirkt nur nicht mehr wie bedrucktes Papier. Auf Geräten
+   ohne Maus passiert nichts, dort gäbe es keinen Zeiger.
+   ------------------------------------------------------------ */
+
+@media (hover: hover) and (pointer: fine) {
+  .band::after {
+    background-image:
+      radial-gradient(30rem circle at var(--zx, 50%) var(--zy, 0%),
+                      rgba(255, 255, 255, 0.10), transparent 45%),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='k'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23k)' opacity='0.35'/%3E%3C/svg%3E");
+    opacity: 0.55;
+  }
+}
+
+/* ------------------------------------------------------------
    Anfrage-Assistent
    ------------------------------------------------------------
    Fünf Schritte statt einer langen Liste. Ohne JavaScript stehen

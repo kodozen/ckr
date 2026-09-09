@@ -879,6 +879,132 @@
 
 
   /* ==========================================================
+     Das Haus
+     ----------------------------------------------------------
+     Die Beschreibungen stehen hier und nicht im HTML, weil sie
+     sonst achtmal doppelt im Quelltext lägen — einmal in der
+     Tafel und einmal als verborgener Text. Ohne JavaScript
+     bleibt daneben die Liste mit Links stehen; verloren geht
+     nichts.
+     ========================================================== */
+
+  (function () {
+    var bild = document.querySelector(".haus__bild");
+    var tafel = document.querySelector("[data-haus-tafel]");
+    if (!bild || !tafel) return;
+
+    var TEXTE = {
+      "fenster-und-fassadenreinigung": {
+        wo: "Dach & Fassade",
+        name: "Fenster- & Fassadenreinigung",
+        satz: "Was von außen gesehen wird — mit dem Verfahren, das die " +
+              "Oberfläche verträgt, nicht mit dem stärksten."
+      },
+      "glasreinigung": {
+        wo: "Fenster & Glas",
+        name: "Glasreinigung",
+        satz: "Streifenfrei, mit Abzieher und entsalztem Wasser. Rahmen " +
+              "und Falz gehören dazu."
+      },
+      "treppenhausreinigung": {
+        wo: "Stiegenhaus",
+        name: "Treppenhausreinigung",
+        satz: "Der erste Eindruck des Hauses — und die Fläche, über die " +
+              "sich Hausgemeinschaften am häufigsten streiten."
+      },
+      "unterhaltsreinigung": {
+        wo: "Büroräume",
+        name: "Unterhaltsreinigung",
+        satz: "Die laufende Reinigung, die niemandem auffällt, solange " +
+              "sie stimmt. Nach Ihrem Betriebsablauf, nicht nach unserem."
+      },
+      "hotelreinigung": {
+        wo: "Hotelzimmer",
+        name: "Hotelreinigung",
+        satz: "Zimmer, die zwischen Check-out und Check-in fertig sein " +
+              "müssen. Nachkontrolle durch den Objektleiter."
+      },
+      "appartementreinigung": {
+        wo: "Appartement",
+        name: "Appartementreinigung",
+        satz: "Wohnungen, Häuser und Ferienappartements — wöchentlich, " +
+              "14-tägig oder einmalig."
+      },
+      "entruempelung-hausbetreuung": {
+        wo: "Keller & Räumung",
+        name: "Entrümpelung & Hausbetreuung",
+        satz: "Kostenlose Besichtigung, Fixpreis, besenreine Übergabe."
+      },
+      "verkehrsmittelreinigung": {
+        wo: "Fahrzeuge",
+        name: "Verkehrsmittelreinigung",
+        satz: "Züge, Busse und Bahnen — im Umlauf oder nachts im Depot, " +
+              "nach Ihrem Fahrplan."
+      }
+    };
+
+    var punkte = [].slice.call(bild.querySelectorAll("[data-haus]"));
+
+    function zeigen(slug, punkt) {
+      var t = TEXTE[slug];
+      if (!t) return;
+      tafel.innerHTML =
+        '<p class="haus__kopf">' + t.wo + "</p>" +
+        '<h3 class="haus__name">' + t.name + "</h3>" +
+        '<p class="haus__satz">' + t.satz + "</p>" +
+        '<a class="knopf" href="' + slug + '/">Mehr erfahren</a>';
+      punkte.forEach(function (p) {
+        p.dataset.aktiv = p === punkt ? "ja" : "nein";
+      });
+      bild.dataset.benutzt = "ja";
+    }
+
+    punkte.forEach(function (p) {
+      var slug = p.dataset.haus;
+      /* Zeigen genügt auf dem Bildschirm; auf dem Telefon gibt es kein
+         Zeigen, dort ist der Tipp das Ereignis. Beides führt zum selben
+         Ergebnis, und der Klick springt bewusst nicht sofort weiter —
+         erst die Tafel lesen, dann entscheiden. */
+      p.addEventListener("mouseenter", function () { zeigen(slug, p); });
+      p.addEventListener("focus", function () { zeigen(slug, p); });
+      p.addEventListener("click", function () { zeigen(slug, p); });
+    });
+
+    /* Beim ersten Anfahren die Liste ersetzen — vorher bleibt sie
+       stehen, damit auch ohne Bewegung alles erreichbar ist. */
+  })();
+
+  /* ==========================================================
+     Licht unter dem Zeiger
+     ----------------------------------------------------------
+     Nur auf Geräten mit echtem Zeiger, und nur solange die
+     dunkle Fläche im Bild ist. Geschrieben wird eine CSS-Variable,
+     nicht ein Stil pro Bild — der Rest ist Sache der Grafikkarte.
+     ========================================================== */
+
+  (function () {
+    var band = document.querySelector(".band");
+    if (!band) return;
+    if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
+
+    var wartet = false, letzteX = 0, letzteY = 0;
+
+    function malen() {
+      wartet = false;
+      var k = band.getBoundingClientRect();
+      band.style.setProperty("--zx", ((letzteX - k.left) / k.width * 100) + "%");
+      band.style.setProperty("--zy", ((letzteY - k.top) / k.height * 100) + "%");
+    }
+
+    band.addEventListener("mousemove", function (e) {
+      letzteX = e.clientX; letzteY = e.clientY;
+      if (wartet) return;
+      wartet = true;
+      window.requestAnimationFrame(malen);
+    }, { passive: true });
+  })();
+
+  /* ==========================================================
      Der Assistent
      ----------------------------------------------------------
      Aus dem langen Formular werden fünf Schritte. Das ist reine
