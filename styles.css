@@ -262,7 +262,11 @@ a { color: inherit; }
   background: var(--dunkel);
   --film: 1; user-select: none;
 }
-@media (max-width: 900px) { .auftakt__glas { aspect-ratio: 4 / 3; } }
+/* Auch auf dem Telefon 3:4. Video und Standbild sind auf 3:4
+   beschnitten; ein 4:3-Rahmen würde davon oben und unten ein
+   schmales Band zeigen. Ein Format für alle Größen heißt: eine
+   Datei, und nichts kann auseinanderlaufen. Der Rahmen steht auf
+   dem Telefon ohnehin unter den Knöpfen, die Höhe stört dort nicht. */
 
 .auftakt__glas video, .auftakt__standbild {
   position: absolute; inset: 0; width: 100%; height: 100%;
