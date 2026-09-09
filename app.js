@@ -404,10 +404,12 @@
     var start = video.play();
     if (start && start.catch) {
       start.catch(function () {
-        if (window.console) {
-          console.warn("[ckr] Autoplay abgelehnt — es wird bei der ersten " +
-                       "Eingabe erneut versucht.");
-        }
+        /* Bewusst ohne Meldung: dass ein Browser das erste automatische
+           Abspielen ablehnt und es kurz darauf doch läuft, ist normales
+           Verhalten und kein Fehler. Eine Warnung in der Konsole würde
+           auf einer funktionierenden Seite nach einem Defekt aussehen.
+           Gemeldet wird erst, wenn auch der zweite Versuch scheitert —
+           dann ist das Video wirklich weg (siehe zurueck). */
         ["pointerdown", "keydown", "wheel", "touchstart", "scroll"].forEach(
           function (art) {
             window.addEventListener(art, nachholen, { once: true, passive: true });
