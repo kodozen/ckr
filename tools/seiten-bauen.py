@@ -138,6 +138,27 @@ def daten_block(l):
                       ensure_ascii=False, indent=1)
 
 
+def bild_block(l):
+    """Kopfbild — nur wenn die Datei da ist.
+
+    Der Dateiname ist die Adresse der Seite. Damit braucht es keine
+    Zuordnungstabelle, die beim nächsten Bild wieder veraltet: wer
+    img/leistungen/<slug>.jpg ablegt, hat das Bild auf der Seite.
+
+    Fehlt es, entsteht kein leerer Rahmen, sondern gar nichts.
+    """
+    pfad = os.path.join(WURZEL, "img", "leistungen", l["slug"] + ".jpg")
+    if not os.path.exists(pfad):
+        return ""
+    return """
+    <div class="huelle">
+      <figure class="lseite__bild">
+        <img src="../img/leistungen/%s.jpg" alt="%s" loading="lazy" decoding="async">
+      </figure>
+    </div>
+""" % (l["slug"], a(l.get("bild_alt", "")))
+
+
 # ----------------------------------------------------------------------
 # Vorlage
 # ----------------------------------------------------------------------
@@ -187,9 +208,9 @@ def seite_bauen(l, kopf, fuss):
 <!-- Schriften vom eigenen Server; siehe tools/schriften-holen.py -->
 <link rel="preload" href="../schrift/archivo-700-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="../schrift/public-sans-400-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="../schriften.css?v=24">
-<link rel="stylesheet" href="../styles.css?v=24">
-<script src="../app.js?v=24" defer></script>
+<link rel="stylesheet" href="../schriften.css?v=25">
+<link rel="stylesheet" href="../styles.css?v=25">
+<script src="../app.js?v=25" defer></script>
 
 %(regeln)s
 
@@ -228,7 +249,7 @@ def seite_bauen(l, kopf, fuss):
       </div>
       <p class="auftakt__notiz">Kostenlose Besichtigung · danach Fixpreis</p>
     </div>
-  </section>
+%(bild)s  </section>
 
   <section class="lseite__kern">
     <div class="huelle lseite__spalten">
@@ -316,6 +337,7 @@ def seite_bauen(l, kopf, fuss):
         "mail": EMAIL,
         "regeln": REGELN,
         "symbol": SYMBOL,
+        "bild": bild_block(l),
     }
 
 
@@ -363,9 +385,9 @@ def einfache_seite(p, kopf, fuss):
 %(noindex)s%(symbol)s
 <link rel="preload" href="../schrift/archivo-700-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="../schrift/public-sans-400-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="../schriften.css?v=24">
-<link rel="stylesheet" href="../styles.css?v=24">
-<script src="../app.js?v=24" defer></script>
+<link rel="stylesheet" href="../schriften.css?v=25">
+<link rel="stylesheet" href="../styles.css?v=25">
+<script src="../app.js?v=25" defer></script>
 
 %(regeln)s
 

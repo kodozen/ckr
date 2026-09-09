@@ -29,6 +29,7 @@ LEISTUNGEN = [
 
 {
  "slug": "unterhaltsreinigung",
+ "bild_alt": "Leeres Büro am frühen Morgen, Schreibtische aufgeräumt, Boden gereinigt.",
  "gruppe": "Gebäude & Unterhalt",
  "titel": "Unterhaltsreinigung",
  "marker": "Laufende Reinigung",
@@ -73,6 +74,7 @@ LEISTUNGEN = [
 
 {
  "slug": "treppenhausreinigung",
+ "bild_alt": "Frisch gereinigtes Stiegenhaus mit Terrazzostufen, Briefkästen und Reinigungswagen.",
  "gruppe": "Gebäude & Unterhalt",
  "titel": "Treppenhausreinigung",
  "marker": "Wohn- und Bürohäuser",
@@ -157,6 +159,7 @@ LEISTUNGEN = [
 
 {
  "slug": "glasreinigung",
+ "bild_alt": "Ein Abzieher wird über eine eingeschäumte Glastür gezogen; dahinter ein Bürogang.",
  "gruppe": "Glas, Fassade & Dach",
  "titel": "Glasreinigung",
  "marker": "Innen und außen",
@@ -197,6 +200,7 @@ LEISTUNGEN = [
 
 {
  "slug": "fenster-und-fassadenreinigung",
+ "bild_alt": "Teleskopstange reinigt ein Fenster im ersten Stock einer verputzten Fassade.",
  "gruppe": "Glas, Fassade & Dach",
  "titel": "Fenster- & Fassadenreinigung",
  "marker": "Was von außen gesehen wird",
@@ -238,6 +242,7 @@ LEISTUNGEN = [
 
 {
  "slug": "hotelreinigung",
+ "bild_alt": "Hergerichtetes Hotelzimmer mit frisch bezogenem Bett und gefalteten Handtüchern.",
  "gruppe": "Objekt & Gewerbe",
  "titel": "Hotelreinigung",
  "marker": "Für Hotels und Pensionen",
@@ -363,6 +368,7 @@ LEISTUNGEN = [
 
 {
  "slug": "baureinigung-endreinigung",
+ "bild_alt": "Fertiggestellter, leerer Raum nach der Bauendreinigung; Schutzfolie abgezogen.",
  "gruppe": "Bau & Räumung",
  "titel": "Baureinigung & Endreinigung",
  "marker": "Neubau, Umbau, Sanierung",
@@ -447,6 +453,7 @@ LEISTUNGEN = [
 
 {
  "slug": "verkehrsmittelreinigung",
+ "bild_alt": "Leerer Nahverkehrswagen bei Nacht nach der Reinigung.",
  "gruppe": "Besondere Aufträge",
  "titel": "Verkehrsmittelreinigung",
  "marker": "Züge, Busse und Straßenbahnen",
