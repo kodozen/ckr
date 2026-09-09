@@ -76,6 +76,51 @@ jobs:
           print("%d Seiten geprüft, kein toter Verweis." % len(seiten))
           PY
 
+      # ------------------------------------------------------------
+      # Vorschau aus dem Suchindex halten
+      # ------------------------------------------------------------
+      # Solange die Seite unter kodozen.github.io/ckr/ liegt, greift
+      # unsere robots.txt NICHT: Suchmaschinen lesen robots.txt nur an
+      # der Wurzel einer Domain, und die gehört hier dem Konto, nicht
+      # diesem Ordner. Ohne diesen Schritt landet die Vorschau im Index
+      # und macht der echten Domain später Konkurrenz — mit demselben
+      # Text, unter fremdem Namen.
+      #
+      # Beim Umzug auf ckrreinigung.at: VORSCHAU auf "nein" setzen.
+      # Dann wird nichts eingefügt und robots.txt greift wieder, weil
+      # die Seite dann an der Wurzel ihrer eigenen Domain liegt.
+      - name: Vorschau auf noindex setzen
+        env:
+          VORSCHAU: "ja"
+        run: |
+          if [ "$VORSCHAU" != "ja" ]; then
+            echo "Echte Domain — es wird nichts eingefügt."
+            exit 0
+          fi
+          cd _site
+          python3 - <<'PY'
+          import os, re
+          MARKE = '<meta name="robots" content="noindex, nofollow">'
+          n = 0
+          for wurzel, ordner, dateien in os.walk("."):
+              ordner[:] = [o for o in ordner if o not in {".git", ".github"}]
+              for d in dateien:
+                  if not d.endswith(".html"):
+                      continue
+                  pfad = os.path.join(wurzel, d)
+                  s = open(pfad, encoding="utf-8").read()
+                  if "noindex" in s:
+                      continue
+                  s = s.replace("</head>",
+                                "<!-- Vorschauadresse: nicht in den Suchindex. "
+                                "Wird beim Umzug auf die echte Domain nicht mehr "
+                                "eingefügt (siehe .github/workflows/pages.yml). -->\n"
+                                + MARKE + "\n</head>", 1)
+                  open(pfad, "w", encoding="utf-8").write(s)
+                  n += 1
+          print("%d Seiten auf noindex gesetzt." % n)
+          PY
+
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
