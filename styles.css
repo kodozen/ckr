@@ -205,13 +205,50 @@ html.js .auftakt[data-buehne="an"] .auftakt__glas {
   position: absolute; inset: 0; width: 100%; height: 100%;
   object-fit: cover;
 }
+
+/* --- Das Standbild bewegt sich von sich aus ---
+   Sechsmal ist gemeldet worden, der Aufmacher „stehe“. Jedes Mal lag es
+   an etwas anderem, und jedes Mal war die Folge dieselbe: ein Bild, das
+   sich nicht rührt, sieht kaputt aus. Deshalb hängt die Lebendigkeit
+   des Aufmachers jetzt nicht mehr am Video.
+
+   Das Standbild fährt in vierzig Sekunden ganz langsam näher heran und
+   wieder zurück. Das ist reines CSS auf der Grafikkarte: keine Datei,
+   keine Abspielrichtlinie, kein Dekoder, nichts, was ein Browser
+   abschalten oder in ein Extrafenster reißen könnte. Läuft das Video,
+   liegt es darüber und man sieht es. Läuft es nicht, bewegt sich der
+   Aufmacher trotzdem — und niemand hält die Seite für defekt.
+
+   Unter „Bewegung reduzieren“ steht es still, wie es sich gehört. */
+@keyframes atmen {
+  from { transform: scale(1.06) translate3d(1.2%, 0.6%, 0); }
+  to   { transform: scale(1.14) translate3d(-1.2%, -0.6%, 0); }
+}
+.auftakt__standbild {
+  animation: atmen 40s var(--bogen) infinite alternate;
+  will-change: transform;
+}
+@media (prefers-reduced-motion: reduce) {
+  .auftakt__standbild { animation: none; }
+}
+
+/* Oberste Schicht über der Aufnahme. Sie fängt den Zeiger ab, damit
+   Browser mit eigener Video-Erkennung — Opera etwa — dort keinen
+   Abspielknopf einblenden. Sichtbar ist sie nicht. */
+.auftakt__deckel {
+  position: absolute; inset: 0; z-index: 1;
+  background: transparent;
+}
 /* Die Aufnahme ist Hintergrund, kein Player. Ohne pointer-events: none
    fängt das <video> Klicks ab: ein Doppelklick geht auf Vollbild, das
    System bietet ein schwebendes Bild-im-Bild-Fenster an, und die Seite
    ist weg. Gemeldet wurde genau das — das Video lief in einem kleinen
    eigenen Fenster statt auf der Seite. Auf der ganzen Fläche
    abgeschaltet, damit auch der Schleier darüber nichts durchlässt. */
-.auftakt__glas, .auftakt__glas * { pointer-events: none; user-select: none; }
+.auftakt__glas video, .auftakt__standbild, .auftakt__schleier {
+  pointer-events: none; user-select: none;
+}
+.auftakt__glas { user-select: none; }
 /* --film blendet den Schleifenpunkt weg (siehe app.js); der Faktor
    davor blendet das Video beim ersten Bild überhaupt erst ein. */
 .auftakt__glas { --film: 1; }
@@ -448,10 +485,17 @@ html.js .auftakt[data-buehne="an"] .vorspann {
   margin-bottom: 2.4rem;
 }
 .saeule p { color: var(--tinte-weich); font-size: var(--t-1); margin: 0; max-width: 30ch; }
-.saeule__zahl {
-  font-family: var(--anzeige); font-weight: 700; font-size: var(--t2);
-  color: var(--tinte) !important; margin: 0 0 0.3rem !important;
-  letter-spacing: -0.02em;
+/* Die Auszeichnung braucht mehr Gewicht als `.saeule p` darüber, sonst
+   gewinnt die allgemeinere Regel — genau das war passiert: die drei
+   Zahlen standen in 14 Pixeln da, so groß wie Fließtext, obwohl hier
+   var(--t2) steht. Sie sind das stärkste Argument des Abschnitts.
+   Deshalb hier die Klasse doppelt statt eines weiteren !important:
+   ein !important zwingt das nächste auch. */
+.saeule p.saeule__zahl {
+  font-family: var(--anzeige); font-weight: 700;
+  font-size: clamp(2.4rem, 1.6rem + 3.4vw, 4.2rem);
+  line-height: 1; letter-spacing: -0.03em;
+  margin: 0 0 0.5rem; max-width: none;
 }
 /* Sterne. Gold ist hier bewusst die einzige dritte Farbe: eine
    Bewertung liest man an der Farbe, nicht am Text. Indigo oder Grün
@@ -871,6 +915,130 @@ html[data-handleiste="an"] body {
 @media (prefers-reduced-motion: reduce) {
   .handleiste { transition: none; }
   .handleiste__knopf:active { transform: none; }
+}
+
+/* ============================================================
+   Tiefe
+   ------------------------------------------------------------
+   Die Seite bestand aus flachen Flächen mit 1-Pixel-Rändern —
+   im ganzen Stylesheet standen genau zwei Schatten. Sauber, aber
+   ohne jede Räumlichkeit; nichts lag vor oder hinter etwas.
+
+   Die Schatten sind indigofarben, nicht schwarz. Schwarz auf
+   einem hellen, leicht bläulichen Grund wirkt schmutzig; ein
+   Schatten in der Hausfarbe sieht aus wie Licht, das durch den
+   Raum fällt, und bleibt trotzdem unauffällig.
+
+   Zwei Stufen genügen: --heben für alles, was ruht, --schweben
+   für das, was der Zeiger gerade berührt. Mehr Stufen erkennt
+   niemand, sie machen die Seite nur unruhig.
+   ============================================================ */
+
+:root {
+  --heben:
+    0 1px 2px rgba(20, 20, 70, 0.05),
+    0 4px 12px rgba(20, 20, 70, 0.05),
+    0 12px 28px rgba(20, 20, 70, 0.04);
+  --schweben:
+    0 2px 4px rgba(20, 20, 70, 0.06),
+    0 10px 24px rgba(20, 20, 70, 0.09),
+    0 24px 56px rgba(20, 20, 70, 0.08);
+}
+
+/* --- Karten bekommen Gewicht ---
+   Der obere Lichtsaum (inset) ist das, was eine Fläche als Körper
+   lesbar macht statt als Rechteck: oben eine Spur heller, weil von
+   dort das Licht kommt. */
+.karte, .paket, .schritt, .nachbar, .lseite__liste, .zitat, .vn__rahmen {
+  box-shadow: var(--heben), inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  transition: box-shadow 0.28s var(--bogen), transform 0.28s var(--bogen);
+}
+.karte:hover, .paket:hover, .nachbar:hover, .schritt:hover {
+  box-shadow: var(--schweben), inset 0 1px 0 rgba(255, 255, 255, 0.85);
+  transform: translateY(-3px);
+}
+
+/* --- Weiches Licht hinter den Abschnitten ---
+   Ein sehr großer, sehr blasser Farbkreis hinter dem Inhalt. Er ist
+   einzeln nie zu sehen; man merkt nur, dass die Fläche nicht mehr
+   gleichmäßig weiß ist. Genau das fehlte. */
+.leistungen, .pakete, .vertrauen, .faq { position: relative; isolation: isolate; }
+.leistungen::before, .pakete::before, .vertrauen::before, .faq::before {
+  content: ""; position: absolute; z-index: -1; pointer-events: none;
+  width: min(70rem, 120%); aspect-ratio: 2 / 1;
+  left: 50%; translate: -50% 0;
+  background: radial-gradient(ellipse at center,
+              rgba(40, 56, 200, 0.07), rgba(40, 56, 200, 0) 62%);
+}
+.leistungen::before { top: -12%; }
+.pakete::before    { bottom: -20%;
+  background: radial-gradient(ellipse at center,
+              rgba(62, 158, 20, 0.08), rgba(62, 158, 20, 0) 62%); }
+.vertrauen::before { top: -18%; }
+.faq::before       { top: 10%;
+  background: radial-gradient(ellipse at center,
+              rgba(62, 158, 20, 0.06), rgba(62, 158, 20, 0) 62%); }
+
+/* --- Korn auf den dunklen Flächen ---
+   Eine große dunkle Fläche wirkt am Bildschirm wie lackiert. Ein
+   kaum sichtbares Rauschen darüber nimmt ihr das Plastikhafte. Als
+   SVG eingebettet: keine zusätzliche Datei, wenige hundert Byte. */
+.band, .fuss { position: relative; isolation: isolate; }
+.band::after, .fuss::after {
+  content: ""; position: absolute; inset: 0; z-index: -1;
+  pointer-events: none; opacity: 0.4;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='k'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23k)' opacity='0.35'/%3E%3C/svg%3E");
+}
+/* Dazu ein Lichtschein aus der Markenfarbe, damit das Dunkel nicht
+   nur dunkel ist. */
+.band::before {
+  content: ""; position: absolute; z-index: -1; pointer-events: none;
+  inset: 0;
+  background:
+    radial-gradient(60rem 30rem at 18% 0%, rgba(92, 188, 26, 0.16), transparent 60%),
+    radial-gradient(50rem 26rem at 88% 100%, rgba(40, 56, 200, 0.30), transparent 62%);
+}
+
+/* --- Die drei Zahlen tragen die Seite ---
+   „24 h“, „seit 2011“ und „5,0“ sind das stärkste Argument des
+   Abschnitts und standen in derselben Farbe wie der Fließtext. */
+.saeule p.saeule__zahl {
+  background: linear-gradient(135deg, var(--tinte) 8%, var(--blau) 52%, var(--gruen) 100%);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent; color: transparent;
+}
+
+/* --- Knöpfe bekommen Körper --- */
+.knopf { transition: box-shadow 0.22s var(--bogen), transform 0.22s var(--bogen); }
+.knopf--voll {
+  background-image: linear-gradient(180deg, rgba(255,255,255,0.10), rgba(255,255,255,0));
+  box-shadow: 0 1px 2px rgba(20,20,70,0.20), 0 6px 18px rgba(20,20,70,0.18);
+}
+.knopf--voll:hover {
+  box-shadow: 0 2px 4px rgba(20,20,70,0.22), 0 12px 30px rgba(20,20,70,0.24);
+  transform: translateY(-2px);
+}
+.knopf:not(.knopf--voll):hover {
+  box-shadow: var(--heben); transform: translateY(-2px);
+}
+
+/* --- Kopfzeile schwebt, sobald gescrollt wurde --- */
+.kopf[data-gescrollt="ja"] { box-shadow: 0 6px 24px rgba(20, 20, 70, 0.06); }
+
+/* --- Ein Strich, der nicht nur ein Strich ist ---
+   Trennlinien zwischen den Abschnitten laufen in der Mitte in der
+   Hausfarbe aus und werden zu den Rändern hin unsichtbar. */
+.ablauf, .lseite__kern, .gebiet, .videos, .lseite__weiter {
+  border-image: linear-gradient(90deg,
+                transparent, rgba(40, 56, 200, 0.22), transparent) 1;
+  border-block-style: solid;
+  border-block-width: 1px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .karte, .paket, .schritt, .nachbar, .knopf { transition: none; }
+  .karte:hover, .paket:hover, .nachbar:hover, .schritt:hover,
+  .knopf--voll:hover, .knopf:not(.knopf--voll):hover { transform: none; }
 }
 
 /* ------------------------------------------------------------

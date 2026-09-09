@@ -43,9 +43,9 @@
      Erzeugt von tools/schriften-holen.py. -->
 <link rel="preload" href="../schrift/archivo-700-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="../schrift/public-sans-400-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="../schriften.css?v=17">
-<link rel="stylesheet" href="../styles.css?v=17">
-<script src="../app.js?v=17" defer></script>
+<link rel="stylesheet" href="../schriften.css?v=18">
+<link rel="stylesheet" href="../styles.css?v=18">
+<script src="../app.js?v=18" defer></script>
 <!-- ============================================================
      Vorausladen (Speculation Rules)
      ------------------------------------------------------------
@@ -304,6 +304,14 @@
         <img class="auftakt__standbild" src="../img/glas-poster.jpg" width="1600" height="900"
              alt="" fetchpriority="high">
         <span class="auftakt__schleier"></span>
+        <!-- Fängt die Zeigergeste ab, bevor sie das <video> darunter
+             erreicht. Opera blendet über erkannten Videos einen eigenen
+             Knopf „Video pop out“ ein — der lag mitten im Aufmacher und
+             riss die Aufnahme auf Klick in ein kleines Extrafenster.
+             disablepictureinpicture hält das nicht auf, es ist Operas
+             eigene Funktion. Diese Fläche schon: sie ist das oberste
+             Element, der Zeiger landet hier und nie auf dem Video. -->
+        <span class="auftakt__deckel"></span>
       </div>
 
       <div class="huelle auftakt__innen">
