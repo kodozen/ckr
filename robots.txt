@@ -1,0 +1,12 @@
+# CKR Cleaning Services
+# Erzeugt von tools/sitemap-bauen.py
+
+User-agent: *
+Allow: /
+
+# Die türkische Fassung ist nur für die interne Abnahme gedacht.
+Disallow: /tr/
+# Werkzeugseite, gehört nicht zur Website.
+Disallow: /video-pruefen.html
+
+Sitemap: https://www.ckrreinigung.at/sitemap.xml

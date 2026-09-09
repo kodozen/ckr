@@ -1,0 +1,92 @@
+# Veröffentlicht die Website auf GitHub Pages.
+#
+# Gebaut wird hier, nicht auf dem Rechner: die Leistungsseiten, die
+# Abnahmefassung, sitemap.xml und robots.txt entstehen bei jedem Push neu
+# aus inhalt/. Damit kann es nicht passieren, dass jemand inhalt/ ändert,
+# das Bauen vergisst und eine alte Fassung online steht.
+#
+# Gebaut wird in _site/, nicht im Quellbaum — so bleibt sichtbar, was von
+# Hand gepflegt wird und was erzeugt ist.
+#
+# WICHTIG: Damit dieser Ablauf greift, muss in den Einstellungen des
+# Depots unter Settings → Pages → Build and deployment → Source
+# „GitHub Actions“ gewählt sein. Sonst veröffentlicht Pages weiterhin den
+# Zweig direkt und die erzeugten Seiten kommen nie an.
+
+name: Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  bauen:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Seiten erzeugen
+        run: |
+          mkdir -p _site
+          rsync -a --exclude '.git' --exclude '_site' ./ _site/
+          cd _site
+          python3 tools/seiten-bauen.py
+          python3 tools/uebersetzen.py tr
+          python3 tools/sitemap-bauen.py
+
+      - name: Prüfen, dass kein Verweis ins Leere zeigt
+        run: |
+          cd _site
+          python3 - <<'PY'
+          import os, re, sys, urllib.parse
+          seiten = []
+          for wurzel, ordner, dateien in os.walk("."):
+              ordner[:] = [o for o in ordner if o not in {".git", "schrift", "video", "tools", "inhalt", "i18n", ".github"}]
+              seiten += [os.path.join(wurzel, d) for d in dateien if d.endswith(".html")]
+          kaputt = []
+          for seite in sorted(seiten):
+              s = open(seite, encoding="utf-8").read()
+              basis = os.path.dirname(seite)
+              for m in re.finditer(r'(?:href|src)="([^"]+)"', s):
+                  ziel = m.group(1)
+                  if re.match(r"^(https?:|mailto:|tel:|data:|#|/)", ziel):
+                      continue
+                  pfad = urllib.parse.urlparse(ziel).path
+                  if not pfad:
+                      continue
+                  voll = os.path.normpath(os.path.join(basis, pfad))
+                  if os.path.isdir(voll):
+                      voll = os.path.join(voll, "index.html")
+                  if not os.path.exists(voll):
+                      kaputt.append("%s → %s" % (seite, ziel))
+          if kaputt:
+              print("Tote Verweise:")
+              print("\n".join("  " + k for k in kaputt))
+              sys.exit(1)
+          print("%d Seiten geprüft, kein toter Verweis." % len(seiten))
+          PY
+
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  veroeffentlichen:
+    needs: bauen
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.pages.outputs.page_url }}
+    steps:
+      - id: pages
+        uses: actions/deploy-pages@v4

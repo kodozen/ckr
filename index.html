@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CKR Cleaning Services · Gebäudereinigung in Kufstein seit 2011</title>
+<meta name="description" content="Gebäudereinigung in Kufstein und ganz Tirol: Treppenhaus, Hotel, Fassade, Baustelle und Verkehrsmittel. 24 Stunden erreichbar. Kostenlose Besichtigung.">
+<meta name="theme-color" content="#141446">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="CKR Cleaning Services · Gebäudereinigung in Kufstein">
+<meta property="og:description" content="Ihr Gebäude in sicheren Händen. Seit 2011 in Kufstein, 24 Stunden erreichbar.">
+<meta property="og:locale" content="de_AT">
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Crect%20width='32'%20height='32'%20rx='6'%20fill='%23141446'/%3E%3Cpath%20d='M7%2019.5%2016%2011l9%208.5'%20stroke='%234CB01A'%20stroke-width='2.6'%20fill='none'%20stroke-linejoin='round'%20stroke-linecap='round'/%3E%3C/svg%3E">
+
+<!-- Schriften liegen auf unserem eigenen Server, nicht bei Google:
+     sonst ginge bei jedem Aufruf die IP des Besuchers dorthin.
+     Erzeugt von tools/schriften-holen.py. -->
+<link rel="preload" href="schrift/archivo-700-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="schrift/public-sans-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="schriften.css?v=13">
+<link rel="stylesheet" href="styles.css?v=13">
+<script src="app.js?v=13" defer></script>
+<!-- ============================================================
+     Vorausladen (Speculation Rules)
+     ------------------------------------------------------------
+     Zeigt jemand mit der Maus rund zwei Zehntelsekunden auf einen
+     Link, baut der Browser die Zielseite schon im Hintergrund auf.
+     Klickt er dann wirklich, ist sie sofort da — nicht „schnell“,
+     sondern ohne messbare Wartezeit.
+
+     „moderate“ ist die zurückhaltende Stufe: geladen wird erst bei
+     einer echten Absicht (Zeigen, Antippen), nicht auf Verdacht.
+     Damit wird kein Datenvolumen verschwendet. Browser, die die
+     Regeln nicht kennen, ignorieren den Block stillschweigend.
+     ============================================================ -->
+<script type="speculationrules">
+{
+  "prerender": [{
+    "where": { "and": [
+      { "href_matches": "/*" },
+      { "not": { "href_matches": "/tr/*" } },
+      { "not": { "href_matches": "/video-pruefen.html" } },
+      { "not": { "selector_matches": "[rel~=nofollow]" } }
+    ]},
+    "eagerness": "moderate"
+  }]
+}
+</script>
+<!-- ============================================================
+     Strukturierte Daten
+     ------------------------------------------------------------
+     Sagt Suchmaschinen, dass hier ein örtlicher Betrieb mit
+     Adresse, Nummer und Öffnungszeiten steht, und welche Fragen
+     die Seite beantwortet. Kostet keine Ladezeit und ist der
+     einzige Weg, in der Trefferliste mehr als zwei Zeilen zu
+     bekommen. Die alte Website hat davon nichts.
+
+     Bewusst ohne Sternebewertung: die dürfte nur ausgezeichnet
+     werden, wenn die Bewertungen hier gesammelt würden. Fremde
+     Bewertungen so auszuzeichnen verstößt gegen die Richtlinien.
+     ============================================================ -->
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": [
+    "LocalBusiness",
+    "HomeAndConstructionBusiness"
+   ],
+   "@id": "https://www.ckrreinigung.at/#betrieb",
+   "name": "CKR Cleaning Services",
+   "description": "Gebäudereinigung in Kufstein und ganz Tirol seit 2011.",
+   "url": "https://www.ckrreinigung.at/",
+   "telephone": "+43 650 893 38 81",
+   "email": "info@ckrreinigung.at",
+   "foundingDate": "2011",
+   "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Weckaufstraße 10",
+    "postalCode": "6330",
+    "addressLocality": "Kufstein",
+    "addressRegion": "Tirol",
+    "addressCountry": "AT"
+   },
+   "areaServed": [
+    {
+     "@type": "State",
+     "name": "Tirol"
+    },
+    {
+     "@type": "City",
+     "name": "Kufstein"
+    }
+   ],
+   "openingHoursSpecification": [
+    {
+     "@type": "OpeningHoursSpecification",
+     "dayOfWeek": [
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+      "Sunday"
+     ],
+     "opens": "00:00",
+     "closes": "23:59"
+    }
+   ],
+   "sameAs": [
+    "https://www.instagram.com/ckr.cleaningservices/",
+    "https://www.facebook.com/ckrkufstein"
+   ]
+  },
+  {
+   "@type": "WebSite",
+   "@id": "https://www.ckrreinigung.at/#website",
+   "url": "https://www.ckrreinigung.at/",
+   "name": "CKR Cleaning Services",
+   "inLanguage": "de-AT",
+   "publisher": {
+    "@id": "https://www.ckrreinigung.at/#betrieb"
+   }
+  },
+  {
+   "@type": "FAQPage",
+   "@id": "https://www.ckrreinigung.at/#fragen",
+   "mainEntity": [
+    {
+     "@type": "Question",
+     "name": "Was kostet eine Reinigung bei Ihnen?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Das hängt vom Objekt ab, und am Telefon zu raten hilft niemandem. Wir kommen vorbei, sehen es uns an — kostenlos und unverbindlich — und nennen danach einen Fixpreis."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Kommen Sie auch kurzfristig?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Ja. Wir sind rund um die Uhr erreichbar, sieben Tage die Woche, auch bei Wasserschaden und Havarie. Rufen Sie an, dann sagen wir Ihnen sofort, was geht."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Arbeiten Sie auch am Wochenende und abends?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Ja. Gerade in Büros, Hotels und Verkehrsmitteln liegt die Reinigung dort, wo sie niemanden stört — außerhalb der Betriebszeiten."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Welche Reinigungsmittel verwenden Sie?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Ökologische Produkte, dazu moderne Maschinen und Geräte, die zum jeweiligen Verfahren passen. Bei empfindlichen Oberflächen — historische Fassaden etwa — wird das Verfahren vorher abgestimmt."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Was heißt „besenrein“?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Nach einer Entrümpelung oder Räumung übergeben wir das Objekt leer und gekehrt: keine Gegenstände, kein grober Schmutz. Soll darüber hinaus gereinigt werden, sagen Sie es einfach dazu."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Wer kommt zu mir nach Hause?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Festes Personal, keine wechselnden Aushilfen. Weil unser Team bei der Reinigung mit Ihren persönlichen Sachen in Berührung kommt, zählen bei der Auswahl Verantwortungsbewusstsein, Diskretion und Zuverlässigkeit. Geschulte Objektleiter weisen ein und kontrollieren regelmäßig."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Reinigen Sie auch Privatwohnungen?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Ja — Wohnungen, Häuser und Ferienappartements, einmalig oder regelmäßig. Der Umfang steht weiter oben bei den Rhythmen."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Übernehmen Sie auch die Reinigung während eines Umbaus?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Ja. Wir fügen Baugrob- und Bauendreinigung in den laufenden Bauablauf ein, ohne die Termine der anderen Gewerke zu stören."
+     }
+    }
+   ]
+  }
+ ]
+}
+</script>
+</head>
+<body>
+
+<a class="skip" href="#inhalt">Zum Inhalt springen</a>
+
+<header class="kopf" data-kopf>
+  <div class="huelle kopf__innen">
+    <a class="marke" href="/" aria-label="CKR Cleaning Services, Startseite">
+      <picture>
+        <source type="image/webp" srcset="img/logo.webp">
+        <img src="img/logo.png" width="1360" height="682" alt="CKR Cleaning Services Kufstein" fetchpriority="high">
+      </picture>
+    </a>
+
+    <nav class="menue" id="hauptmenue" aria-label="Hauptmenü">
+      <a href="#leistungen">Leistungen</a>
+      <a href="#ablauf">Ablauf</a>
+      <a href="#verkehrsmittel">Verkehrsmittel</a>
+      <a href="#fragen">Fragen</a>
+      <a href="#jobs">Jobs</a>
+      <!-- Der Videobereich ist verborgen, solange kein Kanal feststeht.
+           Ein Menüpunkt, der ins Leere springt, ist schlimmer als keiner —
+           app.js blendet ihn zusammen mit dem Abschnitt ein. -->
+      <a href="#videos" hidden data-videos-link>Videos</a>
+      <a href="#kontakt">Kontakt</a>
+    </nav>
+
+    <div class="kopf__aktion">
+      <!-- Soziale Kanäle: CKR ist auf beiden aktiv und postet dort ihre
+           Arbeit — deshalb stehen sie oben und nicht nur im Fuß. -->
+      <ul class="sozial" aria-label="Soziale Netzwerke">
+        <li><a href="https://www.instagram.com/ckr.cleaningservices/" target="_blank" rel="noopener" aria-label="CKR auf Instagram">
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9">
+            <rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"/>
+          </svg></a></li>
+        <li><a href="https://www.facebook.com/ckrkufstein" target="_blank" rel="noopener" aria-label="CKR auf Facebook">
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="currentColor">
+            <path d="M13.5 21v-8h2.7l.4-3.1h-3.1V7.9c0-.9.25-1.5 1.55-1.5H16.7V3.6c-.3-.04-1.3-.13-2.46-.13-2.44 0-4.11 1.49-4.11 4.22V9.9H7.4V13h2.73v8z"/>
+          </svg></a></li>
+      </ul>
+
+      <!-- Sprachumschalter wird aus der Sprachliste erzeugt; siehe app.js -->
+      <div class="sprachen" data-sprachen role="group" aria-label="Sprache"></div>
+      <a class="knopf knopf--voll" href="#angebot">Angebot anfordern</a>
+      <button class="menue-knopf" type="button" aria-expanded="false" aria-controls="hauptmenue">
+        <span></span><span></span><span></span>
+        <span class="nur-lesbar">Menü</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="inhalt">
+
+  <!-- ============================================================
+       Aufmacher. Der Satz ist nicht erfunden: CKR benutzt ihn selbst
+       auf Instagram und auf allen eigenen Grafiken.
+       ============================================================ -->
+  <!-- Die Aufnahme stammt von CKR selbst und zeigt genau eine Bewegung:
+       beschlagenes Glas wird abgezogen, bis es klar ist. Sie läuft
+       stumm in Schleife (siehe app.js) — kein Springen im Video, damit
+       nichts einfrieren kann. Auf Telefonen bleibt das Standbild
+       stehen: dort zählt Tempo mehr als Effekt. -->
+  <section class="auftakt" data-auftakt>
+    <div class="auftakt__buehne">
+      <div class="auftakt__glas" aria-hidden="true">
+        <picture>
+          <source type="image/webp" srcset="img/glas-poster.webp">
+          <img class="auftakt__standbild" src="img/glas-poster.jpg" width="1600" height="900"
+               alt="" fetchpriority="high">
+        </picture>
+        <span class="auftakt__schleier"></span>
+      </div>
+
+      <div class="huelle auftakt__innen">
+        <p class="marker">Gebäudereinigung in Kufstein · seit 2011</p>
+        <h1>Ihr Gebäude in<br>sicheren Händen.</h1>
+        <p class="vorspann">
+          Vom Treppenhaus bis zur Straßenbahn. Wir reinigen in Kufstein und in
+          ganz Tirol — rund um die Uhr erreichbar, auch kurzfristig.
+        </p>
+        <div class="auftakt__knoepfe">
+          <a class="knopf knopf--voll" href="#angebot">Angebot anfordern</a>
+          <a class="knopf" href="tel:+436508933881">
+            <span aria-hidden="true">☎</span> +43 650 893 38 81
+          </a>
+        </div>
+        <p class="auftakt__notiz">24-Stunden-Hotline · auch bei Havarie</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       Der eine große Moment der Seite.
+       Die meisten Reinigungsfirmen putzen Büros und Stiegenhäuser.
+       CKR putzt auch Straßenbahnen, Denkmäler und Solaranlagen.
+       Diese Aufzählung ist das stärkste Argument, das die Firma hat —
+       deshalb steht sie ganz oben und ohne Bild.
+       ============================================================ -->
+  <section class="dinge" aria-labelledby="dinge-titel">
+    <div class="huelle">
+      <h2 id="dinge-titel" class="dinge__titel">Was wir reinigen</h2>
+      <ul class="dinge__liste">
+        <li>Treppenhäuser</li>
+        <li>Büros</li>
+        <li>Hotelzimmer</li>
+        <li>Appartements</li>
+        <li>Schaufenster</li>
+        <li>Fassaden</li>
+        <li>Teppiche</li>
+        <li>Baustellen</li>
+        <li>Dächer</li>
+        <li>Solaranlagen</li>
+        <li>Werkstätten</li>
+        <li class="dinge__besonders">Straßenbahnen</li>
+        <li class="dinge__besonders">Züge</li>
+        <li class="dinge__besonders">Busse</li>
+        <li class="dinge__besonders">Denkmäler</li>
+      </ul>
+      <p class="dinge__fuss">
+        Die letzten vier machen die wenigsten. Wir schon.
+      </p>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       Leistungen. Vier Gruppen statt sechzehn gleich großer Kacheln:
+       sechzehn gleiche Kacheln liest niemand. Die Reihenfolge steht
+       so lange fest, bis der Kunde sagt, womit er wirklich verdient.
+       ============================================================ -->
+  <section class="leistungen" id="leistungen" aria-labelledby="leistungen-titel">
+    <div class="huelle">
+      <h2 id="leistungen-titel">Leistungen</h2>
+      <p class="abschnitt__vorspann">
+        Sechzehn Leistungen, vier Bereiche. Sagen Sie uns, worum es geht —
+        wir schauen es uns an und machen ein Angebot.
+      </p>
+
+      <div class="karten">
+        <article class="karte">
+          <h3>Gebäude &amp; Unterhalt</h3>
+          <p>Die laufende Reinigung, die niemandem auffällt, solange sie stimmt.</p>
+          <ul>
+            <li><a href="unterhaltsreinigung/">Unterhaltsreinigung</a></li>
+            <li><a href="treppenhausreinigung/">Treppenhausreinigung</a></li>
+            <li><a href="grundreinigung/">Grundreinigung</a></li>
+            <li>Allgemeine Raumpflege</li>
+            <li>Büro- und Privatreinigung</li>
+          </ul>
+        </article>
+
+        <article class="karte">
+          <h3>Glas, Fassade &amp; Dach</h3>
+          <p>Alles, was von außen gesehen wird — und alles, wofür man hinauf muss.</p>
+          <ul>
+            <li><a href="glasreinigung/">Glasreinigung</a></li>
+            <li><a href="fenster-und-fassadenreinigung/">Fenster- &amp; Fassadenreinigung</a></li>
+            <li>Dachreinigung</li>
+            <li>Solaranlagenreinigung</li>
+          </ul>
+        </article>
+
+        <article class="karte">
+          <h3>Objekt &amp; Gewerbe</h3>
+          <p>Zimmer, die bis zum nächsten Gast fertig sein müssen.</p>
+          <ul>
+            <li><a href="hotelreinigung/">Hotelreinigung</a></li>
+            <li><a href="appartementreinigung/">Appartementreinigung</a></li>
+            <li>Werkstattreinigung</li>
+          </ul>
+        </article>
+
+        <article class="karte">
+          <h3>Bau &amp; Räumung</h3>
+          <p>Wenn die Handwerker weg sind und übergeben werden soll.</p>
+          <ul>
+            <li><a href="baureinigung-endreinigung/">Baureinigung &amp; Endreinigung</a></li>
+            <li><a href="entruempelung-hausbetreuung/">Entrümpelung &amp; Hausbetreuung</a></li>
+            <li><a href="teppichreinigung/">Teppichreinigung</a></li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       Ablauf. Das Stärkste, was CKR anbietet, stand bisher versteckt
+       auf einer Unterseite: kostenlose Besichtigung, danach ein fester
+       Preis. Wer eine Reinigungsfirma sucht, hat genau eine Sorge —
+       dass die Rechnung am Ende größer ist als die Zusage. Deshalb
+       steht der Ablauf jetzt vorne und nicht im Kleingedruckten.
+       ============================================================ -->
+  <section class="ablauf" id="ablauf" aria-labelledby="ablauf-titel">
+    <div class="huelle">
+      <p class="marker">So läuft es ab</p>
+      <h2 id="ablauf-titel">Erst schauen, dann ein fester Preis</h2>
+      <p class="abschnitt__vorspann">
+        Wir schätzen nicht am Telefon. Wir kommen vorbei, sehen uns an, was
+        wirklich zu tun ist, und nennen danach einen Preis, der hält.
+      </p>
+
+      <ol class="ablauf__schritte">
+        <li class="schritt">
+          <p class="schritt__nr" aria-hidden="true">1</p>
+          <h3>Sie melden sich</h3>
+          <p>
+            Anruf, Formular oder WhatsApp — ein paar Sätze genügen.
+            Wir melden uns zurück und stimmen einen Termin ab.
+          </p>
+        </li>
+        <li class="schritt">
+          <p class="schritt__nr" aria-hidden="true">2</p>
+          <h3>Besichtigung vor Ort</h3>
+          <p>
+            Kostenlos und unverbindlich. Wir klären Umfang, Zugang und
+            Zeitfenster — und sagen offen, wenn etwas nicht nötig ist.
+          </p>
+        </li>
+        <li class="schritt">
+          <p class="schritt__nr" aria-hidden="true">3</p>
+          <h3>Fixpreis, schriftlich</h3>
+          <p>
+            Sie bekommen einen festen Preis, keine Schätzung, die später
+            wächst. Bei laufender Reinigung dazu einen Plan, der zu Ihrem
+            Wochenablauf passt.
+          </p>
+        </li>
+        <li class="schritt">
+          <p class="schritt__nr" aria-hidden="true">4</p>
+          <h3>Wir reinigen — und kontrollieren</h3>
+          <p>
+            Geschulte Objektleiter weisen das Team ein und prüfen die Arbeit
+            regelmäßig nach. Passt etwas nicht, sagen Sie es uns, nicht der
+            nächsten Firma.
+          </p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       Vorher / Nachher.
+       Eine Reinigungsfirma verkauft einen Zustandswechsel — und genau
+       den zeigt sonst niemand. Der Regler ist ein echtes Eingabefeld:
+       damit funktioniert er mit Maus, Finger und Pfeiltasten und wird
+       von Screenreadern angesagt, ohne dass wir das nachbauen müssen.
+       ============================================================ -->
+  <section class="vn" aria-labelledby="vn-titel">
+    <div class="huelle">
+      <p class="marker">Vorher / Nachher</p>
+      <h2 id="vn-titel">Den Unterschied sieht man</h2>
+      <p class="abschnitt__vorspann">
+        Eine Wohnungsauflösung in Kufstein. Links der Zustand bei der
+        Besichtigung, rechts die Übergabe — besenrein. Ziehen Sie den Regler.
+      </p>
+
+      <figure class="vn__rahmen" data-vn>
+        <img class="vn__bild vn__bild--nachher" src="img/vn/22.jpg" width="360" height="240"
+             alt="Derselbe Raum nach der Entrümpelung: leer und besenrein übergeben." loading="lazy">
+        <div class="vn__vorher" data-vn-vorher>
+          <img class="vn__bild" src="img/vn/11.jpg" width="360" height="240"
+               alt="Der Raum vor der Entrümpelung: Kartons, Möbel und Hausrat." loading="lazy">
+        </div>
+        <span class="vn__griff" data-vn-griff aria-hidden="true"></span>
+        <label class="nur-lesbar" for="vn-regler">Vergleich zwischen vorher und nachher</label>
+        <input class="vn__regler" id="vn-regler" data-vn-regler type="range"
+               min="0" max="100" value="50" step="1">
+        <span class="vn__marke vn__marke--links">Vorher</span>
+        <span class="vn__marke vn__marke--rechts">Nachher</span>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       Verkehrsmittelreinigung. Steht auf der alten Website nirgends,
+       obwohl CKR damit auf Instagram wirbt. Eigener Abschnitt in der
+       dunklen Markenfarbe, weil es das Ungewöhnlichste ist, was sie
+       anbieten — und das Einzige, wo „im Minutentakt“ wörtlich gilt.
+       ============================================================ -->
+  <section class="band" id="verkehrsmittel" aria-labelledby="verkehr-titel">
+    <div class="huelle band__innen">
+      <div>
+        <p class="marker marker--hell">Verkehrsmittelreinigung</p>
+        <h2 id="verkehr-titel">Service im Minutentakt</h2>
+        <p>
+          U-Bahnen, Züge, Bahnen und Busse werden nicht sauber, wenn gerade Zeit
+          ist — sondern in dem Fenster, das der Fahrplan lässt. Wir richten
+          unsere Betriebsplanung nach dem Takt unserer Auftraggeber aus, damit
+          die Abläufe nahtlos ineinandergreifen.
+        </p>
+        <div class="auftakt__knoepfe">
+          <a class="knopf knopf--hell" href="verkehrsmittelreinigung/">Mehr erfahren</a>
+          <a class="knopf knopf--hell" href="#angebot">Verkehrsmittel anfragen</a>
+        </div>
+      </div>
+      <figure class="band__bild">
+        <img src="ig/p02.jpg" width="640" height="640" loading="lazy"
+             alt="Mitarbeiter von CKR in Firmenjacke bei der Reinigung eines Zuginnenraums.">
+        <figcaption>Reinigung im Zuginnenraum</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       Denkmalreinigung — ebenfalls nur auf Instagram zu finden.
+       In Kufstein mit Festung und Altstadt ein echtes Argument.
+       ============================================================ -->
+  <section class="denkmal" id="denkmal" aria-labelledby="denkmal-titel">
+    <div class="huelle denkmal__innen">
+      <div>
+        <p class="marker">Denkmalreinigung</p>
+        <h2 id="denkmal-titel">Alte Fassaden vertragen keine Routine</h2>
+        <p>
+          Historische Oberflächen brauchen ein anderes Verfahren als eine
+          Betonwand: weniger Druck, andere Mittel, mehr Geduld. Wir reinigen
+          Denkmäler und denkmalgeschützte Fassaden — und sagen vorher, was
+          geht und was nicht.
+        </p>
+        <a class="knopf" href="denkmalreinigung/">Mehr erfahren</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       Pakete und Leistungsumfang.
+       Das Beste, was auf der alten Website steht, lag auf der Unterseite
+       „Appartementreinigung“: eine vollständige Leistungsliste und drei
+       Rhythmen. Genau das sucht jemand, der eine Ferienwohnung oder ein
+       Privathaus betreuen lassen will — und genau das findet er sonst
+       auf keiner Reinigungsseite. Preise stehen bewusst nicht dabei:
+       die entstehen bei der Besichtigung, alles andere wäre erfunden.
+       ============================================================ -->
+  <section class="pakete" id="pakete" aria-labelledby="pakete-titel">
+    <div class="huelle">
+      <p class="marker">Wohnung, Haus &amp; Appartement</p>
+      <h2 id="pakete-titel">In welchem Rhythmus brauchen Sie uns?</h2>
+      <p class="abschnitt__vorspann">
+        Häufigkeit, Umfang und Intensität legen wir gemeinsam fest. Das Team
+        arbeitet zeitlich flexibel, damit es in Ihren Wochenplan passt — Sie
+        werden nicht gestört.
+      </p>
+
+      <div class="paket-reihe">
+        <article class="paket">
+          <h3>Wöchentlich</h3>
+          <p class="paket__wer">Für bewohnte Wohnungen und Häuser.</p>
+          <p>
+            Derselbe Tag, dasselbe Team, jede Woche. Nichts sammelt sich an,
+            und Sie müssen nie darüber nachdenken.
+          </p>
+        </article>
+
+        <article class="paket paket--betont">
+          <h3>14-tägig</h3>
+          <p class="paket__wer">Der häufigste Rhythmus.</p>
+          <p>
+            Reicht für die meisten Haushalte und Ferienwohnungen mit
+            ruhigerer Belegung. Zwischendurch übernehmen Sie das Nötigste.
+          </p>
+        </article>
+
+        <article class="paket">
+          <h3>Einmalig</h3>
+          <p class="paket__wer">Nach Auszug, vor Übergabe, nach dem Umbau.</p>
+          <p>
+            Einmal gründlich statt regelmäßig — auch als Grundreinigung,
+            bevor eine laufende Betreuung startet.
+          </p>
+        </article>
+      </div>
+
+      <h3 class="umfang__titel">Was dabei gemacht wird</h3>
+      <div class="umfang">
+        <div class="umfang__spalte">
+          <h4>Allgemein</h4>
+          <ul class="haken">
+            <li>Böden: Laminat, PVC, Fayence- und Keramikfliesen</li>
+            <li>Böden Spezial: Parkett, Beton, Steinfliesen</li>
+            <li>Ablageflächen</li>
+            <li>Oberflächen der Möbel</li>
+            <li>Balkon</li>
+          </ul>
+        </div>
+        <div class="umfang__spalte">
+          <h4>Badezimmer</h4>
+          <ul class="haken">
+            <li>Oberflächen</li>
+            <li>Sanitäre Anlagen</li>
+            <li>Badewanne und Dusche</li>
+            <li>Toilette</li>
+          </ul>
+        </div>
+        <div class="umfang__spalte">
+          <h4>Küche</h4>
+          <ul class="haken">
+            <li>Oberflächen</li>
+            <li>Backofen und Herd</li>
+            <li>Küche komplett</li>
+          </ul>
+        </div>
+      </div>
+
+      <p class="umfang__zusatz">
+        <strong>Dazu buchbar:</strong> Inventar und Haushaltsgeräte — vom Sofa
+        bis zum Heizkörper, vom Kühlschrank bis zum Herd.
+      </p>
+
+      <p class="umfang__preis">
+        Preise nennen wir nach der Besichtigung — kostenlos und unverbindlich.
+        <a class="knopf knopf--voll" href="#angebot">Besichtigung vereinbaren</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       Vertrauen. Das Zitat ist eine echte Bewertung von herold.at und
+       nennt genau die drei Dinge, mit denen CKR wirbt.
+       ============================================================ -->
+  <section class="vertrauen" aria-labelledby="vertrauen-titel">
+    <div class="huelle">
+      <h2 id="vertrauen-titel" class="nur-lesbar">Warum CKR</h2>
+      <div class="saeulen">
+        <div class="saeule">
+          <p class="saeule__zahl">24 h</p>
+          <!-- Der Punkt ist kein Schmuck: CKR hat sieben Tage offen, die
+               Anzeige stimmt also zu jeder Uhrzeit. Wer nachts mit einem
+               Wasserschaden auf der Seite landet, soll auf einen Blick
+               sehen, dass jetzt jemand rangeht. -->
+          <p class="jetzt"><span class="jetzt__punkt" aria-hidden="true"></span>Jetzt erreichbar</p>
+          <p>Erreichbar, sieben Tage die Woche. Auch bei Wasserschaden und Havarie.</p>
+        </div>
+        <div class="saeule">
+          <p class="saeule__zahl">seit 2011</p>
+          <p>In Kufstein ansässig, seit über zehn Jahren dieselbe Firma.</p>
+        </div>
+        <div class="saeule">
+          <p class="saeule__zahl">5,0</p>
+          <p class="sterne" role="img" aria-label="Fünf von fünf Sternen">
+            <svg viewBox="0 0 20 19" width="18" height="17" aria-hidden="true"><path d="M10 0l2.6 6.3 6.8.5-5.2 4.4 1.6 6.6L10 14.3 4.2 17.8l1.6-6.6L.6 6.8l6.8-.5z"/></svg>
+            <svg viewBox="0 0 20 19" width="18" height="17" aria-hidden="true"><path d="M10 0l2.6 6.3 6.8.5-5.2 4.4 1.6 6.6L10 14.3 4.2 17.8l1.6-6.6L.6 6.8l6.8-.5z"/></svg>
+            <svg viewBox="0 0 20 19" width="18" height="17" aria-hidden="true"><path d="M10 0l2.6 6.3 6.8.5-5.2 4.4 1.6 6.6L10 14.3 4.2 17.8l1.6-6.6L.6 6.8l6.8-.5z"/></svg>
+            <svg viewBox="0 0 20 19" width="18" height="17" aria-hidden="true"><path d="M10 0l2.6 6.3 6.8.5-5.2 4.4 1.6 6.6L10 14.3 4.2 17.8l1.6-6.6L.6 6.8l6.8-.5z"/></svg>
+            <svg viewBox="0 0 20 19" width="18" height="17" aria-hidden="true"><path d="M10 0l2.6 6.3 6.8.5-5.2 4.4 1.6 6.6L10 14.3 4.2 17.8l1.6-6.6L.6 6.8l6.8-.5z"/></svg>
+          </p>
+          <p>Aus neun Bewertungen auf Google und herold.at.</p>
+        </div>
+      </div>
+
+      <blockquote class="zitat">
+        <p>„Sehr zuverlässig und freundlich. Immer abrufbereit und auch
+          kurzfristige Einsätze machbar. Sehr gute Arbeit!“</p>
+        <footer>Bewertung auf herold.at</footer>
+      </blockquote>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       Einsatzgebiet. Wer „Reinigungsfirma Wörgl“ sucht, findet eine
+       Seite, auf der das Wort nie vorkommt, nicht. Die Orte stehen
+       deshalb ausgeschrieben da — und nur solche, die von Kufstein aus
+       wirklich in Reichweite liegen. Ob CKR überall davon fährt, muss
+       der Kunde bestätigen; siehe BRIEF.md.
+       ============================================================ -->
+  <section class="gebiet" id="gebiet" aria-labelledby="gebiet-titel">
+    <div class="huelle">
+      <p class="marker">Einsatzgebiet</p>
+      <h2 id="gebiet-titel">Von Kufstein aus in ganz Tirol</h2>
+      <p class="abschnitt__vorspann">
+        Unser Sitz ist Kufstein. Im Unterland sind wir regelmäßig unterwegs,
+        für größere Aufträge auch darüber hinaus.
+      </p>
+      <ul class="orte">
+        <li>Kufstein</li>
+        <li>Ebbs</li>
+        <li>Kiefersfelden</li>
+        <li>Wörgl</li>
+        <li>Brixlegg</li>
+        <li>Rattenberg</li>
+        <li>Kramsach</li>
+        <li>Schwaz</li>
+        <li>Jenbach</li>
+        <li>Innsbruck</li>
+        <li>Kitzbühel</li>
+        <li>ganz Tirol auf Anfrage</li>
+      </ul>
+      <p class="gebiet__notiz">
+        Ihr Ort steht nicht dabei? Rufen Sie trotzdem an —
+        <a href="tel:+436508933881">+43 650 893 38 81</a>.
+      </p>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       Fragen. Bewusst als <details>: das klappt ohne eine Zeile
+       JavaScript auf, funktioniert mit Tastatur und wird von
+       Suchmaschinen gelesen. Beantwortet werden nur Dinge, die wir
+       wirklich wissen — keine Preise, keine Fristen, keine
+       Versicherungszusagen, solange der Kunde sie nicht bestätigt hat.
+       ============================================================ -->
+  <section class="faq" id="fragen" aria-labelledby="faq-titel">
+    <div class="huelle">
+      <p class="marker">Häufige Fragen</p>
+      <h2 id="faq-titel">Das werden wir oft gefragt</h2>
+
+      <div class="faq__liste">
+        <details class="frage">
+          <summary>Was kostet eine Reinigung bei Ihnen?</summary>
+          <p>
+            Das hängt vom Objekt ab, und am Telefon zu raten hilft niemandem.
+            Wir kommen vorbei, sehen es uns an — kostenlos und unverbindlich —
+            und nennen danach einen Fixpreis.
+          </p>
+        </details>
+
+        <details class="frage">
+          <summary>Kommen Sie auch kurzfristig?</summary>
+          <p>
+            Ja. Wir sind rund um die Uhr erreichbar, sieben Tage die Woche,
+            auch bei Wasserschaden und Havarie. Rufen Sie an, dann sagen wir
+            Ihnen sofort, was geht.
+          </p>
+        </details>
+
+        <details class="frage">
+          <summary>Arbeiten Sie auch am Wochenende und abends?</summary>
+          <p>
+            Ja. Gerade in Büros, Hotels und Verkehrsmitteln liegt die
+            Reinigung dort, wo sie niemanden stört — außerhalb der
+            Betriebszeiten.
+          </p>
+        </details>
+
+        <details class="frage">
+          <summary>Welche Reinigungsmittel verwenden Sie?</summary>
+          <p>
+            Ökologische Produkte, dazu moderne Maschinen und Geräte, die zum
+            jeweiligen Verfahren passen. Bei empfindlichen Oberflächen —
+            historische Fassaden etwa — wird das Verfahren vorher abgestimmt.
+          </p>
+        </details>
+
+        <details class="frage">
+          <summary>Was heißt „besenrein“?</summary>
+          <p>
+            Nach einer Entrümpelung oder Räumung übergeben wir das Objekt
+            leer und gekehrt: keine Gegenstände, kein grober Schmutz. Soll
+            darüber hinaus gereinigt werden, sagen Sie es einfach dazu.
+          </p>
+        </details>
+
+        <details class="frage">
+          <summary>Wer kommt zu mir nach Hause?</summary>
+          <p>
+            Festes Personal, keine wechselnden Aushilfen. Weil unser Team bei
+            der Reinigung mit Ihren persönlichen Sachen in Berührung kommt,
+            zählen bei der Auswahl Verantwortungsbewusstsein, Diskretion und
+            Zuverlässigkeit. Geschulte Objektleiter weisen ein und
+            kontrollieren regelmäßig.
+          </p>
+        </details>
+
+        <details class="frage">
+          <summary>Reinigen Sie auch Privatwohnungen?</summary>
+          <p>
+            Ja — Wohnungen, Häuser und Ferienappartements, einmalig oder
+            regelmäßig. Der Umfang steht weiter oben bei den Rhythmen.
+          </p>
+        </details>
+
+        <details class="frage">
+          <summary>Übernehmen Sie auch die Reinigung während eines Umbaus?</summary>
+          <p>
+            Ja. Wir fügen Baugrob- und Bauendreinigung in den laufenden
+            Bauablauf ein, ohne die Termine der anderen Gewerke zu stören.
+          </p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       Jobs. Auf der alten Website ein Banner im Fußbereich, obwohl die
+       Firma auf jeder eigenen Grafik Mitarbeiter sucht. Hier eigener
+       Abschnitt mit eigenem Weg — Kunden und Bewerber wollen nicht
+       dasselbe Formular.
+       ============================================================ -->
+  <section class="jobs" id="jobs" aria-labelledby="jobs-titel">
+    <div class="huelle jobs__innen">
+      <div>
+        <p class="marker">Arbeiten bei CKR</p>
+        <h2 id="jobs-titel" class="verlauf">Wir bilden aus. Und wir suchen laufend.</h2>
+        <p>
+          Wir bieten eine Lehre in der Gebäudereinigung — mit Leuten, die den
+          Beruf seit Jahren machen. Auch ohne Vorerfahrung: melden Sie sich,
+          wir schauen, was passt.
+        </p>
+        <ul class="haken">
+          <li>Lehrstelle Gebäudereinigung</li>
+          <li>Voll- und Teilzeit</li>
+          <li>Einstieg auch ohne Vorerfahrung</li>
+        </ul>
+        <a class="knopf knopf--voll" href="ihre-bewerbung/">Jetzt bewerben</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       Videos. Der Kanal steht noch nicht fest. Der Abschnitt bleibt
+       vollständig verborgen, solange keine Video-ID eingetragen ist —
+       ein leerer Kasten wäre schlechter als gar keiner. Eintragen in
+       app.js, Liste VIDEOS.
+       ============================================================ -->
+  <section class="videos" id="videos" aria-labelledby="videos-titel" hidden data-videos>
+    <div class="huelle">
+      <p class="marker">Aus unserer Arbeit</p>
+      <h2 id="videos-titel">Videos</h2>
+      <div class="videos__gitter" data-video-gitter></div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       Angebot. Felder wie im bestehenden Formular des Kunden, damit
+       sich für ihn im Posteingang nichts ändert. Neu sind die sechs
+       Leistungen, die bisher fehlten, und der zweite Weg über
+       WhatsApp — dasselbe Formular, zwei Ziele.
+       ============================================================ -->
+  <section class="angebot" id="angebot" aria-labelledby="angebot-titel">
+    <div class="huelle angebot__innen">
+      <div class="angebot__text">
+        <p class="marker">Angebot anfordern</p>
+        <h2 id="angebot-titel">Sagen Sie uns, worum es geht</h2>
+        <p>
+          Je genauer die Angaben, desto genauer das Angebot. Wenn es schnell
+          gehen muss, rufen Sie einfach an — wir sind rund um die Uhr
+          erreichbar.
+        </p>
+        <p class="angebot__direkt">
+          <a href="tel:+436508933881"><svg class="im" viewBox="0 0 20 20" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6.2 2.5 8 6.1 6.3 7.9c.9 1.9 2 3 3.8 3.8l1.8-1.7 3.6 1.8v3c0 .8-.7 1.4-1.5 1.3C7.7 15.6 4.4 12.3 2.7 4c-.1-.8.5-1.5 1.3-1.5z"/></svg> +43 650 893 38 81</a><br>
+          <a href="mailto:info@ckrreinigung.at"><svg class="im" viewBox="0 0 20 20" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="2" y="4" width="16" height="12" rx="2"/><path d="m2.6 5 7.4 5.6L17.4 5"/></svg> info@ckrreinigung.at</a>
+        </p>
+      </div>
+
+      <form class="formular" data-formular novalidate>
+        <div class="feld">
+          <label for="f-email">E-Mail <span aria-hidden="true">*</span></label>
+          <input id="f-email" name="email" type="email" autocomplete="email" required>
+        </div>
+        <div class="feld feld--halb">
+          <label for="f-vorname">Vorname</label>
+          <input id="f-vorname" name="vorname" type="text" autocomplete="given-name">
+        </div>
+        <div class="feld feld--halb">
+          <label for="f-nachname">Nachname</label>
+          <input id="f-nachname" name="nachname" type="text" autocomplete="family-name">
+        </div>
+        <div class="feld">
+          <label for="f-firma">Firmenname</label>
+          <input id="f-firma" name="firma" type="text" autocomplete="organization">
+        </div>
+
+        <fieldset class="feld feld--leistungen">
+          <legend>Leistungen</legend>
+          <div class="leistung-gitter" data-leistungen></div>
+        </fieldset>
+
+        <div class="feld">
+          <label for="f-anliegen">Ihr Anliegen</label>
+          <textarea id="f-anliegen" name="anliegen" rows="5"></textarea>
+        </div>
+
+        <p class="formular__hinweis" data-hinweis role="status"></p>
+
+        <div class="formular__knoepfe">
+          <button class="knopf knopf--voll" type="submit" data-senden="mail"><svg class="im" viewBox="0 0 20 20" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="2" y="4" width="16" height="12" rx="2"/><path d="m2.6 5 7.4 5.6L17.4 5"/></svg> Per E-Mail senden</button>
+          <button class="knopf knopf--gruen" type="button" data-senden="whatsapp"><svg class="im" viewBox="0 0 24 24" width="17" height="17" aria-hidden="true" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.9-1.3A10 10 0 1 0 12 2m0 1.8a8.2 8.2 0 1 1-4.2 15.2l-.3-.2-2.9.8.8-2.8-.2-.3A8.2 8.2 0 0 1 12 3.8m-3.1 4c-.2 0-.5 0-.7.3-.3.3-.9.9-.9 2.1s.9 2.4 1 2.6c.2.2 1.8 2.8 4.4 3.8 2.2.8 2.6.7 3.1.6.5 0 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2l-.6-.3-1.5-.7c-.2 0-.4-.1-.5.1l-.7.9c-.1.2-.3.2-.5.1-.2-.1-1-.4-2-1.2-.7-.7-1.2-1.5-1.4-1.7-.1-.2 0-.4.1-.5l.4-.5.3-.4v-.5l-.7-1.6c-.2-.4-.4-.4-.5-.4z"/></svg> Per WhatsApp senden</button>
+        </div>
+        <p class="formular__recht">
+          Mit dem Absenden stimmen Sie zu, dass wir Ihre Angaben zur Bearbeitung
+          Ihrer Anfrage verwenden. Details in der
+          <a href="datenschutzerklaerung/">Datenschutzerklärung</a>.
+        </p>
+      </form>
+    </div>
+  </section>
+
+</main>
+
+<footer class="fuss" id="kontakt">
+  <div class="huelle fuss__innen">
+    <div>
+      <picture>
+        <source type="image/webp" srcset="img/logo.webp">
+        <img class="fuss__logo" src="img/logo.png" width="1360" height="682" alt="CKR Cleaning Services" loading="lazy">
+      </picture>
+      <p class="fuss__satz">Ihr Gebäude in sicheren Händen.</p>
+    </div>
+
+    <div>
+      <h2>Kontakt</h2>
+      <address>
+        <span class="zeile"><svg class="im" viewBox="0 0 20 20" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M10 18s6-5.2 6-9.4A6 6 0 0 0 4 8.6C4 12.8 10 18 10 18"/><circle cx="10" cy="8.5" r="2.2"/></svg> <span>CKR – Cleaning Services<br>Weckaufstraße 10<br>6330 Kufstein, Österreich</span></span>
+        <span class="zeile"><svg class="im" viewBox="0 0 20 20" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6.2 2.5 8 6.1 6.3 7.9c.9 1.9 2 3 3.8 3.8l1.8-1.7 3.6 1.8v3c0 .8-.7 1.4-1.5 1.3C7.7 15.6 4.4 12.3 2.7 4c-.1-.8.5-1.5 1.3-1.5z"/></svg> <a href="tel:+436508933881">+43 650 893 38 81</a></span>
+        <span class="zeile"><svg class="im" viewBox="0 0 20 20" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="2" y="4" width="16" height="12" rx="2"/><path d="m2.6 5 7.4 5.6L17.4 5"/></svg> <a href="mailto:info@ckrreinigung.at">info@ckrreinigung.at</a></span>
+      </address>
+      <p class="fuss__zeiten"><span class="jetzt__punkt" aria-hidden="true"></span>Rund um die Uhr erreichbar, 7 Tage die Woche.</p>
+    </div>
+
+    <div>
+      <h2>Folgen</h2>
+      <ul class="fuss__liste">
+        <li><a href="https://www.instagram.com/ckr.cleaningservices/" target="_blank" rel="noopener">Instagram</a></li>
+        <li><a href="https://www.facebook.com/ckrkufstein" target="_blank" rel="noopener">Facebook</a></li>
+      </ul>
+      <h2>Rechtliches</h2>
+      <ul class="fuss__liste">
+        <li><a href="impressum/">Impressum</a></li>
+        <li><a href="datenschutzerklaerung/">Datenschutzerklärung</a></li>
+        <!-- Wer einmal zugestimmt hat, muss das zurücknehmen können.
+             Der Link öffnet dasselbe Fenster erneut; siehe app.js. -->
+        <li><a href="#" data-einwilligung-oeffnen>Cookie-Einstellungen</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="huelle fuss__unten">
+    <p>© <span data-jahr>2026</span> CKR – Cleaning Services · Kufstein</p>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Videoprüfung · CKR</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="stylesheet" href="schriften.css?v=13">
+<link rel="stylesheet" href="styles.css?v=13">
+<style>
+  /* Eigenständige Prüfseite. Sie gehört nicht zur Website, sie ist ein
+     Werkzeug: Sie öffnen sie, und sie sagt in Klartext, was Ihr Browser
+     mit dem Video macht. Bei einem Fehler, den ich hier nicht
+     nachstellen kann, ist das der schnellste Weg zur Ursache. */
+  .pruef { padding: 2rem 0 4rem; }
+  .urteil {
+    font-family: var(--anzeige); font-weight: 700; font-size: var(--t2);
+    padding: 1rem 1.2rem; border-radius: 12px; margin: 0 0 1.4rem;
+    border: 2px solid var(--linie); background: var(--flaeche);
+  }
+  .urteil[data-stand="gut"]  { border-color: var(--gruen); color: var(--gruen); }
+  .urteil[data-stand="mies"] { border-color: #C1121F; color: #C1121F; }
+  .buehne {
+    position: relative; aspect-ratio: 16/9; max-width: 40rem;
+    border: 1px solid var(--linie); border-radius: 12px; overflow: hidden;
+    background: var(--dunkel); margin-bottom: 1.4rem;
+  }
+  .buehne video { position: absolute; inset: 0; width: 100%; height: 100%;
+                  object-fit: cover; pointer-events: none; }
+  table.werte { border-collapse: collapse; width: 100%; max-width: 40rem;
+                font-size: var(--t-1); }
+  table.werte th, table.werte td {
+    text-align: left; padding: 0.5rem 0.6rem; border-top: 1px solid var(--linie);
+    vertical-align: top;
+  }
+  table.werte th { width: 14rem; font-weight: 600; color: var(--tinte-weich); }
+  table.werte td { font-family: ui-monospace, monospace; }
+  .ja  { color: var(--gruen); font-weight: 700; }
+  .nein{ color: #C1121F; font-weight: 700; }
+</style>
+</head>
+<body>
+
+<main class="pruef">
+  <div class="huelle">
+    <h1>Videoprüfung</h1>
+    <p class="abschnitt__vorspann">
+      Diese Seite gehört nicht zur Website. Sie prüft, was Ihr Browser mit
+      dem Hintergrundvideo macht, und schreibt es unten hin. Lassen Sie sie
+      zehn Sekunden offen und schicken Sie mir dann einen Bildschirmfoto.
+    </p>
+
+    <p class="urteil" id="urteil" data-stand="warten">Wird geprüft …</p>
+
+    <div class="buehne"><video id="v" muted loop autoplay playsinline
+      disablepictureinpicture disableremoteplayback x-webkit-airplay="deny"
+      preload="auto" src="video/glas-loop.mp4"></video></div>
+
+    <table class="werte">
+      <tbody>
+        <tr><th>Datei erreichbar</th><td id="w-datei">…</td></tr>
+        <tr><th>Autoplay angenommen</th><td id="w-autoplay">…</td></tr>
+        <tr><th>Läuft gerade</th><td id="w-laeuft">…</td></tr>
+        <tr><th>Videozeit</th><td id="w-zeit">…</td></tr>
+        <tr><th>Wirklich gezeichnete Bilder</th><td id="w-bilder">…</td></tr>
+        <tr><th>readyState</th><td id="w-ready">…</td></tr>
+        <tr><th>Fehlercode</th><td id="w-fehler">…</td></tr>
+        <tr><th>Bild-im-Bild möglich</th><td id="w-pip">…</td></tr>
+        <tr><th>Bild-im-Bild gerade aktiv</th><td id="w-pipan">…</td></tr>
+        <tr><th>Auflösung der Datei</th><td id="w-groesse">…</td></tr>
+        <tr><th>Browser</th><td id="w-browser">…</td></tr>
+      </tbody>
+    </table>
+
+    <p style="margin-top:2rem"><a class="knopf" href="./">Zurück zur Website</a></p>
+  </div>
+</main>
+
+<script>
+(function () {
+  var v = document.getElementById("v");
+  var urteil = document.getElementById("urteil");
+  var w = function (id) { return document.getElementById("w-" + id); };
+  var gemalt = 0, autoplay = null, fehler = null;
+
+  function jn(b) {
+    return '<span class="' + (b ? "ja" : "nein") + '">' + (b ? "ja" : "nein") + "</span>";
+  }
+
+  if (v.requestVideoFrameCallback) {
+    var zaehl = function () { gemalt++; v.requestVideoFrameCallback(zaehl); };
+    v.requestVideoFrameCallback(zaehl);
+  }
+
+  v.addEventListener("error", function () {
+    fehler = v.error ? v.error.code + " — " + (v.error.message || "") : "unbekannt";
+  });
+
+  var p = v.play();
+  if (p && p.then) {
+    p.then(function () { autoplay = true; })
+     .catch(function (e) { autoplay = false; fehler = fehler || (e && e.name); });
+  } else {
+    autoplay = "unbekannt (altes API)";
+  }
+
+  function malen() {
+    w("datei").innerHTML  = jn(v.readyState > 0 && !v.error);
+    w("autoplay").innerHTML = autoplay === null ? "…" :
+      (autoplay === true ? jn(true) : (autoplay === false ? jn(false) : autoplay));
+    w("laeuft").innerHTML = jn(!v.paused && !v.ended && v.readyState > 2);
+    w("zeit").textContent  = v.currentTime.toFixed(2) + " s von " +
+                             (isFinite(v.duration) ? v.duration.toFixed(2) : "?") + " s";
+    w("bilder").textContent = v.requestVideoFrameCallback ? gemalt :
+                              "wird von diesem Browser nicht gemeldet";
+    w("ready").textContent = v.readyState + " (4 = alles da)";
+    w("fehler").innerHTML  = fehler ? '<span class="nein">' + fehler + "</span>" : "keiner";
+    w("pip").innerHTML     = jn(!!document.pictureInPictureEnabled);
+    w("pipan").innerHTML   = document.pictureInPictureElement ?
+                             '<span class="nein">JA — das ist das Problem</span>' : "nein";
+    w("groesse").textContent = v.videoWidth + " × " + v.videoHeight;
+    w("browser").textContent = navigator.userAgent;
+
+    /* Das Urteil richtet sich danach, ob wirklich Bilder ankommen —
+       eine laufende Uhr allein hat schon einmal getäuscht. */
+    var laeuft = !v.paused && v.readyState > 2;
+    var malt = !v.requestVideoFrameCallback || gemalt > 3;
+    if (document.pictureInPictureElement) {
+      urteil.dataset.stand = "mies";
+      urteil.textContent = "Das Video läuft im Bild-im-Bild-Fenster, nicht auf der Seite.";
+    } else if (fehler) {
+      urteil.dataset.stand = "mies";
+      urteil.textContent = "Das Video lädt nicht: " + fehler;
+    } else if (autoplay === false && v.paused) {
+      urteil.dataset.stand = "mies";
+      urteil.textContent = "Ihr Browser blockiert automatisches Abspielen.";
+    } else if (laeuft && malt) {
+      urteil.dataset.stand = "gut";
+      urteil.textContent = "Alles in Ordnung — das Video läuft auf der Seite.";
+    } else if (laeuft && !malt) {
+      urteil.dataset.stand = "mies";
+      urteil.textContent = "Die Uhr läuft, aber es wird kein Bild gezeichnet.";
+    } else {
+      urteil.dataset.stand = "warten";
+      urteil.textContent = "Wird geprüft …";
+    }
+    requestAnimationFrame(malen);
+  }
+  malen();
+
+  document.addEventListener("enterpictureinpicture", malen);
+  document.addEventListener("leavepictureinpicture", malen);
+})();
+</script>
+</body>
+</html>

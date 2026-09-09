@@ -1,0 +1,12 @@
+# Betriebssystem
+.DS_Store
+
+# Nur zum Testen auf dem eigenen Rechner. Der Server hier kann
+# HTTP-Bereichsabfragen (Range), was python3 -m http.server nicht kann —
+# ohne das lässt sich ein Video nicht springen lassen.
+__pycache__/
+
+# Rohmaterial, interne Notizen und die Ausgangsdatei des Videos liegen
+# bewusst NICHT in diesem Depot: es ist öffentlich und trägt den Namen
+# des Kunden. Sie liegen im privaten Depot kodozen-kaynak unter
+# ckr-material/.
