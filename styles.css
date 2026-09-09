@@ -253,11 +253,16 @@ a { color: inherit; }
 }
 .auftakt__glas {
   position: relative; overflow: hidden;
-  border-radius: 15px; aspect-ratio: 4 / 5;
+  border-radius: 15px;
+  /* 3:4, weil Midjourney genau dieses Format kann und 4:5 nicht.
+     Lieber der Rahmen passt sich dem Bild an als umgekehrt: bei einem
+     abweichenden Seitenverhältnis schneidet object-fit die Ränder weg,
+     und weggeschnitten wird immer das, was der Fotograf mitgedacht hat. */
+  aspect-ratio: 3 / 4;
   background: var(--dunkel);
   --film: 1; user-select: none;
 }
-@media (max-width: 900px) { .auftakt__glas { aspect-ratio: 16 / 10; } }
+@media (max-width: 900px) { .auftakt__glas { aspect-ratio: 4 / 3; } }
 
 .auftakt__glas video, .auftakt__standbild {
   position: absolute; inset: 0; width: 100%; height: 100%;
@@ -425,7 +430,12 @@ a { color: inherit; }
   /* 33rem ≈ 528 px: die Originale sind 360 px breit, mehr als das
      Anderthalbfache verträgt die Skalierung nicht. Bessere Aufnahmen
      vom Kunden heben die Grenze wieder an. */
-  max-width: 33rem; aspect-ratio: 3 / 2;
+  max-width: 33rem;
+  /* 4:3 statt 3:2 — dasselbe Format, das die Bildwerkzeuge liefern.
+     Die beiden echten Aufnahmen sind 3:2; bei ihnen schneidet der
+     Rahmen oben und unten je vier Prozent weg, was bei einem leeren
+     Raum nichts kostet. Kommen bessere Originale, passt es exakt. */
+  aspect-ratio: 4 / 3;
   border-radius: 14px; overflow: hidden;
   border: 1px solid var(--linie); background: var(--dunkel);
   touch-action: pan-y;
