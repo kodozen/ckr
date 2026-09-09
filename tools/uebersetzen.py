@@ -78,8 +78,10 @@ def uebersetzen(quelle, woerter, code):
                '<meta property="og:locale" content="%s">' % LOCALE.get(code, code), s, count=1)
 
     # Pfade gehen eine Ebene tiefer
-    s = re.sub(r'\b(href|src|srcset)="(?!https?:|#|/|mailto:|tel:|data:)([^"]+)"',
+    s = re.sub(r'\b(href|src|srcset)="(?!https?:|#|/|mailto:|tel:|data:|\./)([^"]+)"',
                lambda m: '%s="../%s"' % (m.group(1), m.group(2)), s)
+    # "./" zeigt auf die Startseite; eine Ebene tiefer ist das "../"
+    s = s.replace('href="./"', 'href="../"')
 
     # Die Leistungsliste im Formular kommt aus app.js, nicht aus dem
     # HTML — sonst bliebe sie in der übersetzten Fassung deutsch und

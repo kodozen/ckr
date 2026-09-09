@@ -57,11 +57,12 @@ def lies(name):
 
 def tiefer(s):
     """Relative Pfade eine Ebene tiefer schieben."""
-    s = re.sub(r'\b(href|src|srcset)="(?!https?:|#|/|mailto:|tel:|data:|\.\./)([^"]+)"',
+    s = re.sub(r'\b(href|src|srcset)="(?!https?:|#|/|mailto:|tel:|data:|\./|\.\./)([^"]+)"',
                lambda m: '%s="../%s"' % (m.group(1), m.group(2)), s)
     # Ankersprünge zeigen auf die Startseite, nicht auf diese Seite
     s = re.sub(r'href="#([a-z-]+)"', r'href="../#\1"', s)
     s = s.replace('href="/"', 'href="../"')
+    s = s.replace('href="./"', 'href="../"')
     return s
 
 
