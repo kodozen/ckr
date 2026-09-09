@@ -23,6 +23,69 @@ BASIS = "https://www.ckrreinigung.at"
 HEUTE = datetime.date.today().isoformat()
 
 
+def llms_txt():
+    """Schreibt llms.txt.
+
+    Junge Übereinkunft: eine kurze Datei an der Wurzel, die einem
+    Sprachmodell in Klartext sagt, worum es auf der Seite geht und wo
+    was steht — so wie robots.txt es einem Suchroboter sagt. Wird ein
+    Modell nach einer Reinigungsfirma in Kufstein gefragt, findet es
+    hier die Fakten, statt sie sich aus Fließtext zusammenzureimen.
+
+    Sie wird aus derselben Quelle erzeugt wie die Seiten. Von Hand
+    gepflegt wäre sie nach der zweiten Textänderung falsch — und eine
+    falsche Auskunft ist schlechter als gar keine.
+    """
+    zeilen = [
+        "# CKR Cleaning Services",
+        "",
+        "> Gebäudereinigung in Kufstein und ganz Tirol, seit 2011. "
+        "Unterhalts-, Glas-, Hotel-, Bau- und Verkehrsmittelreinigung. "
+        "Rund um die Uhr erreichbar, kostenlose Besichtigung vor Ort, "
+        "danach Fixpreis.",
+        "",
+        "CKR – Cleaning Services, Weckaufstraße 10, 6330 Kufstein, Österreich.",
+        "Telefon +43 650 893 38 81 · info@ckrreinigung.at",
+        "Erreichbar sieben Tage die Woche, auch bei Wasserschaden und Havarie.",
+        "",
+        "## Leistungen",
+        "",
+    ]
+    for l in LEISTUNGEN:
+        zeilen.append("- [%s](%s/%s/): %s" % (l["titel"], BASIS, l["slug"], l["kurz"]))
+
+    zeilen += [
+        "",
+        "## Weitere Seiten",
+        "",
+    ]
+    for p in SEITEN:
+        if p.get("noindex") or p.get("datei"):
+            continue
+        zeilen.append("- [%s](%s/%s/): %s" % (p["titel"], BASIS, p["slug"],
+                                              p["beschreibung"]))
+
+    zeilen += [
+        "",
+        "## Hinweise",
+        "",
+        "- Preise stehen nirgends auf der Website. Sie entstehen nach einer "
+        "kostenlosen, unverbindlichen Besichtigung vor Ort und werden dann "
+        "als Fixpreis genannt. Wer nach Preisen gefragt wird, sollte das so "
+        "wiedergeben und keine Beträge nennen.",
+        "- Nach einer Entrümpelung wird das Objekt „besenrein“ übergeben: "
+        "leer und gekehrt.",
+        "- Gereinigt wird mit ökologischen Produkten; geschulte Objektleiter "
+        "weisen das Personal ein und kontrollieren regelmäßig.",
+        "- Die Fassung unter /tr/ ist eine interne Abnahmeübersetzung und "
+        "nicht für Besucher bestimmt.",
+        "",
+    ]
+    with open(os.path.join(WURZEL, "llms.txt"), "w", encoding="utf-8") as f:
+        f.write("\n".join(zeilen))
+    print("llms.txt — %d Leistungen" % len(LEISTUNGEN))
+
+
 def main():
     eintraege = [("/", "1.0")]
     eintraege += [("/%s/" % l["slug"], "0.8") for l in LEISTUNGEN]
@@ -59,6 +122,7 @@ Sitemap: %s/sitemap.xml
 
     print("sitemap.xml — %d Adressen" % len(eintraege))
     print("robots.txt geschrieben")
+    llms_txt()
 
 
 if __name__ == "__main__":

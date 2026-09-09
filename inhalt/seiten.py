@@ -8,6 +8,46 @@ alten Website, damit vorhandene Links und Platzierungen halten.
 
 SEITEN = [
 {
+ "slug": "404",
+ "datei": "404.html",          # liegt an der Wurzel, nicht im Ordner
+ "titel": "Seite nicht gefunden",
+ "beschreibung": "Diese Adresse gibt es nicht. Hier geht es zu den Leistungen und zum Kontakt von CKR Cleaning Services in Kufstein.",
+ "noindex": True,              # eine Fehlerseite gehört nie in den Index
+ "rumpf": r'''<p class="marker">Fehler 404</p>
+    <h1>Diese Seite gibt es nicht</h1>
+    <p class="abschnitt__vorspann">
+      Vielleicht ein Tippfehler in der Adresse, vielleicht ein alter Link.
+      Beides kein Grund, wieder zu gehen — hier entlang:
+    </p>
+
+    <h2>Unsere Leistungen</h2>
+    <ul class="vierkant">
+      <li><a href="unterhaltsreinigung/">Unterhaltsreinigung</a></li>
+      <li><a href="treppenhausreinigung/">Treppenhausreinigung</a></li>
+      <li><a href="grundreinigung/">Grundreinigung</a></li>
+      <li><a href="glasreinigung/">Glasreinigung</a></li>
+      <li><a href="fenster-und-fassadenreinigung/">Fenster- &amp; Fassadenreinigung</a></li>
+      <li><a href="hotelreinigung/">Hotelreinigung</a></li>
+      <li><a href="appartementreinigung/">Appartementreinigung</a></li>
+      <li><a href="teppichreinigung/">Teppichreinigung</a></li>
+      <li><a href="baureinigung-endreinigung/">Baureinigung &amp; Endreinigung</a></li>
+      <li><a href="entruempelung-hausbetreuung/">Entrümpelung &amp; Hausbetreuung</a></li>
+      <li><a href="verkehrsmittelreinigung/">Verkehrsmittelreinigung</a></li>
+      <li><a href="denkmalreinigung/">Denkmalreinigung</a></li>
+    </ul>
+
+    <h2>Oder direkt</h2>
+    <p>
+      Sagen Sie uns einfach, worum es geht — wir sind rund um die Uhr
+      erreichbar.
+    </p>
+    <p class="rechtsseite__knoepfe">
+      <a class="knopf knopf--voll" href="tel:+436508933881"><span aria-hidden="true">☎</span> +43 650 893 38 81</a>
+      <a class="knopf" href="#angebot">Angebot anfordern</a>
+    </p>''',
+},
+
+{
  "slug": "ihre-bewerbung",
  "titel": "Ihre Bewerbung",
  "beschreibung": "Arbeiten bei CKR Cleaning Services in Kufstein: Lehrstelle Gebäudereinigung, Voll- und Teilzeit, Einstieg auch ohne Vorerfahrung.",

@@ -40,7 +40,12 @@ jobs:
           mkdir -p _site
           rsync -a --exclude '.git' --exclude '_site' ./ _site/
           cd _site
-          python3 tools/seiten-bauen.py
+          # Unter kodozen.github.io/ckr/ liegt die Seite in einem
+          # Unterordner. Nur die 404-Seite braucht das: sie wird für jede
+          # unbekannte Adresse ausgeliefert und arbeitet deshalb als
+          # einzige mit absoluten Verweisen. Beim Umzug auf die eigene
+          # Domain hier auf "/" setzen.
+          SEITEN_WURZEL=/ckr/ python3 tools/seiten-bauen.py
           python3 tools/uebersetzen.py tr
           python3 tools/sitemap-bauen.py
 
