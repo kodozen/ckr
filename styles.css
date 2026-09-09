@@ -897,17 +897,24 @@ a { color: inherit; }
 }
 
 /* Der Abzweig hängt sichtbar an Wörgl. */
-.strecke--abzweig {
-  padding-top: 0.2rem; margin-left: clamp(0rem, 34%, 26rem);
-  max-width: 12rem;
+/* Der Abzweig hängt im Listeneintrag von Wörgl und wird dadurch von
+   der Reihe selbst positioniert. Vorher stand hier ein geschätzter
+   Prozentwert — und der zeigte auf den falschen Ort. Ein Wert, den man
+   raten muss, ist irgendwann falsch; einer, der aus dem Layout kommt,
+   nicht. */
+.abzweig {
+  list-style: none; margin: 0; padding: 1.9rem 0 0;
+  position: relative;
 }
-.strecke--abzweig::before {
-  left: 50%; right: auto; top: -1.5rem; width: 3px; height: 2.2rem;
+.abzweig::before {
+  content: ""; position: absolute; left: 50%; top: 0.2rem;
+  transform: translateX(-50%);
+  width: 3px; height: 1.9rem; border-radius: 2px;
   background: linear-gradient(180deg,
-    color-mix(in srgb, var(--gruen) 60%, transparent), var(--gruen));
+    color-mix(in srgb, var(--gruen) 55%, transparent), var(--gruen));
 }
-.strecke--abzweig .halt { padding-top: 1.8rem; }
-.strecke--abzweig .halt button::before { top: 0.1rem; }
+.abzweig .halt { padding-top: 0; flex: none; }
+.abzweig .halt button::before { top: -0.55rem; }
 
 .band-karte__tafel {
   margin: 1.6rem 0 0; padding: 0.9rem 1.1rem;
@@ -933,10 +940,12 @@ a { color: inherit; }
   .halt button:hover::before, .halt button:focus-visible::before,
   .halt button[data-an]::before { transform: translate(-50%, -50%) scale(1.25); }
   .halt--sitz button::before { top: 50%; }
-  .strecke--abzweig { margin-left: 2rem; max-width: none; }
-  .strecke--abzweig::before { left: 0.5rem; top: -0.6rem; height: 100%; }
-  .strecke--abzweig .halt { padding-top: 0; }
-  .strecke--abzweig .halt button::before { top: 50%; }
+  .abzweig { padding: 0 0 0 1.6rem; margin-top: 0.2rem; }
+  .abzweig::before { left: 0.5rem; top: -0.9rem; height: 2.2rem;
+                     transform: none; }
+  .abzweig .halt { padding-left: 2rem; }
+  .abzweig .halt button::before { left: 0.5rem; top: 50%;
+                                  transform: translate(-50%, -50%); }
 }
 
 @media (prefers-reduced-motion: reduce) {

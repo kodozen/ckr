@@ -43,9 +43,9 @@
      Erzeugt von tools/schriften-holen.py. -->
 <link rel="preload" href="../schrift/archivo-700-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="../schrift/public-sans-400-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="../schriften.css?v=27">
-<link rel="stylesheet" href="../styles.css?v=27">
-<script src="../app.js?v=27" defer></script>
+<link rel="stylesheet" href="../schriften.css?v=28">
+<link rel="stylesheet" href="../styles.css?v=28">
+<script src="../app.js?v=28" defer></script>
 <!-- ============================================================
      Vorausladen (Speculation Rules)
      ------------------------------------------------------------
@@ -1022,23 +1022,30 @@
       </p>
 
       <div class="band-karte" data-karte>
-        <p class="band-karte__achse">Inn vadisi — batıdan doğuya</p>
+        <p class="band-karte__achse">Inntal — flussabwärts von West nach Ost</p>
 
+        <!-- Reihenfolge und Abzweig sind geprüft: der Inn fließt von
+             Innsbruck über Schwaz, Jenbach, Brixlegg, Rattenberg und
+             Kramsach nach Wörgl, dann nach Kufstein und Ebbs. Nach
+             Kitzbühel geht es über das Brixental ab WÖRGL — deshalb
+             hängt der Abzweig jetzt IM Listeneintrag von Wörgl und
+             nicht an einem geschätzten Prozentwert. So kann er nicht
+             mehr verrutschen, wenn ein Ort dazukommt oder wegfällt. -->
         <ol class="strecke">
           <li class="halt"><button type="button" data-ort="Innsbruck" data-weg="75 km">Innsbruck</button></li>
-          <li class="halt"><button type="button" data-ort="Schwaz" data-weg="45 km">Schwaz</button></li>
-          <li class="halt"><button type="button" data-ort="Jenbach" data-weg="38 km">Jenbach</button></li>
+          <li class="halt"><button type="button" data-ort="Schwaz" data-weg="48 km">Schwaz</button></li>
+          <li class="halt"><button type="button" data-ort="Jenbach" data-weg="42 km">Jenbach</button></li>
+          <li class="halt"><button type="button" data-ort="Brixlegg" data-weg="33 km">Brixlegg</button></li>
+          <li class="halt"><button type="button" data-ort="Rattenberg" data-weg="31 km">Rattenberg</button></li>
           <li class="halt"><button type="button" data-ort="Kramsach" data-weg="30 km">Kramsach</button></li>
-          <li class="halt"><button type="button" data-ort="Rattenberg" data-weg="28 km">Rattenberg</button></li>
-          <li class="halt"><button type="button" data-ort="Brixlegg" data-weg="26 km">Brixlegg</button></li>
-          <li class="halt halt--knoten"><button type="button" data-ort="Wörgl" data-weg="18 km" data-abzweig="Kitzbühel">Wörgl</button></li>
+          <li class="halt halt--knoten">
+            <button type="button" data-ort="Wörgl" data-weg="18 km" data-abzweig="Kitzbühel">Wörgl</button>
+            <ol class="abzweig">
+              <li class="halt"><button type="button" data-ort="Kitzbühel" data-weg="40 km" data-ueber="Brixental">Kitzbühel</button></li>
+            </ol>
+          </li>
           <li class="halt halt--sitz"><button type="button" data-ort="Kufstein" data-weg="Sitz" aria-current="true">Kufstein</button></li>
-          <li class="halt"><button type="button" data-ort="Ebbs" data-weg="5 km">Ebbs</button></li>
-          <li class="halt"><button type="button" data-ort="Kiefersfelden" data-weg="8 km">Kiefersfelden</button></li>
-        </ol>
-
-        <ol class="strecke strecke--abzweig">
-          <li class="halt"><button type="button" data-ort="Kitzbühel" data-weg="40 km">Kitzbühel</button></li>
+          <li class="halt"><button type="button" data-ort="Ebbs" data-weg="6 km">Ebbs</button></li>
         </ol>
 
         <p class="band-karte__tafel" data-karte-tafel aria-live="polite">

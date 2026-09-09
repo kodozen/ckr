@@ -904,7 +904,9 @@
         text = "<strong>" + ort + "</strong> — unser Sitz. Weckaufstraße 10.";
       } else {
         text = "<strong>" + ort + "</strong> — rund " + weg + " von Kufstein.";
-        if (abzweig) text += " Von hier geht es nach " + abzweig + ".";
+        var ueber = knopf.dataset.ueber;
+        if (ueber) text += " Über das " + ueber + ".";
+        if (abzweig) text += " Von hier zweigt die Strecke nach " + abzweig + " ab.";
       }
       tafel.innerHTML = text;
 

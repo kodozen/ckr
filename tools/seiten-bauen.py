@@ -208,9 +208,9 @@ def seite_bauen(l, kopf, fuss):
 <!-- Schriften vom eigenen Server; siehe tools/schriften-holen.py -->
 <link rel="preload" href="../schrift/archivo-700-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="../schrift/public-sans-400-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="../schriften.css?v=27">
-<link rel="stylesheet" href="../styles.css?v=27">
-<script src="../app.js?v=27" defer></script>
+<link rel="stylesheet" href="../schriften.css?v=28">
+<link rel="stylesheet" href="../styles.css?v=28">
+<script src="../app.js?v=28" defer></script>
 
 %(regeln)s
 
@@ -385,9 +385,9 @@ def einfache_seite(p, kopf, fuss):
 %(noindex)s%(symbol)s
 <link rel="preload" href="../schrift/archivo-700-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="../schrift/public-sans-400-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="../schriften.css?v=27">
-<link rel="stylesheet" href="../styles.css?v=27">
-<script src="../app.js?v=27" defer></script>
+<link rel="stylesheet" href="../schriften.css?v=28">
+<link rel="stylesheet" href="../styles.css?v=28">
+<script src="../app.js?v=28" defer></script>
 
 %(regeln)s
 
