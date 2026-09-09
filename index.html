@@ -41,9 +41,9 @@
      Erzeugt von tools/schriften-holen.py. -->
 <link rel="preload" href="schrift/archivo-700-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="schrift/public-sans-400-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="schriften.css?v=21">
-<link rel="stylesheet" href="styles.css?v=21">
-<script src="app.js?v=21" defer></script>
+<link rel="stylesheet" href="schriften.css?v=23">
+<link rel="stylesheet" href="styles.css?v=23">
+<script src="app.js?v=23" defer></script>
 <!-- ============================================================
      Vorausladen (Speculation Rules)
      ------------------------------------------------------------
@@ -602,7 +602,7 @@
        dass die Rechnung am Ende größer ist als die Zusage. Deshalb
        steht der Ablauf jetzt vorne und nicht im Kleingedruckten.
        ============================================================ -->
-  <section class="ablauf" id="ablauf" aria-labelledby="ablauf-titel">
+  <section class="ablauf" id="ablauf" aria-labelledby="ablauf-titel" data-ablauf>
     <div class="huelle">
       <p class="marker">So läuft es ab</p>
       <h2 id="ablauf-titel">Erst schauen, dann ein fester Preis</h2>
@@ -611,42 +611,97 @@
         wirklich zu tun ist, und nennen danach einen Preis, der hält.
       </p>
 
-      <ol class="ablauf__schritte">
-        <li class="schritt">
-          <p class="schritt__nr" aria-hidden="true">1</p>
-          <h3>Sie melden sich</h3>
-          <p>
-            Anruf, Formular oder WhatsApp — ein paar Sätze genügen.
-            Wir melden uns zurück und stimmen einen Termin ab.
-          </p>
-        </li>
-        <li class="schritt">
-          <p class="schritt__nr" aria-hidden="true">2</p>
-          <h3>Besichtigung vor Ort</h3>
-          <p>
-            Kostenlos und unverbindlich. Wir klären Umfang, Zugang und
-            Zeitfenster — und sagen offen, wenn etwas nicht nötig ist.
-          </p>
-        </li>
-        <li class="schritt">
-          <p class="schritt__nr" aria-hidden="true">3</p>
-          <h3>Fixpreis, schriftlich</h3>
-          <p>
-            Sie bekommen einen festen Preis, keine Schätzung, die später
-            wächst. Bei laufender Reinigung dazu einen Plan, der zu Ihrem
-            Wochenablauf passt.
-          </p>
-        </li>
-        <li class="schritt">
-          <p class="schritt__nr" aria-hidden="true">4</p>
-          <h3>Wir reinigen — und kontrollieren</h3>
-          <p>
-            Geschulte Objektleiter weisen das Team ein und prüfen die Arbeit
-            regelmäßig nach. Passt etwas nicht, sagen Sie es uns, nicht der
-            nächsten Firma.
-          </p>
-        </li>
-      </ol>
+      <div class="ablauf__buehne">
+
+        <!-- Bleibt beim Scrollen stehen und wechselt das Bild, während
+             rechts die Schritte vorbeiziehen. Ohne JavaScript ist das
+             erste Bild zu sehen und alle vier Texte stehen daneben — die
+             Aussage geht nicht verloren, nur die Bewegung. -->
+        <div class="ablauf__anzeige" aria-hidden="true">
+          <div class="ablauf__zaehler">
+            <span class="ablauf__nr" data-ablauf-nr>01</span>
+            <span class="ablauf__von">/ 04</span>
+          </div>
+
+          <div class="ablauf__szenen">
+            <svg class="ablauf__szene" data-szene="0" viewBox="0 0 200 200" fill="none"
+                 stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="52" y="26" width="96" height="148" rx="14"/>
+              <path d="M86 46h28"/>
+              <circle cx="100" cy="154" r="6" fill="currentColor" stroke="none"/>
+              <path d="M74 84h52M74 104h52M74 124h30" class="ablauf__akzent"/>
+            </svg>
+
+            <svg class="ablauf__szene" data-szene="1" viewBox="0 0 200 200" fill="none"
+                 stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M34 168V96l50-38 50 38v72"/>
+              <path d="M22 96 84 48l62 48"/>
+              <path d="M70 168v-38h28v38"/>
+              <circle cx="140" cy="122" r="30" class="ablauf__akzent"/>
+              <path d="m162 144 20 20" class="ablauf__akzent"/>
+            </svg>
+
+            <svg class="ablauf__szene" data-szene="2" viewBox="0 0 200 200" fill="none"
+                 stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M48 24h72l32 32v120a8 8 0 0 1-8 8H48a8 8 0 0 1-8-8V32a8 8 0 0 1 8-8Z"/>
+              <path d="M118 24v34h34"/>
+              <path d="M64 100h72M64 122h48"/>
+              <path d="m64 150 16 16 32-32" class="ablauf__akzent"/>
+            </svg>
+
+            <svg class="ablauf__szene" data-szene="3" viewBox="0 0 200 200" fill="none"
+                 stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="34" y="34" width="132" height="86" rx="8"/>
+              <path d="M34 96h132"/>
+              <path d="M100 120v46M72 166h56"/>
+              <path d="M52 62h44" class="ablauf__akzent"/>
+              <path d="m118 74 12 12 22-26" class="ablauf__akzent"/>
+            </svg>
+          </div>
+
+          <ol class="ablauf__leiste">
+            <li data-ablauf-punkt></li><li data-ablauf-punkt></li>
+            <li data-ablauf-punkt></li><li data-ablauf-punkt></li>
+          </ol>
+        </div>
+
+        <ol class="ablauf__schritte">
+          <li class="schritt" data-ablauf-schritt>
+            <p class="schritt__nr" aria-hidden="true">01</p>
+            <h3>Sie melden sich</h3>
+            <p>
+              Anruf, Formular oder WhatsApp — ein paar Sätze genügen.
+              Wir melden uns zurück und stimmen einen Termin ab.
+            </p>
+          </li>
+          <li class="schritt" data-ablauf-schritt>
+            <p class="schritt__nr" aria-hidden="true">02</p>
+            <h3>Besichtigung vor Ort</h3>
+            <p>
+              Kostenlos und unverbindlich. Wir klären Umfang, Zugang und
+              Zeitfenster — und sagen offen, wenn etwas nicht nötig ist.
+            </p>
+          </li>
+          <li class="schritt" data-ablauf-schritt>
+            <p class="schritt__nr" aria-hidden="true">03</p>
+            <h3>Fixpreis, schriftlich</h3>
+            <p>
+              Sie bekommen einen festen Preis, keine Schätzung, die später
+              wächst. Bei laufender Reinigung dazu einen Plan, der zu Ihrem
+              Wochenablauf passt.
+            </p>
+          </li>
+          <li class="schritt" data-ablauf-schritt>
+            <p class="schritt__nr" aria-hidden="true">04</p>
+            <h3>Wir reinigen — und kontrollieren</h3>
+            <p>
+              Geschulte Objektleiter weisen das Team ein und prüfen die Arbeit
+              regelmäßig nach. Passt etwas nicht, sagen Sie es uns, nicht der
+              nächsten Firma.
+            </p>
+          </li>
+        </ol>
+      </div>
     </div>
   </section>
 
@@ -689,7 +744,7 @@
        dunklen Markenfarbe, weil es das Ungewöhnlichste ist, was sie
        anbieten — und das Einzige, wo „im Minutentakt“ wörtlich gilt.
        ============================================================ -->
-  <section class="band" id="verkehrsmittel" aria-labelledby="verkehr-titel">
+  <section class="band" id="verkehrsmittel" data-licht aria-labelledby="verkehr-titel">
     <div class="huelle band__innen">
       <div>
         <p class="marker marker--hell">Verkehrsmittelreinigung</p>
@@ -1172,6 +1227,45 @@
           <a href="datenschutzerklaerung/">Datenschutzerklärung</a>.
         </p>
       </form>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       Der Schlusssatz
+       ------------------------------------------------------------
+       Wer bis hierher gescrollt hat und das Formular übersprungen
+       hat, will meistens nur eines: anrufen. Deshalb ist die
+       Nummer hier nicht eine Zeile im Fuß, sondern das größte
+       Element der Seite.
+
+       Große Typografie ohne Aussage wäre Dekoration. Der Satz
+       darüber ist derselbe, mit dem der Betrieb wirbt, und der
+       darunter nennt die einzige Bedingung: es kostet nichts,
+       bis jemand da war.
+       ============================================================ -->
+  <section class="ruf" aria-labelledby="ruf-titel" data-licht>
+    <div class="huelle">
+      <p class="marker marker--hell">Rund um die Uhr erreichbar</p>
+      <h2 id="ruf-titel" class="ruf__satz">
+        Reden wir über<br>Ihr Gebäude.
+      </h2>
+      <a class="ruf__nummer" href="tel:+436508933881">
+        <span class="ruf__hoerer" aria-hidden="true">
+          <svg viewBox="0 0 20 20" width="26" height="26" fill="none" stroke="currentColor"
+               stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6.2 2.5 8 6.1 6.3 7.9c.9 1.9 2 3 3.8 3.8l1.8-1.7 3.6 1.8v3c0 .8-.7 1.4-1.5 1.3C7.7 15.6 4.4 12.3 2.7 4c-.1-.8.5-1.5 1.3-1.5z"/>
+          </svg>
+        </span>
+        +43 650 893 38 81
+      </a>
+      <p class="ruf__zusatz">
+        Die Besichtigung kostet nichts und verpflichtet zu nichts.
+        Erst danach nennen wir einen Preis — und der hält.
+      </p>
+      <div class="ruf__knoepfe">
+        <a class="knopf knopf--hell" href="#angebot">Angebot anfordern</a>
+        <a class="knopf knopf--hell" href="https://wa.me/436508933881" target="_blank" rel="noopener">WhatsApp</a>
+      </div>
     </div>
   </section>
 

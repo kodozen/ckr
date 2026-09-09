@@ -879,6 +879,68 @@
 
 
   /* ==========================================================
+     Ablauf: die Anzeige folgt dem Scrollen
+     ----------------------------------------------------------
+     Vier gleich große Kacheln nebeneinander liest man als
+     Aufzählung. Nacheinander, mit einer Anzeige daneben, die
+     mitgeht, liest man sie als Ablauf — und darum geht es hier:
+     dass jemand versteht, dass zuerst besichtigt und erst danach
+     ein Preis genannt wird.
+
+     Ein IntersectionObserver mit einem schmalen Band in der
+     Bildschirmmitte, keine Scroll-Rechnerei. Der Schritt, der
+     dieses Band schneidet, ist der aktive. Das ist billig und
+     bleibt auch beim schnellen Wischen richtig.
+     ========================================================== */
+
+  (function () {
+    var abschnitt = document.querySelector("[data-ablauf]");
+    if (!abschnitt || !window.IntersectionObserver) return;
+
+    var schritte = [].slice.call(abschnitt.querySelectorAll("[data-ablauf-schritt]"));
+    var szenen = [].slice.call(abschnitt.querySelectorAll("[data-szene]"));
+    var punkte = [].slice.call(abschnitt.querySelectorAll("[data-ablauf-punkt]"));
+    var zaehler = abschnitt.querySelector("[data-ablauf-nr]");
+    var szenenKasten = abschnitt.querySelector(".ablauf__szenen");
+    if (!schritte.length || !szenen.length) return;
+
+    /* Kennzeichnet, dass jetzt JavaScript führt: davor zeigt CSS die
+       erste Szene, damit nie ein leeres Quadrat dasteht. */
+    if (szenenKasten) szenenKasten.dataset.bereit = "ja";
+
+    var aktuell = -1;
+
+    function setzen(i) {
+      if (i === aktuell) return;
+      aktuell = i;
+      schritte.forEach(function (s, n) {
+        if (n === i) s.dataset.an = "ja"; else delete s.dataset.an;
+      });
+      szenen.forEach(function (s, n) {
+        if (n === i) s.dataset.an = "ja"; else delete s.dataset.an;
+      });
+      punkte.forEach(function (p, n) {
+        if (n <= i) p.dataset.an = "ja"; else delete p.dataset.an;
+      });
+      if (zaehler) zaehler.textContent = "0" + (i + 1);
+    }
+
+    setzen(0);
+
+    /* Das Band liegt zwischen 45 % und 55 % der Höhe: was dort steht,
+       schaut man gerade an. Ein Beobachter über die volle Höhe würde
+       bei kurzen Schritten mehrere gleichzeitig melden. */
+    var beobachter = new IntersectionObserver(function (eintraege) {
+      eintraege.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        setzen(schritte.indexOf(e.target));
+      });
+    }, { rootMargin: "-45% 0px -55% 0px", threshold: 0 });
+
+    schritte.forEach(function (s) { beobachter.observe(s); });
+  })();
+
+  /* ==========================================================
      Das Haus
      ----------------------------------------------------------
      Die Beschreibungen stehen hier und nicht im HTML, weil sie
@@ -983,25 +1045,27 @@
      ========================================================== */
 
   (function () {
-    var band = document.querySelector(".band");
-    if (!band) return;
     if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
+    var flaechen = [].slice.call(document.querySelectorAll("[data-licht]"));
+    if (!flaechen.length) return;
 
-    var wartet = false, letzteX = 0, letzteY = 0;
+    flaechen.forEach(function (flaeche) {
+      var wartet = false, x = 0, y = 0;
 
-    function malen() {
-      wartet = false;
-      var k = band.getBoundingClientRect();
-      band.style.setProperty("--zx", ((letzteX - k.left) / k.width * 100) + "%");
-      band.style.setProperty("--zy", ((letzteY - k.top) / k.height * 100) + "%");
-    }
+      function malen() {
+        wartet = false;
+        var k = flaeche.getBoundingClientRect();
+        flaeche.style.setProperty("--zx", ((x - k.left) / k.width * 100) + "%");
+        flaeche.style.setProperty("--zy", ((y - k.top) / k.height * 100) + "%");
+      }
 
-    band.addEventListener("mousemove", function (e) {
-      letzteX = e.clientX; letzteY = e.clientY;
-      if (wartet) return;
-      wartet = true;
-      window.requestAnimationFrame(malen);
-    }, { passive: true });
+      flaeche.addEventListener("mousemove", function (e) {
+        x = e.clientX; y = e.clientY;
+        if (wartet) return;
+        wartet = true;
+        window.requestAnimationFrame(malen);
+      }, { passive: true });
+    });
   })();
 
   /* ==========================================================

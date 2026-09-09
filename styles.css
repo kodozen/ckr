@@ -614,40 +614,113 @@ a { color: inherit; }
 }
 
 /* ------------------------------------------------------------
-   Ablauf — vier Schritte
+   Ablauf — vier Schritte, vom Scrollen getrieben
    ------------------------------------------------------------
-   Die Ziffern sind groß und blass: sie ordnen, ohne zu schreien.
-   Als <ol> ausgezeichnet, damit die Reihenfolge auch dann noch
-   Sinn ergibt, wenn ein Screenreader sie vorliest.
+   Links bleibt eine Anzeige stehen, rechts ziehen die vier
+   Schritte vorbei; die Anzeige wechselt mit. Vier gleich große
+   Kacheln nebeneinander liest man als Aufzählung — hier liest
+   man sie als Ablauf, weil sie nacheinander kommen.
+
+   Ohne JavaScript ist das erste Bild zu sehen und alle vier
+   Texte stehen daneben. Die Aussage bleibt vollständig, nur
+   die Bewegung fehlt.
    ------------------------------------------------------------ */
 
 .ablauf {
   padding: clamp(3rem, 8vw, 6rem) 0;
-  background: var(--flaeche); border-block: 1px solid var(--linie);
+  background: var(--flaeche);
 }
+.ablauf__buehne {
+  display: grid; gap: clamp(1.6rem, 5vw, 4rem);
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1fr);
+  align-items: start;
+}
+@media (max-width: 860px) {
+  .ablauf__buehne { grid-template-columns: 1fr; }
+}
+
+/* --- Die stehende Anzeige --- */
+.ablauf__anzeige {
+  position: sticky; top: 7.5rem;
+  display: grid; justify-items: center; gap: 1.2rem;
+  padding: clamp(1.4rem, 3vw, 2.2rem);
+  border: 1px solid var(--linie); border-radius: 18px;
+  background: var(--grund); box-shadow: var(--heben);
+}
+/* Auf schmalen Geräten würde die Anzeige den halben Bildschirm
+   besetzen, während man liest. Dort läuft sie einfach mit. */
+@media (max-width: 860px) { .ablauf__anzeige { position: static; } }
+
+.ablauf__zaehler { display: flex; align-items: baseline; gap: 0.5rem; }
+.ablauf__nr {
+  font-family: var(--anzeige); font-weight: 700; line-height: 1;
+  font-size: clamp(3rem, 2rem + 4vw, 5rem);
+  letter-spacing: -0.04em;
+  background: linear-gradient(135deg, var(--tinte) 8%, var(--blau) 52%, var(--gruen) 100%);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent; color: transparent;
+}
+.ablauf__von { font-size: var(--t0); color: var(--tinte-weich); font-weight: 600; }
+
+.ablauf__szenen { position: relative; width: min(14rem, 60vw); aspect-ratio: 1; }
+.ablauf__szene {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  color: var(--tinte);
+  opacity: 0; transform: scale(0.94);
+  transition: opacity 0.45s var(--bogen), transform 0.45s var(--bogen);
+}
+.ablauf__szene[data-an] { opacity: 1; transform: none; }
+/* Ohne JavaScript ist keine Szene gekennzeichnet — dann zeigt die
+   erste. Sonst stünde hier ein leeres Quadrat. */
+.ablauf__szenen:not([data-bereit]) .ablauf__szene[data-szene="0"] {
+  opacity: 1; transform: none;
+}
+.ablauf__akzent { stroke: var(--gruen); }
+
+.ablauf__leiste {
+  list-style: none; margin: 0; padding: 0;
+  display: flex; gap: 0.45rem;
+}
+.ablauf__leiste li {
+  width: 2rem; height: 4px; border-radius: 2px;
+  background: var(--linie);
+  transition: background 0.35s var(--bogen);
+}
+.ablauf__leiste li[data-an] { background: var(--gruen); }
+
+/* --- Die Schritte --- */
 .ablauf__schritte {
   list-style: none; margin: 0; padding: 0;
-  display: grid; gap: 1rem;
-  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  display: grid; gap: clamp(1rem, 3vw, 1.6rem);
   counter-reset: schritt;
 }
 .schritt {
-  position: relative; padding: 1.5rem 1.3rem 1.2rem;
-  border: 1px solid var(--linie); border-radius: 12px;
+  position: relative; padding: clamp(1.4rem, 3vw, 2rem);
+  border: 1px solid var(--linie); border-radius: 14px;
   background: var(--grund);
+  transition: border-color 0.35s var(--bogen), background 0.35s var(--bogen),
+              box-shadow 0.35s var(--bogen);
+}
+/* Der Schritt, bei dem man gerade ist, tritt hervor. Alle anderen
+   bleiben lesbar — ausgegraut wäre bevormundend. */
+.schritt[data-an] {
+  border-color: var(--gruen);
+  background: var(--flaeche);
+  box-shadow: var(--heben);
 }
 .schritt__nr {
   font-family: var(--anzeige); font-weight: 700;
-  font-size: 2.6rem; line-height: 1; margin: 0 0 0.4rem;
+  font-size: 1.6rem; line-height: 1; margin: 0 0 0.5rem;
   color: var(--linie);
+  transition: color 0.35s var(--bogen);
 }
+.schritt[data-an] .schritt__nr { color: var(--gruen); }
 .schritt h3 { margin-bottom: 0.4rem; }
 .schritt p:last-child { margin: 0; color: var(--tinte-weich); font-size: var(--t-1); }
 
-/* Der letzte Schritt ist der, an dem sich CKR messen lassen will —
-   deshalb bekommt nur er den grünen Rand. */
-.schritt:last-child { border-color: var(--gruen); }
-.schritt:last-child .schritt__nr { color: var(--gruen); }
+@media (prefers-reduced-motion: reduce) {
+  .ablauf__szene, .ablauf__leiste li, .schritt, .schritt__nr { transition: none; }
+}
 
 /* ------------------------------------------------------------
    Pakete und Leistungsumfang
@@ -1340,6 +1413,89 @@ html[data-handleiste="an"] body {
       url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='k'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23k)' opacity='0.35'/%3E%3C/svg%3E");
     opacity: 0.55;
   }
+}
+
+/* ------------------------------------------------------------
+   Der Schlusssatz
+   ------------------------------------------------------------
+   Wer bis hierher gescrollt und das Formular übersprungen hat,
+   will meistens nur anrufen. Deshalb ist die Nummer hier das
+   größte Element der Seite — größer als jede Überschrift.
+
+   Große Typografie ohne Aussage wäre Dekoration. Der Satz
+   darüber ist der, mit dem der Betrieb wirbt; der darunter
+   nennt die einzige Bedingung.
+   ------------------------------------------------------------ */
+
+.ruf {
+  position: relative; isolation: isolate;
+  padding: clamp(4rem, 11vw, 8rem) 0;
+  background: var(--dunkel); color: #fff;
+  text-align: center;
+}
+.ruf .huelle { max-width: 54rem; }
+
+.ruf__satz {
+  font-size: clamp(2.6rem, 1.4rem + 5.4vw, 5.6rem);
+  line-height: 1.02; letter-spacing: -0.03em;
+  margin: 0 0 2rem; color: #fff;
+}
+
+/* Die Nummer ist der eigentliche Knopf. Kein Rahmen, kein Kasten —
+   sie IST die Schaltfläche, und sie ist so groß, dass niemand
+   danach sucht. */
+.ruf__nummer {
+  display: inline-flex; align-items: center; justify-content: center;
+  gap: clamp(0.6rem, 1.6vw, 1.1rem);
+  font-family: var(--anzeige); font-weight: 700;
+  font-size: clamp(1.7rem, 0.9rem + 3.4vw, 3.4rem);
+  letter-spacing: -0.02em; line-height: 1.1;
+  text-decoration: none; color: #fff;
+  padding: 0.4rem 0.2rem;
+  border-bottom: 3px solid color-mix(in srgb, var(--gruen-hell) 55%, transparent);
+  transition: border-color 0.25s var(--bogen), transform 0.25s var(--bogen);
+}
+.ruf__nummer:hover {
+  border-bottom-color: var(--gruen-hell);
+  transform: translateY(-2px);
+}
+.ruf__hoerer {
+  display: grid; place-items: center; flex: none;
+  width: clamp(2.6rem, 1.6rem + 2.4vw, 3.6rem);
+  aspect-ratio: 1; border-radius: 50%;
+  background: var(--gruen); color: #fff;
+}
+
+.ruf__zusatz {
+  margin: 1.6rem auto 2rem; max-width: 44ch;
+  color: rgba(255, 255, 255, 0.72);
+}
+.ruf__knoepfe { display: flex; flex-wrap: wrap; gap: 0.7rem; justify-content: center; }
+
+/* Korn und Zeigerlicht wie auf der anderen dunklen Fläche. */
+.ruf::after {
+  content: ""; position: absolute; inset: 0; z-index: -1;
+  pointer-events: none; opacity: 0.4;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='k'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23k)' opacity='0.35'/%3E%3C/svg%3E");
+}
+.ruf::before {
+  content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background:
+    radial-gradient(46rem 24rem at 20% 0%, rgba(92, 188, 26, 0.16), transparent 62%),
+    radial-gradient(42rem 22rem at 84% 100%, rgba(40, 56, 200, 0.32), transparent 64%);
+}
+@media (hover: hover) and (pointer: fine) {
+  .ruf::after {
+    background-image:
+      radial-gradient(30rem circle at var(--zx, 50%) var(--zy, 0%),
+                      rgba(255, 255, 255, 0.10), transparent 45%),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='k'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23k)' opacity='0.35'/%3E%3C/svg%3E");
+    opacity: 0.55;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ruf__nummer { transition: none; }
+  .ruf__nummer:hover { transform: none; }
 }
 
 /* ------------------------------------------------------------
