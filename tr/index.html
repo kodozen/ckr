@@ -33,7 +33,7 @@
 <meta property="og:image" content="https://www.ckrreinigung.at/img/og-bild.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="CKR Cleaning Services, Kufstein — Ihr Gebäude in sicheren Händen.">
+<meta property="og:image:alt" content="CKR Cleaning Services, Kufstein — Binanız güvenli ellerde.">
 <meta property="og:site_name" content="CKR Cleaning Services">
 <meta name="twitter:card" content="summary_large_image">
 <!-- /kopf:gemeinsam -->
@@ -43,9 +43,9 @@
      Erzeugt von tools/schriften-holen.py. -->
 <link rel="preload" href="../schrift/archivo-700-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="../schrift/public-sans-400-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="../schriften.css?v=19">
-<link rel="stylesheet" href="../styles.css?v=19">
-<script src="../app.js?v=19" defer></script>
+<link rel="stylesheet" href="../schriften.css?v=20">
+<link rel="stylesheet" href="../styles.css?v=20">
+<script src="../app.js?v=20" defer></script>
 <!-- ============================================================
      Vorausladen (Speculation Rules)
      ------------------------------------------------------------
@@ -299,7 +299,7 @@
              sieben Tage offen. -->
         <p class="plakette">
           <span class="plakette__punkt" aria-hidden="true"></span>
-          Gebäudereinigung in Kufstein
+          Kufstein'da bina temizliği
           <span class="plakette__teiler" aria-hidden="true"></span>
           <strong>2011'den beri</strong>
         </p>
@@ -314,10 +314,10 @@
              Versicherung, Zufriedenheitsgarantie, Meistertitel — steht
              hier bewusst nicht. -->
         <ul class="auftakt__punkte">
-          <li>Kostenlose Besichtigung, danach Fixpreis</li>
-          <li>24 Stunden erreichbar, auch bei Havarie</li>
-          <li>Ökologische Mittel, geschulte Objektleiter</li>
-          <li>Lehrbetrieb in der Gebäudereinigung</li>
+          <li>Ücretsiz keşif, ardından sabit fiyat</li>
+          <li>24 saat ulaşılabilir, acil durumda da</li>
+          <li>Ekolojik ürünler, eğitimli saha şefleri</li>
+          <li>Bina temizliğinde çıraklık eğitimi veren işletme</li>
         </ul>
 
         <div class="auftakt__knoepfe">
@@ -348,8 +348,8 @@
         <div class="schwebe schwebe--oben">
           <span class="schwebe__zahl">10<span aria-hidden="true">+</span></span>
           <span class="schwebe__text">
-            <strong>Jahre in Kufstein</strong>
-            Dieselbe Firma seit 2011
+            <strong>yıldır Kufstein'da</strong>
+            2011'den beri aynı firma
           </span>
         </div>
 
@@ -361,7 +361,7 @@
             </svg>
           </span>
           <span class="schwebe__text">
-            <strong>24-Stunden-Notdienst</strong>
+            <strong>24 saat acil servis</strong>
             +43 650 893 38 81
           </span>
         </a>
@@ -877,33 +877,112 @@
         </p>
       </div>
 
-      <form class="formular" data-formular novalidate>
-        <div class="feld">
-          <label for="f-email">E-posta <span aria-hidden="true">*</span></label>
-          <input id="f-email" name="email" type="email" autocomplete="email" required>
-        </div>
-        <div class="feld feld--halb">
-          <label for="f-vorname">Ad</label>
-          <input id="f-vorname" name="vorname" type="text" autocomplete="given-name">
-        </div>
-        <div class="feld feld--halb">
-          <label for="f-nachname">Soyad</label>
-          <input id="f-nachname" name="nachname" type="text" autocomplete="family-name">
-        </div>
-        <div class="feld">
-          <label for="f-firma">Firma adı</label>
-          <input id="f-firma" name="firma" type="text" autocomplete="organization">
-        </div>
+      <!-- ============================================================
+           Anfrage-Assistent
+           ------------------------------------------------------------
+           Bewusst OHNE Preisrechner. Ein Rechner müsste Sätze pro
+           Quadratmeter erfinden, und CKR sagt genau das Gegenteil zu:
+           erst kostenlos besichtigen, dann ein Festpreis. Nennt die
+           Seite 162 Euro und das Angebot lautet 400, führt diesen
+           Streit der Betrieb, nicht die Website.
 
-        <fieldset class="feld feld--leistungen">
-          <legend>Hizmetler</legend>
+           Was der Assistent stattdessen tut: er fragt genau das ab,
+           was für die Besichtigung gebraucht wird, und baut daraus
+           eine ordentlich sortierte Anfrage. Für den Besucher fühlt
+           es sich leichter an als ein langes Formular; für CKR kommt
+           etwas an, mit dem sich sofort arbeiten lässt.
+
+           Ohne JavaScript bleibt es ein ganz normales, vollständiges
+           Formular — alle Abschnitte untereinander. Erst app.js macht
+           daraus Schritte. Deshalb sind alle Felder echtes HTML und
+           kein Skript erzeugt sie.
+           ============================================================ -->
+      <form class="formular" data-formular data-assistent novalidate>
+
+        <fieldset class="schritt-block" data-schritt data-titel="Leistung">
+          <legend>Konu nedir?</legend>
+          <p class="schritt-block__hilfe">Birden fazla seçebilirsiniz.</p>
           <div class="leistung-gitter" data-leistungen></div>
         </fieldset>
 
-        <div class="feld">
-          <label for="f-anliegen">Konunuz</label>
-          <textarea id="f-anliegen" name="anliegen" rows="5"></textarea>
-        </div>
+        <fieldset class="schritt-block" data-schritt data-titel="Objekt">
+          <legend>Nasıl bir yer?</legend>
+          <div class="wahl-gitter">
+            <label class="wahl"><input type="radio" name="objekt" value="Büro, Praxis oder Geschäft"><span>Ofis, muayenehane veya dükkân</span></label>
+            <label class="wahl"><input type="radio" name="objekt" value="Wohnhaus oder Stiegenhaus"><span>Apartman veya merdiven boşluğu</span></label>
+            <label class="wahl"><input type="radio" name="objekt" value="Hotel oder Pension"><span>Otel veya pansiyon</span></label>
+            <label class="wahl"><input type="radio" name="objekt" value="Ferienwohnung oder Appartement"><span>Tatil dairesi veya apart</span></label>
+            <label class="wahl"><input type="radio" name="objekt" value="Privatwohnung oder Haus"><span>Özel konut veya ev</span></label>
+            <label class="wahl"><input type="radio" name="objekt" value="Baustelle oder Neubau"><span>Şantiye veya yeni yapı</span></label>
+            <label class="wahl"><input type="radio" name="objekt" value="Fahrzeuge"><span>Araçlar</span></label>
+            <label class="wahl"><input type="radio" name="objekt" value="etwas anderes"><span>Başka bir şey</span></label>
+          </div>
+        </fieldset>
+
+        <fieldset class="schritt-block" data-schritt data-titel="Umfang">
+          <legend>Ne kadar büyük, ne sıklıkta?</legend>
+          <p class="schritt-block__hilfe">
+            Kabaca söylemeniz yeterli — kesin kapsamı keşifte görüyoruz.
+          </p>
+          <p class="wahl-titel">Yaklaşık alan</p>
+          <div class="wahl-gitter wahl-gitter--eng">
+            <label class="wahl"><input type="radio" name="groesse" value="bis 100 m²"><span>100 m²'ye kadar</span></label>
+            <label class="wahl"><input type="radio" name="groesse" value="100 bis 300 m²"><span>100–300 m²</span></label>
+            <label class="wahl"><input type="radio" name="groesse" value="300 bis 1000 m²"><span>300–1000 m²</span></label>
+            <label class="wahl"><input type="radio" name="groesse" value="über 1000 m²"><span>1000 m²'den fazla</span></label>
+            <label class="wahl"><input type="radio" name="groesse" value="Fläche unbekannt"><span>bilmiyorum</span></label>
+          </div>
+          <p class="wahl-titel">Ne sıklıkta</p>
+          <div class="wahl-gitter wahl-gitter--eng">
+            <label class="wahl"><input type="radio" name="rhythmus" value="einmalig"><span>tek seferlik</span></label>
+            <label class="wahl"><input type="radio" name="rhythmus" value="wöchentlich"><span>haftalık</span></label>
+            <label class="wahl"><input type="radio" name="rhythmus" value="14-tägig"><span>İki haftada bir</span></label>
+            <label class="wahl"><input type="radio" name="rhythmus" value="mehrmals pro Woche"><span>haftada birkaç kez</span></label>
+            <label class="wahl"><input type="radio" name="rhythmus" value="noch offen"><span>henüz belli değil</span></label>
+          </div>
+        </fieldset>
+
+        <fieldset class="schritt-block" data-schritt data-titel="Zeitpunkt">
+          <legend>Bize ne zaman ihtiyacınız var?</legend>
+          <div class="wahl-gitter">
+            <label class="wahl wahl--dringend"><input type="radio" name="zeitpunkt" value="DRINGEND — Havarie oder Wasserschaden"><span>Acil — arıza veya su baskını</span></label>
+            <label class="wahl"><input type="radio" name="zeitpunkt" value="so bald wie möglich"><span>Mümkün olan en kısa sürede</span></label>
+            <label class="wahl"><input type="radio" name="zeitpunkt" value="in den nächsten Wochen"><span>Önümüzdeki haftalarda</span></label>
+            <label class="wahl"><input type="radio" name="zeitpunkt" value="zu einem festen Termin"><span>Belirli bir tarihte</span></label>
+          </div>
+        </fieldset>
+
+        <fieldset class="schritt-block" data-schritt data-titel="Kontakt">
+          <legend>Size nasıl ulaşalım?</legend>
+          <div class="feld">
+            <label for="f-email">E-posta <span aria-hidden="true">*</span></label>
+            <input id="f-email" name="email" type="email" autocomplete="email" required>
+          </div>
+          <div class="feld feld--halb">
+            <label for="f-vorname">Ad</label>
+            <input id="f-vorname" name="vorname" type="text" autocomplete="given-name">
+          </div>
+          <div class="feld feld--halb">
+            <label for="f-nachname">Soyad</label>
+            <input id="f-nachname" name="nachname" type="text" autocomplete="family-name">
+          </div>
+          <div class="feld feld--halb">
+            <label for="f-telefon">Telefon</label>
+            <input id="f-telefon" name="telefon" type="tel" autocomplete="tel">
+          </div>
+          <div class="feld feld--halb">
+            <label for="f-ort">Yer</label>
+            <input id="f-ort" name="ort" type="text" autocomplete="address-level2">
+          </div>
+          <div class="feld">
+            <label for="f-firma">Firma adı</label>
+            <input id="f-firma" name="firma" type="text" autocomplete="organization">
+          </div>
+          <div class="feld">
+            <label for="f-anliegen">Eklemek istediğiniz bir şey var mı?</label>
+            <textarea id="f-anliegen" name="anliegen" rows="4"></textarea>
+          </div>
+        </fieldset>
 
         <p class="formular__hinweis" data-hinweis role="status"></p>
 

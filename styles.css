@@ -1241,6 +1241,106 @@ html[data-handleiste="an"] body {
 }
 
 /* ------------------------------------------------------------
+   Anfrage-Assistent
+   ------------------------------------------------------------
+   Fünf Schritte statt einer langen Liste. Ohne JavaScript stehen
+   alle Abschnitte untereinander und das Formular funktioniert
+   vollständig — deshalb wirkt hier fast alles erst, wenn app.js
+   das Kennzeichen data-assistent-an gesetzt hat.
+   ------------------------------------------------------------ */
+
+.assistent__leiste {
+  list-style: none; margin: 0 0 1.6rem; padding: 0 0 1.2rem;
+  display: flex; gap: 0.3rem; flex-wrap: wrap;
+  border-bottom: 1px solid var(--linie);
+}
+.assistent__punkt {
+  display: flex; align-items: center; gap: 0.45rem;
+  background: none; border: 0; padding: 0.35rem 0.5rem;
+  font: inherit; font-size: var(--t-1); color: var(--tinte-weich);
+  cursor: pointer; border-radius: 8px;
+}
+.assistent__nr {
+  display: grid; place-items: center;
+  width: 1.55rem; height: 1.55rem; border-radius: 50%;
+  border: 1.5px solid var(--linie); background: var(--flaeche);
+  font-weight: 700; font-size: 0.78rem; line-height: 1;
+  transition: background 0.2s var(--bogen), border-color 0.2s var(--bogen),
+              color 0.2s var(--bogen);
+}
+.assistent__punkt[data-stand="hier"] { color: var(--tinte); font-weight: 600; }
+.assistent__punkt[data-stand="hier"] .assistent__nr {
+  background: var(--tinte); border-color: var(--tinte); color: #fff;
+}
+.assistent__punkt[data-stand="erledigt"] .assistent__nr {
+  background: var(--gruen); border-color: var(--gruen); color: #fff;
+}
+/* Auf schmalen Geräten nur die Ziffern — fünf Wörter passen dort nicht
+   nebeneinander und brechen die Leiste in drei Zeilen. */
+@media (max-width: 620px) {
+  .assistent__name { position: absolute; width: 1px; height: 1px;
+                     overflow: hidden; clip-path: inset(50%); }
+  .assistent__leiste { gap: 0.5rem; }
+}
+
+.schritt-block { border: 0; margin: 0; padding: 0; min-width: 0; }
+.schritt-block legend {
+  font-family: var(--anzeige); font-weight: 700; font-size: var(--t1);
+  padding: 0; margin-bottom: 0.4rem;
+}
+.schritt-block__hilfe {
+  margin: 0 0 1rem; font-size: var(--t-1); color: var(--tinte-weich);
+}
+/* Ohne Assistent stehen die Abschnitte untereinander und brauchen Luft. */
+.formular:not([data-assistent-an]) .schritt-block { margin-bottom: 2.2rem; }
+
+.wahl-titel {
+  margin: 1.2rem 0 0.5rem; font-size: var(--t-1); font-weight: 600;
+  color: var(--tinte-weich);
+}
+.wahl-gitter {
+  display: grid; gap: 0.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(13.5rem, 1fr));
+}
+.wahl-gitter--eng { grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr)); }
+
+/* Die ganze Fläche ist die Schaltfläche, nicht nur der kleine Kreis.
+   Auf einem Telefon ist das der Unterschied zwischen treffen und
+   danebentippen. */
+.wahl {
+  display: flex; align-items: center; gap: 0.6rem;
+  min-height: 46px; padding: 0.6rem 0.85rem;
+  border: 1px solid var(--linie); border-radius: 11px;
+  background: var(--flaeche); cursor: pointer;
+  font-size: var(--t-1); line-height: 1.25;
+  transition: border-color 0.18s var(--bogen), box-shadow 0.18s var(--bogen);
+}
+.wahl:hover { border-color: var(--blau); }
+.wahl input { accent-color: var(--gruen); width: 1.05rem; height: 1.05rem;
+              flex: none; margin: 0; }
+.wahl:has(input:checked) {
+  border-color: var(--gruen); box-shadow: 0 0 0 1px var(--gruen) inset;
+  background: color-mix(in srgb, var(--gruen) 6%, var(--flaeche));
+}
+.wahl:has(input:focus-visible) { outline: 3px solid var(--blau); outline-offset: 2px; }
+/* Der dringende Fall ist optisch anders — wer ihn anklickt, hat einen
+   Wasserschaden und soll sehen, dass die Seite das ernst nimmt. */
+.wahl--dringend:has(input:checked) {
+  border-color: #C1121F; box-shadow: 0 0 0 1px #C1121F inset;
+  background: color-mix(in srgb, #C1121F 6%, var(--flaeche));
+}
+
+.assistent__nav {
+  display: flex; gap: 0.7rem; align-items: center;
+  margin-top: 1.6rem;
+}
+.assistent__weiter { margin-left: auto; }
+
+@media (prefers-reduced-motion: reduce) {
+  .wahl, .assistent__nr { transition: none; }
+}
+
+/* ------------------------------------------------------------
    Rechtsseiten (Impressum, Datenschutz)
    ------------------------------------------------------------
    Reine Lesetexte. Eine schmale Spalte, größere Zeilenabstände,

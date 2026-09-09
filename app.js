@@ -800,6 +800,12 @@
       vorname: (d.get("vorname") || "").trim(),
       nachname: (d.get("nachname") || "").trim(),
       firma: (d.get("firma") || "").trim(),
+      telefon: (d.get("telefon") || "").trim(),
+      ort: (d.get("ort") || "").trim(),
+      objekt: (d.get("objekt") || "").trim(),
+      groesse: (d.get("groesse") || "").trim(),
+      rhythmus: (d.get("rhythmus") || "").trim(),
+      zeitpunkt: (d.get("zeitpunkt") || "").trim(),
       leistungen: gewaehlt,
       anliegen: (d.get("anliegen") || "").trim()
     };
@@ -809,7 +815,10 @@
     if (!a.email || a.email.indexOf("@") < 1) {
       melden("Bitte geben Sie eine gültige E-Mail-Adresse an.", "fehler");
       var feld = formular.querySelector("#f-email");
-      if (feld) feld.focus();
+      if (feld) {
+        formular.dispatchEvent(new CustomEvent("ckr:fehlerfeld", { detail: feld }));
+        feld.focus();
+      }
       return false;
     }
     if (!a.leistungen.length && !a.anliegen) {
@@ -819,15 +828,30 @@
     return true;
   }
 
+  /* Die Nachricht ist sortiert, nicht einfach aneinandergereiht: oben
+     das Anliegen, unten die Kontaktdaten. Wer sie am Telefon vorliest,
+     soll nicht suchen müssen. Ein dringender Fall steht ganz vorn. */
   function textBauen(a) {
     var z = [];
-    var name = (a.vorname + " " + a.nachname).trim();
-    if (name) z.push("Name: " + name);
-    if (a.firma) z.push("Firma: " + a.firma);
-    z.push("E-Mail: " + a.email);
-    if (a.leistungen.length) z.push("Leistungen: " + a.leistungen.join(", "));
+    if (a.zeitpunkt && a.zeitpunkt.indexOf("DRINGEND") === 0) {
+      z.push("*** DRINGEND ***", "");
+    }
+    if (a.leistungen.length) z.push("Leistung: " + a.leistungen.join(", "));
+    if (a.objekt) z.push("Objekt: " + a.objekt);
+    if (a.groesse) z.push("Fläche: " + a.groesse);
+    if (a.rhythmus) z.push("Rhythmus: " + a.rhythmus);
+    if (a.zeitpunkt) z.push("Zeitpunkt: " + a.zeitpunkt);
     if (a.anliegen) z.push("", "Anliegen:", a.anliegen);
-    return z.join("\n");
+
+    var kontakt = [];
+    var name = (a.vorname + " " + a.nachname).trim();
+    if (name) kontakt.push("Name: " + name);
+    if (a.firma) kontakt.push("Firma: " + a.firma);
+    kontakt.push("E-Mail: " + a.email);
+    if (a.telefon) kontakt.push("Telefon: " + a.telefon);
+    if (a.ort) kontakt.push("Ort: " + a.ort);
+
+    return z.concat(z.length ? [""] : [], ["Kontakt:"], kontakt).join("\n");
   }
 
   formular.addEventListener("submit", function (e) {
@@ -852,4 +876,126 @@
       melden("WhatsApp wurde geöffnet. Bitte dort noch absenden.", "gut");
     });
   }
+
+
+  /* ==========================================================
+     Der Assistent
+     ----------------------------------------------------------
+     Aus dem langen Formular werden fünf Schritte. Das ist reine
+     Verbesserung: ohne JavaScript stehen alle Abschnitte
+     untereinander und das Formular funktioniert vollständig.
+     Erst hier wird daraus ein geführter Ablauf.
+
+     Absichtlich kein Preisrechner. Ein Rechner müsste Sätze pro
+     Quadratmeter erfinden — und CKR sagt das Gegenteil zu: erst
+     kostenlos besichtigen, dann ein Festpreis. Eine Zahl auf der
+     Website, die das Angebot später nicht hält, kostet mehr
+     Vertrauen, als der Rechner an Anfragen bringt.
+
+     Kein Schritt ist Pflicht. Wer nichts anklickt, kommt weiter;
+     „weiß ich nicht“ ist eine ehrliche Antwort und steht deshalb
+     auch als Auswahl da. Pflicht bleibt allein die E-Mail.
+     ========================================================== */
+
+  (function () {
+    var form = document.querySelector("[data-assistent]");
+    if (!form) return;
+
+    var schritte = [].slice.call(form.querySelectorAll("[data-schritt]"));
+    if (schritte.length < 2) return;
+
+    var stand = 0;
+
+    /* Fortschritt: Punkte statt Balken. Fünf Schritte kann man zählen,
+       da hilft ein Prozentbalken niemandem. Anklickbar, damit man
+       zurück darf, ohne sich durchzuklicken. */
+    var leiste = document.createElement("ol");
+    leiste.className = "assistent__leiste";
+    leiste.setAttribute("aria-label", "Fortschritt");
+    schritte.forEach(function (block, i) {
+      var li = document.createElement("li");
+      var knopf = document.createElement("button");
+      knopf.type = "button";
+      knopf.className = "assistent__punkt";
+      knopf.innerHTML = '<span class="assistent__nr">' + (i + 1) + '</span>' +
+                        '<span class="assistent__name">' +
+                        (block.dataset.titel || "Schritt " + (i + 1)) + '</span>';
+      knopf.addEventListener("click", function () { zeige(i); });
+      li.appendChild(knopf);
+      leiste.appendChild(li);
+    });
+    form.insertBefore(leiste, form.firstChild);
+
+    /* Navigation. Der letzte Schritt hat keinen „Weiter“ — dort stehen
+       die Sendeknöpfe, die ohnehin da sind. */
+    var nav = document.createElement("div");
+    nav.className = "assistent__nav";
+    var zurueckKnopf = document.createElement("button");
+    zurueckKnopf.type = "button";
+    zurueckKnopf.className = "knopf assistent__zurueck";
+    zurueckKnopf.textContent = "Zurück";
+    var weiterKnopf = document.createElement("button");
+    weiterKnopf.type = "button";
+    weiterKnopf.className = "knopf knopf--voll assistent__weiter";
+    weiterKnopf.textContent = "Weiter";
+    zurueckKnopf.addEventListener("click", function () { zeige(stand - 1); });
+    weiterKnopf.addEventListener("click", function () { zeige(stand + 1); });
+    nav.appendChild(zurueckKnopf);
+    nav.appendChild(weiterKnopf);
+
+    var knoepfe = form.querySelector(".formular__knoepfe");
+    form.insertBefore(nav, knoepfe);
+
+    function zeige(i) {
+      if (i < 0 || i >= schritte.length) return;
+      stand = i;
+      schritte.forEach(function (block, n) {
+        block.hidden = n !== i;
+      });
+      [].forEach.call(leiste.querySelectorAll(".assistent__punkt"),
+        function (k, n) {
+          k.dataset.stand = n === i ? "hier" : (n < i ? "erledigt" : "offen");
+          if (n === i) k.setAttribute("aria-current", "step");
+          else k.removeAttribute("aria-current");
+        });
+      zurueckKnopf.hidden = i === 0;
+      var letzter = i === schritte.length - 1;
+      weiterKnopf.hidden = letzter;
+      knoepfe.hidden = !letzter;
+      var recht = form.querySelector(".formular__recht");
+      if (recht) recht.hidden = !letzter;
+
+      /* Nicht nach oben springen, aber die Überschrift des Schritts
+         soll im Bild sein — sonst wechselt unbemerkt der Inhalt. */
+      var legende = schritte[i].querySelector("legend");
+      if (legende && i > 0) {
+        var kasten = form.getBoundingClientRect();
+        if (kasten.top < 0) form.scrollIntoView({ block: "start" });
+      }
+    }
+
+    /* Eine Auswahl, die den Schritt beantwortet, bringt einen von
+       selbst weiter. Nur bei Radios — bei den Leistungen darf man
+       mehrere anhaken, da wäre das Vorspringen im Weg. */
+    form.addEventListener("change", function (e) {
+      if (e.target.type !== "radio") return;
+      if (stand >= schritte.length - 1) return;
+      window.setTimeout(function () { zeige(stand + 1); }, 260);
+    });
+
+    form.dataset.assistentAn = "ja";
+    zeige(0);
+
+    /* Meldet die Prüfung einen Fehler, muss der Schritt sichtbar
+       werden, in dem das Feld steht — sonst zeigt die Seite einen
+       Hinweis auf ein Feld, das gerade verborgen ist. */
+    form.addEventListener("ckr:fehlerfeld", function (e) {
+      var feld = e.detail;
+      if (!feld) return;
+      schritte.forEach(function (block, n) {
+        if (block.contains(feld)) zeige(n);
+      });
+    });
+  })();
+
 })();

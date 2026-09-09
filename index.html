@@ -41,9 +41,9 @@
      Erzeugt von tools/schriften-holen.py. -->
 <link rel="preload" href="schrift/archivo-700-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="schrift/public-sans-400-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="schriften.css?v=19">
-<link rel="stylesheet" href="styles.css?v=19">
-<script src="app.js?v=19" defer></script>
+<link rel="stylesheet" href="schriften.css?v=20">
+<link rel="stylesheet" href="styles.css?v=20">
+<script src="app.js?v=20" defer></script>
 <!-- ============================================================
      Vorausladen (Speculation Rules)
      ------------------------------------------------------------
@@ -918,33 +918,113 @@
         </p>
       </div>
 
-      <form class="formular" data-formular novalidate>
-        <div class="feld">
-          <label for="f-email">E-Mail <span aria-hidden="true">*</span></label>
-          <input id="f-email" name="email" type="email" autocomplete="email" required>
-        </div>
-        <div class="feld feld--halb">
-          <label for="f-vorname">Vorname</label>
-          <input id="f-vorname" name="vorname" type="text" autocomplete="given-name">
-        </div>
-        <div class="feld feld--halb">
-          <label for="f-nachname">Nachname</label>
-          <input id="f-nachname" name="nachname" type="text" autocomplete="family-name">
-        </div>
-        <div class="feld">
-          <label for="f-firma">Firmenname</label>
-          <input id="f-firma" name="firma" type="text" autocomplete="organization">
-        </div>
+      <!-- ============================================================
+           Anfrage-Assistent
+           ------------------------------------------------------------
+           Bewusst OHNE Preisrechner. Ein Rechner müsste Sätze pro
+           Quadratmeter erfinden, und CKR sagt genau das Gegenteil zu:
+           erst kostenlos besichtigen, dann ein Festpreis. Nennt die
+           Seite 162 Euro und das Angebot lautet 400, führt diesen
+           Streit der Betrieb, nicht die Website.
 
-        <fieldset class="feld feld--leistungen">
-          <legend>Leistungen</legend>
+           Was der Assistent stattdessen tut: er fragt genau das ab,
+           was für die Besichtigung gebraucht wird, und baut daraus
+           eine ordentlich sortierte Anfrage. Für den Besucher fühlt
+           es sich leichter an als ein langes Formular; für CKR kommt
+           etwas an, mit dem sich sofort arbeiten lässt.
+
+           Ohne JavaScript bleibt es ein ganz normales, vollständiges
+           Formular — alle Abschnitte untereinander. Erst app.js macht
+           daraus Schritte. Deshalb sind alle Felder echtes HTML und
+           kein Skript erzeugt sie.
+           ============================================================ -->
+      <form class="formular" data-formular data-assistent novalidate>
+
+        <fieldset class="schritt-block" data-schritt data-titel="Leistung">
+          <legend>Worum geht es?</legend>
+          <p class="schritt-block__hilfe">Mehrfachauswahl möglich.</p>
           <div class="leistung-gitter" data-leistungen></div>
         </fieldset>
 
-        <div class="feld">
-          <label for="f-anliegen">Ihr Anliegen</label>
-          <textarea id="f-anliegen" name="anliegen" rows="5"></textarea>
-        </div>
+        <fieldset class="schritt-block" data-schritt data-titel="Objekt">
+          <legend>Was für ein Objekt ist es?</legend>
+          <div class="wahl-gitter">
+            <label class="wahl"><input type="radio" name="objekt" value="Büro, Praxis oder Geschäft"><span>Büro, Praxis oder Geschäft</span></label>
+            <label class="wahl"><input type="radio" name="objekt" value="Wohnhaus oder Stiegenhaus"><span>Wohnhaus oder Stiegenhaus</span></label>
+            <label class="wahl"><input type="radio" name="objekt" value="Hotel oder Pension"><span>Hotel oder Pension</span></label>
+            <label class="wahl"><input type="radio" name="objekt" value="Ferienwohnung oder Appartement"><span>Ferienwohnung oder Appartement</span></label>
+            <label class="wahl"><input type="radio" name="objekt" value="Privatwohnung oder Haus"><span>Privatwohnung oder Haus</span></label>
+            <label class="wahl"><input type="radio" name="objekt" value="Baustelle oder Neubau"><span>Baustelle oder Neubau</span></label>
+            <label class="wahl"><input type="radio" name="objekt" value="Fahrzeuge"><span>Fahrzeuge</span></label>
+            <label class="wahl"><input type="radio" name="objekt" value="etwas anderes"><span>Etwas anderes</span></label>
+          </div>
+        </fieldset>
+
+        <fieldset class="schritt-block" data-schritt data-titel="Umfang">
+          <legend>Wie groß, wie oft?</legend>
+          <p class="schritt-block__hilfe">
+            Grobe Angaben genügen — den genauen Umfang sehen wir bei der
+            Besichtigung.
+          </p>
+          <p class="wahl-titel">Ungefähre Fläche</p>
+          <div class="wahl-gitter wahl-gitter--eng">
+            <label class="wahl"><input type="radio" name="groesse" value="bis 100 m²"><span>bis 100 m²</span></label>
+            <label class="wahl"><input type="radio" name="groesse" value="100 bis 300 m²"><span>100–300 m²</span></label>
+            <label class="wahl"><input type="radio" name="groesse" value="300 bis 1000 m²"><span>300–1000 m²</span></label>
+            <label class="wahl"><input type="radio" name="groesse" value="über 1000 m²"><span>über 1000 m²</span></label>
+            <label class="wahl"><input type="radio" name="groesse" value="Fläche unbekannt"><span>weiß ich nicht</span></label>
+          </div>
+          <p class="wahl-titel">Wie oft</p>
+          <div class="wahl-gitter wahl-gitter--eng">
+            <label class="wahl"><input type="radio" name="rhythmus" value="einmalig"><span>einmalig</span></label>
+            <label class="wahl"><input type="radio" name="rhythmus" value="wöchentlich"><span>wöchentlich</span></label>
+            <label class="wahl"><input type="radio" name="rhythmus" value="14-tägig"><span>14-tägig</span></label>
+            <label class="wahl"><input type="radio" name="rhythmus" value="mehrmals pro Woche"><span>mehrmals pro Woche</span></label>
+            <label class="wahl"><input type="radio" name="rhythmus" value="noch offen"><span>noch offen</span></label>
+          </div>
+        </fieldset>
+
+        <fieldset class="schritt-block" data-schritt data-titel="Zeitpunkt">
+          <legend>Wann brauchen Sie uns?</legend>
+          <div class="wahl-gitter">
+            <label class="wahl wahl--dringend"><input type="radio" name="zeitpunkt" value="DRINGEND — Havarie oder Wasserschaden"><span>Dringend — Havarie oder Wasserschaden</span></label>
+            <label class="wahl"><input type="radio" name="zeitpunkt" value="so bald wie möglich"><span>So bald wie möglich</span></label>
+            <label class="wahl"><input type="radio" name="zeitpunkt" value="in den nächsten Wochen"><span>In den nächsten Wochen</span></label>
+            <label class="wahl"><input type="radio" name="zeitpunkt" value="zu einem festen Termin"><span>Zu einem festen Termin</span></label>
+          </div>
+        </fieldset>
+
+        <fieldset class="schritt-block" data-schritt data-titel="Kontakt">
+          <legend>Wie erreichen wir Sie?</legend>
+          <div class="feld">
+            <label for="f-email">E-Mail <span aria-hidden="true">*</span></label>
+            <input id="f-email" name="email" type="email" autocomplete="email" required>
+          </div>
+          <div class="feld feld--halb">
+            <label for="f-vorname">Vorname</label>
+            <input id="f-vorname" name="vorname" type="text" autocomplete="given-name">
+          </div>
+          <div class="feld feld--halb">
+            <label for="f-nachname">Nachname</label>
+            <input id="f-nachname" name="nachname" type="text" autocomplete="family-name">
+          </div>
+          <div class="feld feld--halb">
+            <label for="f-telefon">Telefon</label>
+            <input id="f-telefon" name="telefon" type="tel" autocomplete="tel">
+          </div>
+          <div class="feld feld--halb">
+            <label for="f-ort">Ort</label>
+            <input id="f-ort" name="ort" type="text" autocomplete="address-level2">
+          </div>
+          <div class="feld">
+            <label for="f-firma">Firmenname</label>
+            <input id="f-firma" name="firma" type="text" autocomplete="organization">
+          </div>
+          <div class="feld">
+            <label for="f-anliegen">Sonst noch etwas?</label>
+            <textarea id="f-anliegen" name="anliegen" rows="4"></textarea>
+          </div>
+        </fieldset>
 
         <p class="formular__hinweis" data-hinweis role="status"></p>
 
