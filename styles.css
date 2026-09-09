@@ -415,6 +415,51 @@ a { color: inherit; }
 .karte li:first-child { border-top: 0; }
 
 /* ------------------------------------------------------------
+   CKR Standard
+   ------------------------------------------------------------
+   Sechs identische Häkchen untereinander wären wieder eine
+   Liste. Jedes Symbol zeigt, wovon die Rede ist — das macht den
+   Unterschied zwischen Überfliegen und Lesen.
+
+   Alle sechs Zusagen sind belegt. Was nicht belegt ist, steht
+   hier nicht.
+   ------------------------------------------------------------ */
+
+.standard { padding: clamp(3rem, 8vw, 5.5rem) 0; position: relative; isolation: isolate; }
+.standard__gitter {
+  list-style: none; margin: 0; padding: 0;
+  display: grid; gap: clamp(1rem, 2.4vw, 1.6rem);
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+}
+.standard__punkt {
+  display: grid; gap: 0.35rem; align-content: start;
+  padding: clamp(1.2rem, 2.4vw, 1.6rem);
+  border: 1px solid var(--linie); border-radius: 14px;
+  background: var(--flaeche);
+  box-shadow: var(--heben), inset 0 1px 0 rgba(255,255,255,0.7);
+  transition: box-shadow 0.28s var(--bogen), transform 0.28s var(--bogen);
+}
+.standard__punkt:hover {
+  box-shadow: var(--schweben), inset 0 1px 0 rgba(255,255,255,0.85);
+  transform: translateY(-3px);
+}
+.standard__zeichen {
+  display: grid; place-items: center;
+  width: 2.9rem; height: 2.9rem; margin-bottom: 0.5rem;
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--gruen) 12%, transparent);
+  color: var(--gruen);
+}
+.standard__zeichen svg { width: 1.6rem; height: 1.6rem; }
+.standard__punkt strong { font-family: var(--anzeige); font-size: var(--t1); }
+.standard__punkt span:last-child { color: var(--tinte-weich); font-size: var(--t-1); }
+
+@media (prefers-reduced-motion: reduce) {
+  .standard__punkt { transition: none; }
+  .standard__punkt:hover { transform: none; }
+}
+
+/* ------------------------------------------------------------
    Vorher / Nachher
    ------------------------------------------------------------
    Das obere Bild wird beschnitten, das untere liegt fest. Der
@@ -791,16 +836,113 @@ a { color: inherit; }
   padding: clamp(3rem, 8vw, 5.5rem) 0;
   background: var(--flaeche); border-block: 1px solid var(--linie);
 }
-.orte {
-  list-style: none; margin: 0 0 1.4rem; padding: 0;
-  display: flex; flex-wrap: wrap; gap: 0.5rem;
+/* --- Streckenband statt Landkarte ---
+   Eine gezeichnete Karte Tirols müsste stimmen, und eine, die nicht
+   stimmt, fällt jedem hier sofort auf. Ein Streckenband behauptet gar
+   nicht erst, eine Karte zu sein: es zeigt die Reihenfolge, und die
+   ist richtig. Für einen Betrieb, der Züge reinigt, ist das ohnehin
+   die passendere Form. */
+
+.band-karte { margin: 0 0 1.6rem; }
+.band-karte__achse {
+  margin: 0 0 0.9rem; font-size: var(--t-1); font-weight: 600;
+  color: var(--tinte-weich); letter-spacing: 0.02em;
 }
-.orte li {
-  border: 1px solid var(--linie); border-radius: 999px;
-  padding: 0.35rem 0.9rem; font-size: var(--t-1);
-  background: var(--grund);
+
+.strecke {
+  list-style: none; margin: 0; padding: 1.6rem 0 0;
+  display: flex; flex-wrap: wrap; align-items: flex-start;
+  gap: 0.2rem 0;
+  position: relative;
 }
-.orte li:last-child { border-style: dashed; color: var(--tinte-weich); }
+/* Die Linie liegt hinter den Halten und läuft durch. Sie ist bewusst
+   nur so lang wie die Reihe: bricht die Reihe um, bricht die Linie mit. */
+.strecke::before {
+  content: ""; position: absolute; left: 0; right: 0; top: 1.6rem;
+  height: 3px; border-radius: 2px;
+  background: linear-gradient(90deg,
+    color-mix(in srgb, var(--blau) 35%, transparent),
+    var(--gruen));
+}
+
+.halt { position: relative; flex: 1 1 6.5rem; padding-top: 1.1rem; }
+.halt button {
+  display: block; width: 100%; padding: 0.35rem 0.2rem;
+  background: none; border: 0; cursor: pointer;
+  font: inherit; font-size: var(--t-1); font-weight: 600;
+  color: var(--tinte-weich); text-align: center;
+  border-radius: 8px; min-height: 44px;
+  transition: color 0.18s var(--bogen);
+}
+.halt button::before {
+  content: ""; position: absolute; left: 50%; top: -0.55rem;
+  transform: translateX(-50%);
+  width: 0.85rem; height: 0.85rem; border-radius: 50%;
+  background: var(--flaeche);
+  border: 3px solid color-mix(in srgb, var(--blau) 45%, transparent);
+  transition: border-color 0.18s var(--bogen), transform 0.18s var(--bogen);
+}
+.halt button:hover, .halt button:focus-visible { color: var(--tinte); }
+.halt button:hover::before, .halt button:focus-visible::before,
+.halt button[data-an]::before {
+  border-color: var(--gruen); transform: translateX(-50%) scale(1.25);
+}
+
+/* Der Sitz ist der einzige gefüllte Punkt — er ist nicht ein Ort unter
+   vielen, sondern der, von dem aus gefahren wird. */
+.halt--sitz button { color: var(--tinte); font-weight: 700; }
+.halt--sitz button::before {
+  background: var(--gruen); border-color: var(--gruen);
+  width: 1.1rem; height: 1.1rem; top: -0.68rem;
+}
+
+/* Der Abzweig hängt sichtbar an Wörgl. */
+.strecke--abzweig {
+  padding-top: 0.2rem; margin-left: clamp(0rem, 34%, 26rem);
+  max-width: 12rem;
+}
+.strecke--abzweig::before {
+  left: 50%; right: auto; top: -1.5rem; width: 3px; height: 2.2rem;
+  background: linear-gradient(180deg,
+    color-mix(in srgb, var(--gruen) 60%, transparent), var(--gruen));
+}
+.strecke--abzweig .halt { padding-top: 1.8rem; }
+.strecke--abzweig .halt button::before { top: 0.1rem; }
+
+.band-karte__tafel {
+  margin: 1.6rem 0 0; padding: 0.9rem 1.1rem;
+  border: 1px solid var(--linie); border-radius: 11px;
+  background: var(--grund); box-shadow: var(--heben);
+  font-size: var(--t-1); color: var(--tinte-weich);
+  min-height: 3.4rem;
+}
+.band-karte__tafel strong { color: var(--tinte); }
+
+@media (max-width: 700px) {
+  /* Zehn Halte nebeneinander sind auf einem Telefon vier Zeilen mit je
+     einem Wort. Untereinander mit senkrechter Linie liest es sich wie
+     ein Fahrplan — und genau so ist es gemeint. */
+  .strecke { display: grid; grid-template-columns: 1fr; padding-top: 0; gap: 0; }
+  .strecke::before { left: 0.5rem; right: auto; top: 0; bottom: 0;
+                     width: 3px; height: auto;
+                     background: linear-gradient(180deg,
+                       color-mix(in srgb, var(--blau) 35%, transparent), var(--gruen)); }
+  .halt { padding: 0 0 0 2rem; }
+  .halt button { text-align: left; }
+  .halt button::before { left: 0.5rem; top: 50%; transform: translate(-50%, -50%); }
+  .halt button:hover::before, .halt button:focus-visible::before,
+  .halt button[data-an]::before { transform: translate(-50%, -50%) scale(1.25); }
+  .halt--sitz button::before { top: 50%; }
+  .strecke--abzweig { margin-left: 2rem; max-width: none; }
+  .strecke--abzweig::before { left: 0.5rem; top: -0.6rem; height: 100%; }
+  .strecke--abzweig .halt { padding-top: 0; }
+  .strecke--abzweig .halt button::before { top: 50%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .halt button, .halt button::before { transition: none; }
+}
+
 .gebiet__notiz { margin: 0; color: var(--tinte-weich); font-size: var(--t-1); }
 
 /* ------------------------------------------------------------

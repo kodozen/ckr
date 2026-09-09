@@ -879,6 +879,48 @@
 
 
   /* ==========================================================
+     Einsatzgebiet
+     ----------------------------------------------------------
+     Die Entfernungen sind Fahrstrecken von Kufstein aus, grob
+     gerundet. Sie stehen im HTML und nicht hier, damit sie ohne
+     JavaScript nicht verschwinden — die Tafel darunter ist nur
+     die bequeme Fassung derselben Angabe.
+     ========================================================== */
+
+  (function () {
+    var karte = document.querySelector("[data-karte]");
+    var tafel = karte && karte.querySelector("[data-karte-tafel]");
+    if (!karte || !tafel) return;
+
+    var halte = [].slice.call(karte.querySelectorAll("[data-ort]"));
+
+    function zeigen(knopf) {
+      var ort = knopf.dataset.ort;
+      var weg = knopf.dataset.weg;
+      var abzweig = knopf.dataset.abzweig;
+
+      var text;
+      if (weg === "Sitz") {
+        text = "<strong>" + ort + "</strong> — unser Sitz. Weckaufstraße 10.";
+      } else {
+        text = "<strong>" + ort + "</strong> — rund " + weg + " von Kufstein.";
+        if (abzweig) text += " Von hier geht es nach " + abzweig + ".";
+      }
+      tafel.innerHTML = text;
+
+      halte.forEach(function (h) {
+        if (h === knopf) h.dataset.an = "ja"; else delete h.dataset.an;
+      });
+    }
+
+    halte.forEach(function (h) {
+      h.addEventListener("mouseenter", function () { zeigen(h); });
+      h.addEventListener("focus", function () { zeigen(h); });
+      h.addEventListener("click", function () { zeigen(h); });
+    });
+  })();
+
+  /* ==========================================================
      Ablauf: die Anzeige folgt dem Scrollen
      ----------------------------------------------------------
      Vier gleich große Kacheln nebeneinander liest man als
