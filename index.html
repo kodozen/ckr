@@ -41,9 +41,9 @@
      Erzeugt von tools/schriften-holen.py. -->
 <link rel="preload" href="schrift/archivo-700-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="schrift/public-sans-400-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="schriften.css?v=16">
-<link rel="stylesheet" href="styles.css?v=16">
-<script src="app.js?v=16" defer></script>
+<link rel="stylesheet" href="schriften.css?v=17">
+<link rel="stylesheet" href="styles.css?v=17">
+<script src="app.js?v=17" defer></script>
 <!-- ============================================================
      Vorausladen (Speculation Rules)
      ------------------------------------------------------------
@@ -290,11 +290,16 @@
   <section class="auftakt" data-auftakt>
     <div class="auftakt__buehne">
       <div class="auftakt__glas" aria-hidden="true">
-        <picture>
-          <source type="image/webp" srcset="img/glas-poster.webp">
-          <img class="auftakt__standbild" src="img/glas-poster.jpg" width="1600" height="900"
-               alt="" fetchpriority="high">
-        </picture>
+        <!-- Nur eine Datei, bewusst. Vorher lagen hier JPEG und WebP
+             nebeneinander; beim Neuschnitt des Videos wurde das JPEG
+             erneuert und das WebP nicht — und weil Browser das WebP
+             bevorzugen, zeigten sie das falsche Standbild. Zwei Dateien,
+             die zusammenpassen müssen, laufen irgendwann auseinander.
+             Für ein Bild von 39 KB ist die Ersparnis das nicht wert.
+             alt bleibt leer: die Aufnahme ist Hintergrund, ihre Aussage
+             steht als Text daneben. -->
+        <img class="auftakt__standbild" src="img/glas-poster.jpg" width="1600" height="900"
+             alt="" fetchpriority="high">
         <span class="auftakt__schleier"></span>
       </div>
 

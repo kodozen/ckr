@@ -397,11 +397,28 @@
     abschnitt.dataset.buehne = "an";
     glas.insertBefore(video, glas.firstChild);
 
-    /* Erst wenn wirklich ein Bild gezeichnet wurde, wird das Video über
-       das Standbild geblendet. So steht nie ein schwarzer Kasten da. */
-    video.addEventListener("playing", function () {
-      glas.dataset.video = "bereit";
-    });
+    /* Eingeblendet wird erst, wenn wirklich ein Einzelbild gezeichnet
+       wurde — nicht schon beim Ereignis „playing“. Der Unterschied ist
+       gemessen worden: nach „playing“ vergingen bis zu zwei Sekunden,
+       in denen der Browser immer wieder dasselbe Bild lieferte. In der
+       Zeit sah das Video aus wie ein Standbild, und genau so ist es
+       auch gemeldet worden. Solange nichts fließt, bleibt schlicht das
+       echte Standbild stehen — das fällt niemandem auf. */
+    function sichtbar() { glas.dataset.video = "bereit"; }
+    if (video.requestVideoFrameCallback) {
+      var gesehen = 0;
+      var zaehlen = function () {
+        if (++gesehen >= 2) { sichtbar(); return; }
+        video.requestVideoFrameCallback(zaehlen);
+      };
+      video.requestVideoFrameCallback(zaehlen);
+      /* Rückfall für Browser ohne diese Zählung. */
+      video.addEventListener("playing", function () {
+        window.setTimeout(sichtbar, 400);
+      }, { once: true });
+    } else {
+      video.addEventListener("playing", sichtbar, { once: true });
+    }
 
     function zurueck(grund) {
       abschnitt.removeAttribute("data-buehne");
@@ -482,7 +499,11 @@
        identisch — ohne Zutun wäre am Schleifenpunkt ein Schnitt zu
        sehen. Die letzte halbe Sekunde blendet deshalb weg und der
        Neubeginn wieder auf. */
-    var BLENDE = 0.8;
+    /* Der Schnitt am Schleifenpunkt ist in der neuen Fassung härter als
+       zuvor: die Aufnahme besteht aus drei zusammengesetzten Abschnitten,
+       Anfang und Ende passen nicht mehr zusammen. Eine ganze Sekunde
+       Blende deckt das zu, ohne dass die Bewegung stockt. */
+    var BLENDE = 1.0;
     video.addEventListener("timeupdate", function () {
       var d = video.duration;
       if (!d || !isFinite(d)) return;
