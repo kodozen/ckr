@@ -64,12 +64,69 @@ python3 tools/schriften-holen.py
 - **`video-pruefen.html`** ist ein Werkzeug, keine Seite der Website:
   sie sagt in Klartext, was der Browser mit dem Hintergrundvideo macht.
 
-## Noch offen vor dem Umschalten der Domain
+## Umzug auf ckrreinigung.at
 
-1. Impressum: die mit ⚠ markierten Angaben ergänzen, dann `noindex` löschen
-2. Datenschutz: Hostinganbieter eintragen, dann `noindex` löschen
-3. Einsatzgebiet: die Ortsliste vom Kunden bestätigen lassen
-4. `sitemap.xml` in der Google Search Console anmelden
+Die Seite läuft zurzeit unter `kodozen.github.io/ckr/` — als Vorschau,
+absichtlich für Suchmaschinen gesperrt. Der Grund: `robots.txt` gilt nur
+an der Wurzel einer Domain, und die gehört dort dem Konto, nicht diesem
+Ordner. Ohne die Sperre käme die Vorschau in den Index und würde später
+mit der echten Domain um denselben Text konkurrieren.
+
+**Reihenfolge beim Umschalten:**
+
+1. **Inhaltlich fertig machen**
+   - Impressum: die mit ⚠ markierten Angaben ergänzen, dann die Zeile
+     `"noindex": True` in `inhalt/seiten.py` entfernen
+   - Datenschutz: Hostinganbieter eintragen, ebenso `noindex` entfernen
+   - Einsatzgebiet: die Ortsliste vom Kunden bestätigen lassen
+
+2. **DNS beim Registrar setzen** (dort, wo ckrreinigung.at verwaltet wird)
+
+   Für `www.ckrreinigung.at` einen CNAME:
+
+   ```
+   www    CNAME    kodozen.github.io.
+   ```
+
+   Für die nackte Domain `ckrreinigung.at` vier A-Einträge:
+
+   ```
+   @    A    185.199.108.153
+   @    A    185.199.109.153
+   @    A    185.199.110.153
+   @    A    185.199.111.153
+   ```
+
+   *Erst danach weitermachen.* Die alte Website ist bis zu diesem Schritt
+   unberührt; ab hier zeigt die Domain auf dieses Depot.
+
+3. **Datei `CNAME` anlegen** mit genau einer Zeile:
+
+   ```
+   www.ckrreinigung.at
+   ```
+
+4. **Zwei Schalter in `.github/workflows/pages.yml` umlegen**
+
+   | Von | Auf | Wirkung |
+   |---|---|---|
+   | `VORSCHAU: "ja"` | `"nein"` | kein `noindex` mehr, die Seite darf in den Index |
+   | `SEITEN_WURZEL=/ckr/` | `SEITEN_WURZEL=/` | die 404-Seite verweist wieder auf die Wurzel |
+
+5. **In den Einstellungen** unter Settings → Pages die Domain eintragen
+   und *Enforce HTTPS* einschalten, sobald das Zertifikat ausgestellt ist
+   (dauert nach dem DNS-Eintrag meist einige Minuten).
+
+6. **Danach prüfen**
+   - `https://www.ckrreinigung.at/sitemap.xml` erreichbar
+   - `https://www.ckrreinigung.at/robots.txt` erreichbar — jetzt greift sie
+     wirklich, weil die Seite an der Wurzel ihrer eigenen Domain liegt
+   - Sitemap in der Google Search Console anmelden
+   - Eine Handvoll alter Adressen aufrufen; sie sind absichtlich dieselben
+     geblieben und müssen weiter funktionieren
+
+**Nicht vergessen:** die alte WordPress-Installation erst abschalten, wenn
+die neue Seite unter der Domain läuft.
 
 Interne Notizen und Rohmaterial liegen im privaten Depot
 `kodozen-kaynak` unter `ckr-material/`.
