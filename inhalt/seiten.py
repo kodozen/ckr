@@ -306,6 +306,72 @@ SEITEN = [
       <a href="https://www.dsb.gv.at" target="_blank" rel="noopener">dsb.gv.at</a>.
     </p>''',
 },
+
+{
+ "slug": "einsatzgebiet",
+ "titel": "Einsatzgebiet — von Kufstein aus in ganz Tirol",
+ "beschreibung": "Wo CKR Cleaning Services reinigt: Kufstein, Ebbs, Woergl, Kramsach, Rattenberg, Brixlegg, Jenbach, Schwaz und Kitzbuehel — auf Anfrage in ganz Tirol.",
+ "noindex": False,
+ # Diese Karte stand auf der Startseite und war dort das, was sie ueberall
+ # ist: interessant, aber nicht der Grund, warum jemand kommt. Auf einer
+ # eigenen Adresse trägt sie dafür etwas, das sie auf der Startseite nicht
+ # konnte — sie beantwortet die Suche nach einem Ort.
+ "rumpf": r'''  <p class="marker">Einsatzgebiet</p>
+  <h1>Von Kufstein aus in ganz Tirol</h1>
+  <p class="abschnitt__vorspann">
+    Unser Sitz ist Kufstein. Im Unterland sind wir regelmäßig unterwegs,
+    für größere Aufträge auch darüber hinaus.
+  </p>
+
+  <div class="band-karte" data-karte>
+    <p class="band-karte__achse">Inntal — flussabwärts von West nach Ost</p>
+
+    <!-- Reihenfolge und Abzweig sind geprüft: der Inn fließt von
+         Innsbruck über Schwaz, Jenbach, Brixlegg, Rattenberg und
+         Kramsach nach Wörgl, dann nach Kufstein und Ebbs. Nach
+         Kitzbühel geht es über das Brixental ab WÖRGL — deshalb
+         hängt der Abzweig jetzt IM Listeneintrag von Wörgl und
+         nicht an einem geschätzten Prozentwert. So kann er nicht
+         mehr verrutschen, wenn ein Ort dazukommt oder wegfällt. -->
+    <ol class="strecke">
+      <li class="halt"><button type="button" data-ort="Innsbruck" data-weg="75 km">Innsbruck</button></li>
+      <li class="halt"><button type="button" data-ort="Schwaz" data-weg="48 km">Schwaz</button></li>
+      <li class="halt"><button type="button" data-ort="Jenbach" data-weg="42 km">Jenbach</button></li>
+      <li class="halt"><button type="button" data-ort="Brixlegg" data-weg="33 km">Brixlegg</button></li>
+      <li class="halt"><button type="button" data-ort="Rattenberg" data-weg="31 km">Rattenberg</button></li>
+      <li class="halt"><button type="button" data-ort="Kramsach" data-weg="30 km">Kramsach</button></li>
+      <li class="halt halt--knoten">
+        <button type="button" data-ort="Wörgl" data-weg="18 km" data-abzweig="Kitzbühel">Wörgl</button>
+        <ol class="abzweig">
+          <li class="halt"><button type="button" data-ort="Kitzbühel" data-weg="40 km" data-ueber="Brixental">Kitzbühel</button></li>
+        </ol>
+      </li>
+      <li class="halt halt--sitz"><button type="button" data-ort="Kufstein" data-weg="Sitz" aria-current="true">Kufstein</button></li>
+      <li class="halt"><button type="button" data-ort="Ebbs" data-weg="6 km">Ebbs</button></li>
+    </ol>
+
+    <p class="band-karte__tafel" data-karte-tafel aria-live="polite">
+      <strong>Kufstein</strong> — unser Sitz. Weckaufstraße 10.
+    </p>
+  </div>
+
+  <p class="gebiet__notiz">
+    Ihr Ort steht nicht dabei? Wir fahren auf Anfrage in ganz Tirol —
+    rufen Sie einfach an: <a href="tel:+436508933881">+43 650 893 38 81</a>.
+  </p>
+
+  <h2>Auch in Ihrem Ort?</h2>
+  <p>
+    Die Liste nennt die Orte, in denen wir regelmäßig unterwegs sind. Sie
+    ist keine Grenze: für größere Aufträge fahren wir auf Anfrage in ganz
+    Tirol. Am schnellsten geht ein Anruf.
+  </p>
+  <p class="rechtsseite__knoepfe">
+    <a class="knopf knopf--voll" href="tel:+436508933881"><span aria-hidden="true">☎</span> +43 650 893 38 81</a>
+    <a class="knopf" href="../#angebot">Angebot anfordern</a>
+  </p>''',
+},
+
 ]
 
 NACH_SLUG = {s["slug"]: s for s in SEITEN}

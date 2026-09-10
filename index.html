@@ -244,10 +244,7 @@
       <a href="#verkehrsmittel">Verkehrsmittel</a>
       <a href="#fragen">Fragen</a>
       <a href="#jobs">Jobs</a>
-      <!-- Der Videobereich ist verborgen, solange kein Kanal feststeht.
-           Ein Menüpunkt, der ins Leere springt, ist schlimmer als keiner —
-           app.js blendet ihn zusammen mit dem Abschnitt ein. -->
-      <a href="#videos" hidden data-videos-link>Videos</a>
+      <a href="einsatzgebiet/">Einsatzgebiet</a>
       <a href="#kontakt">Kontakt</a>
     </nav>
 
@@ -479,121 +476,6 @@
        Ohne JavaScript bleiben es beschriftete Links auf einem
        Bild; die Tafel daneben zeigt dann einfach alle Einträge.
        ============================================================ -->
-  <section class="haus" id="haus" aria-labelledby="haus-titel">
-    <div class="huelle">
-      <p class="marker">Vom Dach bis in den Keller</p>
-      <h2 id="haus-titel">Wo wir arbeiten</h2>
-      <p class="abschnitt__vorspann">
-        Fahren Sie über das Haus — oder tippen Sie darauf. Jeder Punkt führt
-        zu der Leistung, die dort gebraucht wird.
-      </p>
-
-      <div class="haus__buehne">
-        <div class="haus__bild">
-          <svg class="haus__zeichnung" viewBox="0 0 520 460" role="img"
-               aria-label="Schnitt durch ein Gebäude: Dach, Fassade, Stiegenhaus, Büro, Hotelzimmer, Appartement und Keller.">
-            <!-- Grund -->
-            <rect x="0" y="424" width="520" height="2" fill="currentColor" opacity=".18"/>
-
-            <!-- Dach -->
-            <path d="M60 150 L260 52 L460 150 Z" fill="var(--tinte)" opacity=".92"/>
-            <path d="M60 150 L260 52 L460 150 Z" fill="none" stroke="var(--tinte)" stroke-width="2" stroke-linejoin="round"/>
-
-            <!-- Baukörper -->
-            <rect x="76" y="150" width="368" height="274" rx="4" fill="var(--flaeche)"
-                  stroke="var(--tinte)" stroke-width="2"/>
-
-            <!-- Geschossdecken -->
-            <path d="M76 214h368M76 278h368M76 342h368" stroke="var(--linie)" stroke-width="2"/>
-
-            <!-- Stiegenhaus: eigener Streifen mit Stufen -->
-            <rect x="222" y="150" width="76" height="274" fill="color-mix(in srgb, var(--blau) 6%, transparent)"/>
-            <path d="M228 210h20v-16h20v-16h20v-16" stroke="var(--blau)" stroke-width="2.4" fill="none" stroke-linejoin="round"/>
-            <path d="M228 274h20v-16h20v-16h20v-16" stroke="var(--blau)" stroke-width="2.4" fill="none" stroke-linejoin="round"/>
-            <path d="M228 338h20v-16h20v-16h20v-16" stroke="var(--blau)" stroke-width="2.4" fill="none" stroke-linejoin="round"/>
-            <path d="M228 402h20v-16h20v-16h20v-16" stroke="var(--blau)" stroke-width="2.4" fill="none" stroke-linejoin="round"/>
-            <path d="M222 150v274M298 150v274" stroke="var(--tinte)" stroke-width="2"/>
-
-            <!-- Fenster links (Büro / Wohnen) -->
-            <g fill="color-mix(in srgb, var(--blau) 14%, transparent)" stroke="var(--tinte)" stroke-width="1.6">
-              <rect x="104" y="170" width="42" height="30" rx="2"/>
-              <rect x="160" y="170" width="42" height="30" rx="2"/>
-              <rect x="104" y="234" width="42" height="30" rx="2"/>
-              <rect x="160" y="234" width="42" height="30" rx="2"/>
-              <rect x="104" y="298" width="42" height="30" rx="2"/>
-              <rect x="160" y="298" width="42" height="30" rx="2"/>
-            </g>
-            <!-- Fenster rechts (Hotel / Appartement) -->
-            <g fill="color-mix(in srgb, var(--blau) 14%, transparent)" stroke="var(--tinte)" stroke-width="1.6">
-              <rect x="318" y="170" width="42" height="30" rx="2"/>
-              <rect x="374" y="170" width="42" height="30" rx="2"/>
-              <rect x="318" y="234" width="42" height="30" rx="2"/>
-              <rect x="374" y="234" width="42" height="30" rx="2"/>
-              <rect x="318" y="298" width="42" height="30" rx="2"/>
-              <rect x="374" y="298" width="42" height="30" rx="2"/>
-            </g>
-
-            <!-- Keller -->
-            <rect x="76" y="356" width="146" height="68" fill="color-mix(in srgb, var(--tinte) 8%, transparent)"/>
-            <rect x="298" y="356" width="146" height="68" fill="color-mix(in srgb, var(--tinte) 8%, transparent)"/>
-
-            <!-- Eingang -->
-            <rect x="244" y="380" width="32" height="44" rx="2" fill="var(--tinte)"/>
-
-            <!-- Fahrzeug davor -->
-            <rect x="8" y="376" width="120" height="48" rx="8" fill="var(--tinte)" opacity=".9"/>
-            <rect x="20" y="386" width="40" height="22" rx="3" fill="var(--flaeche)" opacity=".85"/>
-            <rect x="70" y="386" width="46" height="22" rx="3" fill="var(--flaeche)" opacity=".85"/>
-            <circle cx="38" cy="426" r="8" fill="var(--tinte)"/>
-            <circle cx="102" cy="426" r="8" fill="var(--tinte)"/>
-          </svg>
-
-          <!-- Die Punkte liegen als echte Schaltflächen über der
-               Zeichnung: so sind sie mit der Tastatur erreichbar und
-               werden angesagt, was in einem SVG deutlich mühsamer wäre. -->
-          <button class="haus__punkt" type="button" data-haus="fenster-und-fassadenreinigung" style="--x:50%; --y:20%">
-            <span class="nur-lesbar">Dach und Fassade</span>
-          </button>
-          <button class="haus__punkt" type="button" data-haus="glasreinigung" style="--x:25%; --y:40%">
-            <span class="nur-lesbar">Fenster und Glas</span>
-          </button>
-          <button class="haus__punkt" type="button" data-haus="treppenhausreinigung" style="--x:50%; --y:57%">
-            <span class="nur-lesbar">Stiegenhaus</span>
-          </button>
-          <button class="haus__punkt" type="button" data-haus="unterhaltsreinigung" style="--x:29%; --y:54%">
-            <span class="nur-lesbar">Büroräume</span>
-          </button>
-          <button class="haus__punkt" type="button" data-haus="hotelreinigung" style="--x:71%; --y:40%">
-            <span class="nur-lesbar">Hotelzimmer</span>
-          </button>
-          <button class="haus__punkt" type="button" data-haus="appartementreinigung" style="--x:71%; --y:68%">
-            <span class="nur-lesbar">Appartement</span>
-          </button>
-          <button class="haus__punkt" type="button" data-haus="entruempelung-hausbetreuung" style="--x:28%; --y:85%">
-            <span class="nur-lesbar">Keller</span>
-          </button>
-          <button class="haus__punkt" type="button" data-haus="verkehrsmittelreinigung" style="--x:13%; --y:87%">
-            <span class="nur-lesbar">Fahrzeuge</span>
-          </button>
-        </div>
-
-        <div class="haus__tafel" data-haus-tafel>
-          <!-- Ohne JavaScript stehen hier alle Leistungen als Liste.
-               app.js ersetzt sie durch die jeweils gewählte. -->
-          <ul class="haus__liste">
-            <li><a href="fenster-und-fassadenreinigung/">Dach &amp; Fassade</a></li>
-            <li><a href="glasreinigung/">Fenster &amp; Glas</a></li>
-            <li><a href="treppenhausreinigung/">Stiegenhaus</a></li>
-            <li><a href="unterhaltsreinigung/">Büroräume</a></li>
-            <li><a href="hotelreinigung/">Hotelzimmer</a></li>
-            <li><a href="appartementreinigung/">Appartement</a></li>
-            <li><a href="entruempelung-hausbetreuung/">Keller &amp; Räumung</a></li>
-            <li><a href="verkehrsmittelreinigung/">Fahrzeuge</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
 
   <!-- ============================================================
        Ablauf. Das Stärkste, was CKR anbietet, stand bisher versteckt
@@ -892,87 +774,6 @@
        auf keiner Reinigungsseite. Preise stehen bewusst nicht dabei:
        die entstehen bei der Besichtigung, alles andere wäre erfunden.
        ============================================================ -->
-  <section class="pakete" id="pakete" aria-labelledby="pakete-titel">
-    <div class="huelle">
-      <p class="marker">Wohnung, Haus &amp; Appartement</p>
-      <h2 id="pakete-titel">In welchem Rhythmus brauchen Sie uns?</h2>
-      <p class="abschnitt__vorspann">
-        Häufigkeit, Umfang und Intensität legen wir gemeinsam fest. Das Team
-        arbeitet zeitlich flexibel, damit es in Ihren Wochenplan passt — Sie
-        werden nicht gestört.
-      </p>
-
-      <div class="paket-reihe">
-        <article class="paket">
-          <h3>Wöchentlich</h3>
-          <p class="paket__wer">Für bewohnte Wohnungen und Häuser.</p>
-          <p>
-            Derselbe Tag, dasselbe Team, jede Woche. Nichts sammelt sich an,
-            und Sie müssen nie darüber nachdenken.
-          </p>
-        </article>
-
-        <article class="paket paket--betont">
-          <h3>14-tägig</h3>
-          <p class="paket__wer">Der häufigste Rhythmus.</p>
-          <p>
-            Reicht für die meisten Haushalte und Ferienwohnungen mit
-            ruhigerer Belegung. Zwischendurch übernehmen Sie das Nötigste.
-          </p>
-        </article>
-
-        <article class="paket">
-          <h3>Einmalig</h3>
-          <p class="paket__wer">Nach Auszug, vor Übergabe, nach dem Umbau.</p>
-          <p>
-            Einmal gründlich statt regelmäßig — auch als Grundreinigung,
-            bevor eine laufende Betreuung startet.
-          </p>
-        </article>
-      </div>
-
-      <h3 class="umfang__titel">Was dabei gemacht wird</h3>
-      <div class="umfang">
-        <div class="umfang__spalte">
-          <h4>Allgemein</h4>
-          <ul class="haken">
-            <li>Böden: Laminat, PVC, Fayence- und Keramikfliesen</li>
-            <li>Böden Spezial: Parkett, Beton, Steinfliesen</li>
-            <li>Ablageflächen</li>
-            <li>Oberflächen der Möbel</li>
-            <li>Balkon</li>
-          </ul>
-        </div>
-        <div class="umfang__spalte">
-          <h4>Badezimmer</h4>
-          <ul class="haken">
-            <li>Oberflächen</li>
-            <li>Sanitäre Anlagen</li>
-            <li>Badewanne und Dusche</li>
-            <li>Toilette</li>
-          </ul>
-        </div>
-        <div class="umfang__spalte">
-          <h4>Küche</h4>
-          <ul class="haken">
-            <li>Oberflächen</li>
-            <li>Backofen und Herd</li>
-            <li>Küche komplett</li>
-          </ul>
-        </div>
-      </div>
-
-      <p class="umfang__zusatz">
-        <strong>Dazu buchbar:</strong> Inventar und Haushaltsgeräte — vom Sofa
-        bis zum Heizkörper, vom Kühlschrank bis zum Herd.
-      </p>
-
-      <p class="umfang__preis">
-        Preise nennen wir nach der Besichtigung — kostenlos und unverbindlich.
-        <a class="knopf knopf--voll" href="#angebot">Besichtigung vereinbaren</a>
-      </p>
-    </div>
-  </section>
 
   <!-- ============================================================
        Vertrauen. Das Zitat ist eine echte Bewertung von herold.at und
@@ -1035,53 +836,6 @@
        weil es gar nicht erst behauptet, eine Karte zu sein — und
        es passt zu einem Betrieb, der Züge reinigt.
        ============================================================ -->
-  <section class="gebiet" id="gebiet" aria-labelledby="gebiet-titel">
-    <div class="huelle">
-      <p class="marker">Einsatzgebiet</p>
-      <h2 id="gebiet-titel">Von Kufstein aus in ganz Tirol</h2>
-      <p class="abschnitt__vorspann">
-        Unser Sitz ist Kufstein. Im Unterland sind wir regelmäßig unterwegs,
-        für größere Aufträge auch darüber hinaus.
-      </p>
-
-      <div class="band-karte" data-karte>
-        <p class="band-karte__achse">Inntal — flussabwärts von West nach Ost</p>
-
-        <!-- Reihenfolge und Abzweig sind geprüft: der Inn fließt von
-             Innsbruck über Schwaz, Jenbach, Brixlegg, Rattenberg und
-             Kramsach nach Wörgl, dann nach Kufstein und Ebbs. Nach
-             Kitzbühel geht es über das Brixental ab WÖRGL — deshalb
-             hängt der Abzweig jetzt IM Listeneintrag von Wörgl und
-             nicht an einem geschätzten Prozentwert. So kann er nicht
-             mehr verrutschen, wenn ein Ort dazukommt oder wegfällt. -->
-        <ol class="strecke">
-          <li class="halt"><button type="button" data-ort="Innsbruck" data-weg="75 km">Innsbruck</button></li>
-          <li class="halt"><button type="button" data-ort="Schwaz" data-weg="48 km">Schwaz</button></li>
-          <li class="halt"><button type="button" data-ort="Jenbach" data-weg="42 km">Jenbach</button></li>
-          <li class="halt"><button type="button" data-ort="Brixlegg" data-weg="33 km">Brixlegg</button></li>
-          <li class="halt"><button type="button" data-ort="Rattenberg" data-weg="31 km">Rattenberg</button></li>
-          <li class="halt"><button type="button" data-ort="Kramsach" data-weg="30 km">Kramsach</button></li>
-          <li class="halt halt--knoten">
-            <button type="button" data-ort="Wörgl" data-weg="18 km" data-abzweig="Kitzbühel">Wörgl</button>
-            <ol class="abzweig">
-              <li class="halt"><button type="button" data-ort="Kitzbühel" data-weg="40 km" data-ueber="Brixental">Kitzbühel</button></li>
-            </ol>
-          </li>
-          <li class="halt halt--sitz"><button type="button" data-ort="Kufstein" data-weg="Sitz" aria-current="true">Kufstein</button></li>
-          <li class="halt"><button type="button" data-ort="Ebbs" data-weg="6 km">Ebbs</button></li>
-        </ol>
-
-        <p class="band-karte__tafel" data-karte-tafel aria-live="polite">
-          <strong>Kufstein</strong> — unser Sitz. Weckaufstraße 10.
-        </p>
-      </div>
-
-      <p class="gebiet__notiz">
-        Ihr Ort steht nicht dabei? Wir fahren auf Anfrage in ganz Tirol —
-        rufen Sie einfach an: <a href="tel:+436508933881">+43 650 893 38 81</a>.
-      </p>
-    </div>
-  </section>
 
   <!-- ============================================================
        Fragen. Bewusst als <details>: das klappt ohne eine Zeile
@@ -1203,13 +957,6 @@
        ein leerer Kasten wäre schlechter als gar keiner. Eintragen in
        app.js, Liste VIDEOS.
        ============================================================ -->
-  <section class="videos" id="videos" aria-labelledby="videos-titel" hidden data-videos>
-    <div class="huelle">
-      <p class="marker">Aus unserer Arbeit</p>
-      <h2 id="videos-titel">Videos</h2>
-      <div class="videos__gitter" data-video-gitter></div>
-    </div>
-  </section>
 
   <!-- ============================================================
        Angebot. Felder wie im bestehenden Formular des Kunden, damit
@@ -1422,6 +1169,11 @@
       <ul class="fuss__liste">
         <li><a href="https://www.instagram.com/ckr.cleaningservices/" target="_blank" rel="noopener">Instagram</a></li>
         <li><a href="https://www.facebook.com/ckrkufstein" target="_blank" rel="noopener">Facebook</a></li>
+      </ul>
+      <h2>Wo wir arbeiten</h2>
+      <ul class="fuss__liste">
+        <li><a href="einsatzgebiet/">Einsatzgebiet in Tirol</a></li>
+        <li><a href="ihre-bewerbung/">Ihre Bewerbung</a></li>
       </ul>
       <h2>Rechtliches</h2>
       <ul class="fuss__liste">
