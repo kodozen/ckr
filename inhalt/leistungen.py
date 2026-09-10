@@ -29,7 +29,7 @@ LEISTUNGEN = [
 
 {
  "slug": "unterhaltsreinigung",
- "bild_alt": "Leeres Büro am frühen Morgen, Schreibtische aufgeräumt, Boden gereinigt.",
+ "bild_alt": 'Bürogang nach der täglichen Reinigung, Reinigungswagen mit Mopp und Eimer an der Wand, Boden feucht gewischt.',
  "gruppe": "Gebäude & Unterhalt",
  "titel": "Unterhaltsreinigung",
  "marker": "Laufende Reinigung",
@@ -74,7 +74,7 @@ LEISTUNGEN = [
 
 {
  "slug": "treppenhausreinigung",
- "bild_alt": "Frisch gereinigtes Stiegenhaus mit Terrazzostufen, Briefkästen und Reinigungswagen.",
+ "bild_alt": 'Gereinigtes Stiegenhaus mit gefliesten Stufen und weißem Geländer, Blick die Treppe hinauf.',
  "gruppe": "Gebäude & Unterhalt",
  "titel": "Treppenhausreinigung",
  "marker": "Wohn- und Bürohäuser",
@@ -117,6 +117,7 @@ LEISTUNGEN = [
 
 {
  "slug": "grundreinigung",
+ "bild_alt": 'Scheuersaugmaschine auf einer großen Hallenfläche; hinter ihr ist der Boden sichtbar heller als davor.',
  "gruppe": "Gebäude & Unterhalt",
  "titel": "Grundreinigung",
  "marker": "Einmal richtig tief",
@@ -159,7 +160,7 @@ LEISTUNGEN = [
 
 {
  "slug": "glasreinigung",
- "bild_alt": "Ein Abzieher wird über eine eingeschäumte Glastür gezogen; dahinter ein Bürogang.",
+ "bild_alt": 'Schaufensterfront einer Ladenzeile, streifenfrei gereinigt; davor stehen Abzieher und Eimer auf dem Gehsteig.',
  "gruppe": "Glas, Fassade & Dach",
  "titel": "Glasreinigung",
  "marker": "Innen und außen",
@@ -200,7 +201,7 @@ LEISTUNGEN = [
 
 {
  "slug": "fenster-und-fassadenreinigung",
- "bild_alt": "Teleskopstange reinigt ein Fenster im ersten Stock einer verputzten Fassade.",
+ "bild_alt": 'Hausfassade, deren linke Hälfte frisch gewaschen und deutlich heller ist als die rechte; Leiter und Schlauch stehen bereit.',
  "gruppe": "Glas, Fassade & Dach",
  "titel": "Fenster- & Fassadenreinigung",
  "marker": "Was von außen gesehen wird",
@@ -242,7 +243,7 @@ LEISTUNGEN = [
 
 {
  "slug": "hotelreinigung",
- "bild_alt": "Hergerichtetes Hotelzimmer mit frisch bezogenem Bett und gefalteten Handtüchern.",
+ "bild_alt": 'Hergerichtetes Hotelzimmer mit frisch bezogenem Bett und gefalteten Handtüchern.',
  "gruppe": "Objekt & Gewerbe",
  "titel": "Hotelreinigung",
  "marker": "Für Hotels und Pensionen",
@@ -283,6 +284,7 @@ LEISTUNGEN = [
 
 {
  "slug": "appartementreinigung",
+ "bild_alt": 'Ferienwohnung bezugsfertig: bezogenes Bett, gestapelte Handtücher, abgewischte Küchenzeile, Schlüssel auf der Ablage.',
  "gruppe": "Objekt & Gewerbe",
  "titel": "Appartementreinigung",
  "marker": "Wohnung, Haus & Ferienappartement",
@@ -325,6 +327,7 @@ LEISTUNGEN = [
 
 {
  "slug": "teppichreinigung",
+ "bild_alt": 'Sprühextraktion auf grauem Teppichboden; die gereinigte Bahn hebt sich hell vom übrigen Boden ab.',
  "gruppe": "Objekt & Gewerbe",
  "titel": "Teppichreinigung",
  "marker": "Teppiche und Polster",
@@ -368,7 +371,7 @@ LEISTUNGEN = [
 
 {
  "slug": "baureinigung-endreinigung",
- "bild_alt": "Fertiggestellter, leerer Raum nach der Bauendreinigung; Schutzfolie abgezogen.",
+ "bild_alt": 'Fertiggestellter, leerer Raum vor der Übergabe; der Estrich ist besenrein, die Fensterrahmen sind von Mörtelresten befreit.',
  "gruppe": "Bau & Räumung",
  "titel": "Baureinigung & Endreinigung",
  "marker": "Neubau, Umbau, Sanierung",
@@ -411,6 +414,7 @@ LEISTUNGEN = [
 
 {
  "slug": "entruempelung-hausbetreuung",
+ "bild_alt": 'Geräumter Kellerraum nach der Entrümpelung: leerer, gefegter Boden, Besen an der Wand, gestapelte Kartons an der Tür.',
  "gruppe": "Bau & Räumung",
  "titel": "Entrümpelung & Hausbetreuung",
  "marker": "Räumung und Übergabe",
@@ -453,7 +457,7 @@ LEISTUNGEN = [
 
 {
  "slug": "verkehrsmittelreinigung",
- "bild_alt": "Leerer Nahverkehrswagen bei Nacht nach der Reinigung.",
+ "bild_alt": 'Leerer Nahverkehrswagen bei Nacht nach der Reinigung, Sitze und Haltestangen sauber.',
  "gruppe": "Besondere Aufträge",
  "titel": "Verkehrsmittelreinigung",
  "marker": "Züge, Busse und Straßenbahnen",
@@ -493,6 +497,7 @@ LEISTUNGEN = [
 
 {
  "slug": "denkmalreinigung",
+ "bild_alt": 'Historische Sandsteinfassade mit einer gereinigten Probefläche, die deutlich heller ist als der nachgedunkelte Stein daneben.',
  "gruppe": "Besondere Aufträge",
  "titel": "Denkmalreinigung",
  "marker": "Historische Substanz",

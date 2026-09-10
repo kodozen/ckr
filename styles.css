@@ -1428,8 +1428,13 @@ html[data-handleiste="an"] body {
   aspect-ratio: 4 / 3;
 }
 /* Auf breiten Schirmen wäre 4:3 über die volle Spalte ein Plakat.
-   Ein flacherer Ausschnitt liest sich als Kopfzeile, nicht als Bild. */
-@media (min-width: 760px) { .lseite__bild { aspect-ratio: 21 / 9; } }
+   Ein flacherer Ausschnitt liest sich als Kopfzeile, nicht als Bild.
+
+   21:9 war dafür zu schmal: die Aufnahmen liegen in 3:2 vor, und davon
+   blieben nur 64 Prozent der Höhe stehen — beim Reinigungswagen fiel
+   der halbe Wagen weg, beim Hotelbett die Kissen. Bei 16:9 sind es 84
+   Prozent, und als Kopfzeile liest es sich immer noch. */
+@media (min-width: 760px) { .lseite__bild { aspect-ratio: 16 / 9; } }
 .lseite__bild img {
   display: block; width: 100%; height: 100%; object-fit: cover;
 }
