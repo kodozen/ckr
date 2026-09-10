@@ -24,7 +24,11 @@ from leistungen import LEISTUNGEN, NACH_SLUG          # noqa: E402
 from seiten import SEITEN                             # noqa: E402
 
 WURZEL = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
-BASIS = "https://www.ckrreinigung.at"
+# Die eigene Domain ist der Normalfall. Die Vorschau muss aber auf
+# sich selbst zeigen: ein canonical, das auf eine fremde Adresse
+# verweist, wertet jede Messung als Fehler — und schickt Google
+# auf eine Seite, die es so noch nicht gibt.
+BASIS = os.environ.get("BASIS", "https://www.ckrreinigung.at").rstrip("/")
 FIRMA = "CKR Cleaning Services"
 TELEFON = "+436508933881"
 TELEFON_LESBAR = "+43 650 893 38 81"

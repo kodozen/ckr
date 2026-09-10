@@ -19,8 +19,15 @@
   --tinte-weich:#4A4A72;
   --linie:      #E2E5EE;
   --blau:       #2838C8;   /* Logo-Blau */
-  --gruen:      #3E9E14;   /* Logo-Grün, auf Weiß lesbar */
-  --gruen-hell: #5CBC1A;
+  --gruen:      #3E9E14;   /* Logo-Grün — für Flächen, Ränder, Symbole */
+  --gruen-hell: #5CBC1A;   /* nur auf dunklem Grund */
+  /* Für Schrift auf hellem Grund: das Logo-Grün erreicht auf Weiß nur
+     3,4:1 und fällt damit unter die 4,5:1, die kleine Schrift braucht.
+     Derselbe Farbton, abgedunkelt, kommt auf 5,7:1. */
+  --gruen-text: #2E760F;
+  /* Die Schrittnummern standen in --linie und waren mit 1,2:1 praktisch
+     unsichtbar. Dieses Grau trägt 3,5:1 und bleibt zurückhaltend. */
+  --linie-schrift: #7B84A1;
   --dunkel:     #101038;
 
   --anzeige: "Archivo", system-ui, "Segoe UI", sans-serif;
@@ -81,7 +88,7 @@ a { color: inherit; }
    den jede zweite Website benutzt. Stattdessen Grün und Gewicht. --- */
 .marker {
   font-family: var(--anzeige); font-weight: 600;
-  font-size: var(--t-1); color: var(--gruen);
+  font-size: var(--t-1); color: var(--gruen-text);
   margin: 0 0 0.7rem;
 }
 .marker--hell { color: var(--gruen-hell); }
@@ -341,7 +348,7 @@ a { color: inherit; }
   display: grid; place-items: center;
   width: 2.6rem; height: 2.6rem; border-radius: 12px;
   background: color-mix(in srgb, var(--gruen) 14%, transparent);
-  color: var(--gruen); font-family: var(--anzeige); font-weight: 700;
+  color: var(--gruen-text); font-family: var(--anzeige); font-weight: 700;
   font-size: var(--t0);
 }
 .schwebe__uhr {
@@ -387,7 +394,7 @@ a { color: inherit; }
   font-family: var(--anzeige); font-weight: 700;
   font-size: var(--t3); letter-spacing: -0.02em; line-height: 1.14;
 }
-.dinge__besonders { color: var(--gruen); }
+.dinge__besonders { color: var(--gruen-text); }
 .dinge__fuss {
   margin: 0; font-size: var(--t1); color: var(--tinte-weich);
   max-width: 34ch;
@@ -452,7 +459,7 @@ a { color: inherit; }
   width: 2.9rem; height: 2.9rem; margin-bottom: 0.5rem;
   border-radius: 12px;
   background: color-mix(in srgb, var(--gruen) 12%, transparent);
-  color: var(--gruen);
+  color: var(--gruen-text);
 }
 .standard__zeichen svg { width: 1.6rem; height: 1.6rem; }
 .standard__punkt strong { font-family: var(--anzeige); font-size: var(--t1); }
@@ -632,7 +639,7 @@ a { color: inherit; }
   display: flex; align-items: center; gap: 0.45rem;
   margin: 0 0 0.35rem !important;
   font-family: var(--anzeige); font-weight: 600; font-size: var(--t-1);
-  color: var(--gruen) !important;
+  color: var(--gruen-text) !important;
 }
 .jetzt__punkt {
   width: 9px; height: 9px; border-radius: 50%; flex: none;
@@ -770,10 +777,10 @@ a { color: inherit; }
 .schritt__nr {
   font-family: var(--anzeige); font-weight: 700;
   font-size: 1.6rem; line-height: 1; margin: 0 0 0.5rem;
-  color: var(--linie);
+  color: var(--linie-schrift);
   transition: color 0.35s var(--bogen);
 }
-.schritt[data-an] .schritt__nr { color: var(--gruen); }
+.schritt[data-an] .schritt__nr { color: var(--gruen-text); }
 .schritt h3 { margin-bottom: 0.4rem; }
 .schritt p:last-child { margin: 0; color: var(--tinte-weich); font-size: var(--t-1); }
 
@@ -799,7 +806,7 @@ a { color: inherit; }
   border-radius: 12px; padding: clamp(1.2rem, 2.4vw, 1.7rem);
 }
 .paket__wer {
-  font-size: var(--t-1); font-weight: 600; color: var(--gruen);
+  font-size: var(--t-1); font-weight: 600; color: var(--gruen-text);
   margin-bottom: 0.6rem;
 }
 .paket p:last-child { margin: 0; color: var(--tinte-weich); font-size: var(--t-1); }
@@ -1204,7 +1211,7 @@ html[data-einwilligung="offen"] .handleiste {
   -webkit-tap-highlight-color: transparent;
 }
 .handleiste__knopf:active { transform: scale(0.97); }
-.handleiste__knopf--ruf { border-color: var(--gruen); color: var(--gruen); }
+.handleiste__knopf--ruf { border-color: var(--gruen); color: var(--gruen-text); }
 .handleiste__knopf--voll {
   background: var(--tinte); border-color: var(--tinte); color: #fff;
 }
@@ -1482,7 +1489,7 @@ html[data-handleiste="an"] body {
   transition: border-color 0.2s var(--bogen), transform 0.2s var(--bogen);
 }
 .nachbar:hover { border-color: var(--gruen); transform: translateY(-2px); }
-.nachbar__gruppe { font-size: var(--t-1); color: var(--gruen); font-weight: 600; }
+.nachbar__gruppe { font-size: var(--t-1); color: var(--gruen-text); font-weight: 600; }
 .nachbar__name { font-family: var(--anzeige); font-weight: 700; font-size: var(--t1); }
 .nachbar__satz { font-size: var(--t-1); color: var(--tinte-weich); }
 
@@ -1567,7 +1574,7 @@ html[data-handleiste="an"] body {
 .haus__liste { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.2rem; }
 .haus__liste a { display: block; padding: 0.5rem 0; font-weight: 600; }
 
-.haus__kopf { font-size: var(--t-1); font-weight: 600; color: var(--gruen);
+.haus__kopf { font-size: var(--t-1); font-weight: 600; color: var(--gruen-text);
               margin: 0 0 0.3rem; }
 .haus__name { font-family: var(--anzeige); font-weight: 700; font-size: var(--t2);
               margin: 0 0 0.5rem; line-height: 1.1; }
@@ -1897,7 +1904,7 @@ html[data-handleiste="an"] body {
   grid-column: 1 / -1; margin: 0; font-size: var(--t-1); min-height: 1.2em;
 }
 .formular__hinweis[data-art="fehler"] { color: #B3261E; font-weight: 600; }
-.formular__hinweis[data-art="gut"] { color: var(--gruen); font-weight: 600; }
+.formular__hinweis[data-art="gut"] { color: var(--gruen-text); font-weight: 600; }
 .formular__recht {
   grid-column: 1 / -1; margin: 0.2rem 0 0;
   font-size: var(--t-1); color: var(--tinte-weich);

@@ -19,7 +19,11 @@ sys.path.insert(0, os.path.join(WURZEL, "inhalt"))
 from leistungen import LEISTUNGEN     # noqa: E402
 from seiten import SEITEN             # noqa: E402
 
-BASIS = "https://www.ckrreinigung.at"
+# Die eigene Domain ist der Normalfall. Die Vorschau muss aber auf
+# sich selbst zeigen: ein canonical, das auf eine fremde Adresse
+# verweist, wertet jede Messung als Fehler — und schickt Google
+# auf eine Seite, die es so noch nicht gibt.
+BASIS = os.environ.get("BASIS", "https://www.ckrreinigung.at").rstrip("/")
 HEUTE = datetime.date.today().isoformat()
 
 

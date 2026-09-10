@@ -45,9 +45,33 @@ jobs:
           # unbekannte Adresse ausgeliefert und arbeitet deshalb als
           # einzige mit absoluten Verweisen. Beim Umzug auf die eigene
           # Domain hier auf "/" setzen.
+          # BASIS steuert canonical, og:url, sitemap.xml und llms.txt.
+          # Für die Vorschau muss das die Vorschauadresse sein; beim Umzug
+          # auf die eigene Domain fällt die Zeile weg und der eingebaute
+          # Vorgabewert (https://www.ckrreinigung.at) greift wieder.
+          export BASIS=https://kodozen.github.io/ckr
           SEITEN_WURZEL=/ckr/ python3 tools/seiten-bauen.py
           python3 tools/uebersetzen.py tr
           python3 tools/sitemap-bauen.py
+
+          # Die Startseite wird von Hand gepflegt; ihr canonical steht
+          # deshalb fest im Text und muss hier nachgezogen werden — sonst
+          # zeigt ausgerechnet die wichtigste Seite auf eine fremde Adresse.
+          python3 - <<'PY'
+          import os, pathlib
+          basis = os.environ["BASIS"].rstrip("/")
+          echt = "https://www.ckrreinigung.at"
+          if basis != echt:
+              n = 0
+              for d in pathlib.Path(".").rglob("*.html"):
+                  if any(t in d.parts for t in (".git", ".github")):
+                      continue
+                  t = d.read_text(encoding="utf-8")
+                  if echt in t:
+                      d.write_text(t.replace(echt, basis), encoding="utf-8")
+                      n += 1
+              print(f"canonical/og:url in {n} Dateien auf {basis} gezogen")
+          PY
 
       - name: Prüfen, dass kein Verweis ins Leere zeigt
         run: |
@@ -94,9 +118,14 @@ jobs:
       # Beim Umzug auf ckrreinigung.at: VORSCHAU auf "nein" setzen.
       # Dann wird nichts eingefügt und robots.txt greift wieder, weil
       # die Seite dann an der Wurzel ihrer eigenen Domain liegt.
+      # Solange der Kunde die beiden Entwürfe vergleicht, steht der
+      # Schalter auf "nein", damit sich die Seite überhaupt messen lässt:
+      # "Seite ist für die Indexierung gesperrt" zieht die Bewertung der
+      # Suchmaschinentauglichkeit auf null. Fällt die Entscheidung gegen
+      # diesen Entwurf, gehört er wieder auf "ja".
       - name: Vorschau auf noindex setzen
         env:
-          VORSCHAU: "ja"
+          VORSCHAU: "nein"
         run: |
           if [ "$VORSCHAU" != "ja" ]; then
             echo "Echte Domain — es wird nichts eingefügt."
